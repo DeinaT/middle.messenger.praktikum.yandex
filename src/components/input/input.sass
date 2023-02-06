@@ -1,0 +1,55 @@
+@import ../../css/color
+@import ../../css/font
+
+@mixin placeholder
+  ~ .input-placeholder
+    top: -25px
+    bottom: 0
+    left: 0
+    font-size: $input-title-size
+    font-style: normal
+    font-weight: 700
+
+.input-group
+  z-index: 2
+  position: relative
+  margin-top: 40px
+  margin-bottom: 30px
+  width: 100%
+
+  .input-placeholder
+    font-size: $input-text-size
+    color: $text-title-60-color
+    z-index: 2
+    position: absolute
+    pointer-events: none
+    left: 0
+    top: 0
+    transition: all 0.1s ease
+    width: 100%
+
+  .input-error
+    font-size: $input-title-size
+    color: $error-color
+    z-index: 2
+    position: absolute
+    pointer-events: none
+    left: 0
+    top: 30px
+    width: 100%
+
+  .input-value
+    color: $text-title-color
+    background: none
+    border: none
+    outline: none
+    font-size: $input-text-size
+    border-bottom: 1px solid $text-title-60-color
+    width: 100%
+    &:not(&--focus):valid
+      @include placeholder
+    &:focus
+      @include placeholder
+
+  .input-value.valid-error
+      color: $error-color

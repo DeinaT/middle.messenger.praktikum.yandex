@@ -1,0 +1,34 @@
+{
+  "name": "cosmess",
+  "version": "1.0.0",
+  "description": "CosMess - мессенжер просто космос",
+  "main": "src/app.js",
+  "scripts": {
+    "dev": "parcel src/pages/authorization/authorization.html",
+    "reg": "parcel src/pages/registration/registration.html",
+    "node": "node src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DeinaT/middle.messenger.praktikum.yandex.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DeinaT/middle.messenger.praktikum.yandex/issues"
+  },
+  "homepage": "https://github.com/DeinaT/middle.messenger.praktikum.yandex#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-handlebars": "^6.0.7"
+  },
+  "devDependencies": {
+    "@anikin/parcel-transformer-handlebars": "^1.0.2",
+    "@anikin/parcel-transformer-handlebars-precompile": "^1.0.1",
+    "@parcel/transformer-sass": "^2.8.3",
+    "handlebars": "^4.7.7",
+    "hbs": "^4.2.0",
+    "parcel": "^2.8.3",
+    "sass": "^1.58.0"
+  }
+}

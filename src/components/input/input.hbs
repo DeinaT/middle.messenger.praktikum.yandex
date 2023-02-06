@@ -1,0 +1,5 @@
+<div class="input-group">
+    <input type="{{#if input__is-password}}password{{else}}text{{/if}}" class="input-value {{#if input__display-error}}valid-error{{/if}}" required value="{{ input__value }}" />
+    <label class="input-placeholder">{{ input__placeholder }}</label>
+    <label style="{{#if input__display-error}}display: block;{{else}}display: none;{{/if}}" class="input-error">{{ input__error }}</label>
+</div>
