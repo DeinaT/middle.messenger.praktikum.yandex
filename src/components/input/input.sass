@@ -1,5 +1,6 @@
 @import ../../css/color
 @import ../../css/font
+@import ../../css/support
 
 @mixin placeholder
   ~ .input-placeholder
@@ -20,8 +21,7 @@
   .input-placeholder
     font-size: $input-text-size
     color: $text-title-60-color
-    z-index: 2
-    position: absolute
+    @include input__position
     pointer-events: none
     left: 0
     top: 0
@@ -31,8 +31,7 @@
   .input-error
     font-size: $input-title-size
     color: $error-color
-    z-index: 2
-    position: absolute
+    @include input__position
     pointer-events: none
     left: 0
     top: 30px
@@ -46,10 +45,12 @@
     font-size: $input-text-size
     border-bottom: 1px solid $text-title-60-color
     width: 100%
+
     &:not(&--focus):valid
       @include placeholder
+
     &:focus
       @include placeholder
 
   .input-value.valid-error
-      color: $error-color
+    color: $error-color

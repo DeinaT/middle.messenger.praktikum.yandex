@@ -7,22 +7,21 @@
 
 <body>
 
-
 <div  style="display: flex;justify-content: center;flex-direction: column;">
     <div  style="height: 70%" class="div__form-input">
         <p style="margin-top: 100px" class="title">Добро пожаловать в</p>
         <p class="title">COSMESS</p>
 
-        {{> input input__value="" input__placeholder="Логин"}}
-        {{> input input__value="" input__placeholder="Пароль" input__is-password=true}}
+        {{> input input__value="" type_name=login input__placeholder="Логин"}}
+        {{> input input__value="" type_name=password input__placeholder="Пароль" input__is-password=true}}
     </div>
 
-    <div style="margin-top: 145px" style="height: 30%" class="div__form-input">
+    <div style="margin-top: 145px;height: 30%" class="div__form-input">
         {{> button button__state="neutral" button__text="Войти"}}
         <label style="margin-top: 15px" class="div__form-input__label">Нет аккаунта?</label>
     </div>
 </div>
 
-<img class="background-image" src={{ image }}>
+<div class="background-image"/>
 </body>
 </html>

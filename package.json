@@ -6,6 +6,9 @@
   "scripts": {
     "dev": "parcel src/pages/authorization/authorization.html",
     "reg": "parcel src/pages/registration/registration.html",
+    "info": "parcel src/pages/information/information.html",
+    "ch_data": "parcel src/pages/changes-data/changes-data.html",
+    "ch_pass": "parcel src/pages/changes-password/changes-password.html",
     "node": "node src/app.js"
   },
   "repository": {

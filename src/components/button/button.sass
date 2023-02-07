@@ -1,10 +1,9 @@
 @import ../../css/color
+@import ../../css/support
 
 .button
-  display: flex
+  @include position
   align-items: center
-  z-index: 2
-  position: relative
   border-radius: 8px
   color: $text-title-color
   width: 100%
@@ -18,7 +17,6 @@
     justify-content: center
     height: 100%
     width: 100%
-    font-family: 'Inter'
     font-style: normal
 
 .button.neutral
