@@ -1,0 +1,23 @@
+@import color
+@import support
+@import font
+
+.main
+  @include position
+  @include position_center
+  flex-direction: column
+
+  & div.div__href
+    width: 70%
+    height: 60px
+    @include position
+    @include position_center
+    background: $background-color
+    border-radius: 20px
+    margin: 30px
+
+    & a
+      text-align: center
+      justify-content: center
+      color: $text-title-color
+      font-size: $chat-text-hello-size

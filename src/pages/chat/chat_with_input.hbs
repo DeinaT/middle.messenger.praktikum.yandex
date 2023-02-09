@@ -13,15 +13,19 @@ v
     <div class="div__base_left-menu">
 
         <div class="left-menu__top-panel">
-            <div class="div__menu-user">k</div>
+            <div class="div__menu-user">
+                <span style="margin-top: 10px" class="line"></span>
+                <span class="line"></span>
+                <span class="line"></span>
+            </div>
             {{> find style_width="width:70%;margin-top:10px" type_name=find_user input__value=""}}
         </div>
 
         <div class="left-menu__chats">
-            {{> message_item message_data="15:12" message_user="sdkjd aiugh eiwuvh weurh weuyrghv vweuyrgv euyrgf" last_message_is_you=true message_count="0" }}
-            {{> message_item message_data="Пт" message-select=true message_count="4" show_message_count=true}}
-            {{> message_item message_data="Ср" message_count="0"}}
-            {{> message_item message_data="55 998 698" message_count="1" show_message_count=true}}
+            {{> message_preview message_data="10:49" message_text="Изображение" message_user="Андрей" show_message_count=true message_count="2" }}
+            {{> message_preview message_data="12:00" message_text="стикер" message_user="Киноклуб" last_message_is_you=true}}
+            {{> message_preview message_data="Ср"  message_user="Илья" message_text="Друзья, у меня для вас особенный выпуск новостей! Какая-то другая информация" message_count="4" show_message_count=true}}
+            {{> message_preview message_data="12 Мая 2020" message_user="Вадим" message_text="Круто" last_message_is_you=true message-select=true message_count="1" show_message_count=true}}
         </div>
     </div>
     <div class="div__base_right-menu">
@@ -33,7 +37,9 @@ v
                     <img src={{ icon_setting }}>
                 </div>
             </div>
-            <div style="display: flex;width: 100%;height: 100%;flex-direction: column;justify-content: center;align-items: center">
+            <div style="display: flex;width: 100%;height: 100%;flex-direction: column;justify-content: end;align-items: start">
+                {{> message_item message_date="09:12"  message_text="Друзья, у меня для вас особенный выпуск новостей! Какая-то другая информация"}}
+                {{> message_item message-is-you=true message_date="10:12"  message_text="Круто"}}
 
             </div>
             <div class="div__bottom-chat-message">

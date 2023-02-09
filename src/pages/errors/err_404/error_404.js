@@ -8,5 +8,5 @@ import image_404 from '../../../../static/image/image_error_404.png'
 window.addEventListener('DOMContentLoaded', () => {
     const error_404 = document.querySelector('#error_404');
 
-    error_404.innerHTML = error_template({ image_404 });
+    error_404.innerHTML = error_template({image_404});
 });

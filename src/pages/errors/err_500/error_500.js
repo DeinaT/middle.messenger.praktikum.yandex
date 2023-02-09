@@ -8,5 +8,5 @@ import image_500 from '../../../../static/image/image_error_500.png'
 window.addEventListener('DOMContentLoaded', () => {
     const error_500 = document.querySelector('#error_500');
 
-    error_500.innerHTML = error_template({ image_500 });
+    error_500.innerHTML = error_template({image_500});
 });

@@ -8,5 +8,5 @@ import icon_empty_avatar from '../../../static/icon/icon_empty_avatar.png'
 window.addEventListener('DOMContentLoaded', () => {
     const information = document.querySelector('#information');
 
-    information.innerHTML = information_template({ icon_empty_avatar });
+    information.innerHTML = information_template({icon_empty_avatar});
 });
