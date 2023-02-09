@@ -13,6 +13,9 @@
 
 CosMess! Не мессенжер, а просто космос!
 
+figma - https://www.figma.com/file/JXcjoHiYO9WXxvem9djevC/CosMess?node-id=10%3A2&t=wdewMXFmUkLtoPHz-0
+
+netlify - https://elegant-sable-8fa72b.netlify.app/
 
 ## Установка
 Установка и запуск приложения проходят в два этапа. </br> </br>
