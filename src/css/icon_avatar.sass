@@ -1,0 +1,34 @@
+@import color
+@import font
+@import support
+
+.div__empty-icon
+  @include position
+  @include position_center
+  width: 130px
+  height: 130px
+  background: $icon-color
+  border-radius: 50%
+
+  & img
+    display: flex
+    width: 40%
+    height: 40%
+
+  & p
+    width: 100%
+    height: 100%
+    margin: 0
+    display: none
+    @include position_center
+    text-align: center
+    font-size: $input-text-size
+    font-weight: 700
+    color: $background-color
+
+  &:hover
+    background: $change-avatar
+    & p
+        display: flex
+    & img
+        display: none

@@ -11,7 +11,8 @@ app.set("views", "src");
 //var files = fs.readdirSync(__dirname);
 //app.use(express.static(__dirname))
 //app.use("/css", express.static(__dirname + "/sass"))
-app.use("/image", express.static(__dirname + "/image"))
+//app.use("/css", express.static(__dirname + "/sass"))
+//app.use("/image", express.static(__dirname + "/../static/image"))
 
 app.use("/contact", function(_, response){
 

@@ -1,0 +1,49 @@
+@import color
+@import font
+
+@mixin style_dialog
+  position: relative
+  width: 340px
+  height: 290px
+  z-index: 3
+  display: flex
+  flex-direction: column
+  background: $dark-background-color
+
+@mixin style_title_dialog
+    align-items: center
+    text-align: center
+    width: 100%
+    color: $text-title-color
+    font-style: normal
+    font-weight: 500
+    font-size: $dialog-title-size
+
+.div__for_dialog__dialog_ask
+    position: absolute
+    display: flex
+    width: 100%
+    height: 100%
+    display: flex
+    flex-direction: column
+    justify-content: center
+    background: $dialog-splash-color
+    top: 0
+    left: 0
+
+.div__dialog_ask
+    @include style_dialog
+    align-self: center
+    align-items: center
+
+    & p
+        @include style_title_dialog
+        &.error
+            color: $error-color
+            font-size: $input-title-size
+
+        &.select-file
+            color: $text-title-60-color
+            font-size: $input-text-size
+            text-decoration-line: underline
+

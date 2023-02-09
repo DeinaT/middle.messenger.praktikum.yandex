@@ -7,8 +7,12 @@
     "dev": "parcel src/pages/authorization/authorization.html",
     "reg": "parcel src/pages/registration/registration.html",
     "info": "parcel src/pages/information/information.html",
-    "ch_data": "parcel src/pages/changes-data/changes-data.html",
-    "ch_pass": "parcel src/pages/changes-password/changes-password.html",
+    "ch_data": "parcel src/pages/changes/data/changes-data.html",
+    "ch_pass": "parcel src/pages/changes/password/changes-password.html",
+    "err_404": "parcel src/pages/errors/err_404/error_404.html",
+    "err_500": "parcel src/pages/errors/err_500/error_500.html",
+    "chat": "parcel src/pages/chat/chat.html",
+    "chat_with": "parcel src/pages/chat/chat_with_input.html",
     "node": "node src/app.js"
   },
   "repository": {

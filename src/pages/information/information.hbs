@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="utf-8">
     <title>Login</title>
@@ -9,7 +9,10 @@
 
 
 <div style="display: flex;justify-content: center;flex-direction: column;">
-    <div style="margin-top: 25px;" name="avatar" class="div__empty-icon"></div>
+    <div style="margin-top: 25px;" name="avatar" class="div__empty-icon">
+        <img  src={{ icon_empty_avatar }} alt="Изображение пользователя">
+        <p>Изменить<br>аватар</p>
+    </div>
 
     <div style="height: 80%;width: 40%;margin-top: 10px;" class="div__form-input">
         {{> input input__value="" type_name=email input__placeholder="Почта"}}

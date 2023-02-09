@@ -1,0 +1,23 @@
+@import color
+@import font
+@import support
+
+
+.div__panel-for-error
+  @include position
+  display: flex
+  align-self: center
+  flex-direction: column
+  justify-content: center
+  margin-top: 12%
+
+  & img
+    @include position_center
+
+.p__error-text
+      color: $text-title-color
+      font-size: $error-text-size
+      text-align: center
+      font-weight: 500
+      line-height: 40px
+      margin-top: 100px

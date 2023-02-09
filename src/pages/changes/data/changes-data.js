@@ -1,7 +1,8 @@
 import changes_data_template from './changes-data.hbs';
-import '../../components/button/button.js'
-import '../../components/input/input.js'
-import '../../css/style.sass'
+import '../../../components/button/button.js'
+import '../../../components/input/input.js'
+import '../../../css/style.sass'
+import '../../../css/dialog.sass'
 
 window.addEventListener('DOMContentLoaded', () => {
     const changes_data = document.querySelector('#changes_data');

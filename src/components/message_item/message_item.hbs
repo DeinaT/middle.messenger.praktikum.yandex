@@ -1,0 +1,16 @@
+<div class="message-main {{#if message-select}}select{{/if}}">
+    <div style="{{ style_width }}" class="message-group">
+        <div class="div__show-avatar" name="avatar"></div>
+        <div class="div__message-text">
+            <p class="p__message-title">{{ message_user }}</p>
+            <p class="p__message-text">
+                {{#if last_message_is_you}}<span class="is-you">Вы:</span>{{/if}}
+                {{ message_user }}
+            </p>
+        </div>
+        <div class="div__message-info">
+            <p>{{ message_data }}</p>
+            <p class="p__message-count {{#if show_message_count}}show{{/if}}">{{ message_count }}</p>
+        </div>
+    </div>
+</div>
