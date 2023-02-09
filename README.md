@@ -23,5 +23,5 @@ netlify - https://elegant-sable-8fa72b.netlify.app/
 `npm run start`</br></br>
     2. Открытие страницы в веб-браузере по ссылке:</br>
 `http://localhost:3000`
+</br></br>
     3. Открывайте любые страницы с помощью меню быстрого доступа<br>
-![image.png](..%2F..%2Fimage.png)
