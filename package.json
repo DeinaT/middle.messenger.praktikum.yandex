@@ -4,7 +4,7 @@
   "description": "CosMess - мессенжер просто космос",
   "source": "src/index.html",
   "scripts": {
-    "dev": "parcel src/index.html",
+    "dev": "parcel src/index.html --open",
     "build": "parcel build",
     "start": "npm run build && node src/app.js"
   },
