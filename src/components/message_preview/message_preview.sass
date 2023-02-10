@@ -41,7 +41,7 @@ $size_icon: 47px
     display: flex
     left: $size_icon + 10px
 
-    & p.p__message_preview__title
+    & h5
       margin: 10px 0 8px 0
       color: $delimiter-color
       font-size: $chat-message-title-size
@@ -73,7 +73,6 @@ $size_icon: 47px
 
     & p
       @include position
-      text-align: end
       color: $text-title-60-color
       width: 100%
       height: 50%
@@ -82,6 +81,8 @@ $size_icon: 47px
       justify-content: center
       align-self: end
       margin: 0
+      &.p__message_preview__data
+        text-align: end
 
       &.p__message_preview__count
         width: 20px
