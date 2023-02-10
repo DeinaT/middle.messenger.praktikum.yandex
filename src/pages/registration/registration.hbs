@@ -7,7 +7,7 @@
 
 <body>
 <div class="main">
-<div style="display: flex;justify-content: center;flex-direction: column;">
+<form style="display: flex;justify-content: center;flex-direction: column;">
     <div style="height: 80%" class="div__form-input">
         <p style="margin-top: 100px" class="title">Регистрация</p>
 
@@ -21,11 +21,11 @@
     </div>
 
     <div style="margin-top: 50px;height: 30%" class="div__form-input">
-        {{> button button__state="neutral" button__text="Зарегистрироваться"}}
+        {{> button button__state="neutral" button_type="submit" button__text="Зарегистрироваться"}}
         <label style="margin-top: 15px" class="div__form-input__label"
                href="src/pages/authorization/authorization.html">Войти</label>
     </div>
-</div>
+</form>
 </div>
 
 <div class="background-image"/>
