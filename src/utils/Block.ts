@@ -1,5 +1,5 @@
-import { EventBus } from "./EventBus";
-import { nanoid } from 'nanoid';
+import {EventBus} from "./EventBus";
+import {nanoid} from 'nanoid';
 
 // Нельзя создавать экземпляр данного класса
 class Block {
@@ -15,12 +15,13 @@ class Block {
     public children: Record<string, Block>;
     private eventBus: () => EventBus;
     private _element: HTMLElement | null = null;
+    private _classForEvent: string | null = null;
     private _meta: { tagName: string; props: any; };
 
     constructor(tagName = "div", propsWithChildren: any | null = {}) {
         const eventBus = new EventBus();
 
-        const { props, children } = this._getChildrenAndProps(propsWithChildren);
+        const {props, children} = this._getChildrenAndProps(propsWithChildren);
 
         this._meta = {
             tagName,
@@ -37,27 +38,29 @@ class Block {
         eventBus.emit(Block.EVENTS.INIT);
     }
 
-    _getChildrenAndProps(childrenAndProps: any|null) {
+    _getChildrenAndProps(childrenAndProps: any | null) {
         const props: Record<string, any> = {};
         const children: Record<string, Block> = {};
 
         if (childrenAndProps)
-        Object.entries(childrenAndProps).forEach(([key, value]) => {
-            if (value instanceof Block) {
-                children[key] = value;
-            } else {
-                props[key] = value;
-            }
-        });
+            Object.entries(childrenAndProps).forEach(([key, value]) => {
+                if (value instanceof Block) {
+                    children[key] = value;
+                } else {
+                    props[key] = value;
+                }
+            });
 
-        return { props, children };
+        return {props, children};
     }
 
     _addEvents() {
-        const {events = {}} = this.props as { events: Record<string, () =>void> };
-
+        const {events = {}} = this.props as { events: Record<string, () => void> };
         Object.keys(events).forEach(eventName => {
-            this._element?.addEventListener(eventName, events[eventName]);
+            if (this._classForEvent !== null)
+                this.getContent()!.querySelector("." + this._classForEvent)!.addEventListener(eventName, events[eventName]);
+            else
+                this._element?.addEventListener(eventName, events[eventName]);
         });
     }
 
@@ -69,7 +72,7 @@ class Block {
     }
 
     _createResources() {
-        const { tagName } = this._meta;
+        const {tagName} = this._meta;
         this._element = this._createDocumentElement(tagName);
     }
 
@@ -81,13 +84,15 @@ class Block {
         this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
 
-    protected init() {}
+    protected init() {
+    }
 
     _componentDidMount() {
         this.componentDidMount();
     }
 
-    componentDidMount() {}
+    componentDidMount() {
+    }
 
     public dispatchComponentDidMount() {
         this.eventBus().emit(Block.EVENTS.FLOW_CDM);
@@ -127,12 +132,18 @@ class Block {
         this._addEvents();
     }
 
+    public setClassForEvent(_classForEvent: string): Block {
+        this._classForEvent = _classForEvent;
+        this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
+        return this;
+    }
+
     public addInnerClass(_newClass: string) {
         this._element!.classList.add(_newClass);
     }
 
     protected compile(template: (context: any) => string, context: any) {
-        const contextAndStubs = { ...context };
+        const contextAndStubs = {...context};
 
         Object.entries(this.children).forEach(([name, component]) => {
             contextAndStubs[name] = `<div data-id="${component.id}"></div>`;
@@ -178,7 +189,7 @@ class Block {
                 return typeof value === "function" ? value.bind(target) : value;
             },
             set(target, prop, value) {
-                const oldTarget = { ...target }
+                const oldTarget = {...target}
 
                 target[prop] = value;
 

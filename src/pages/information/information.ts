@@ -5,7 +5,7 @@ import '../../css/style.sass'
 import '../../css/icon_avatar.sass'
 import icon_empty_avatar from '../../../static/icon/icon_empty_avatar.png'
 import Block from "../../utils/Block";
-import {Input} from "../../components/input/input";
+import Input from "../../components/input/input";
 import {Button} from "../../components/button/button";
 
 interface InformationProps {

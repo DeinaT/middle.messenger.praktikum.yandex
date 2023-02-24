@@ -5,7 +5,7 @@ import template from './button.hbs';
 interface ButtonProps {
     button__text: string;
     button__state: string;
-    events: {
+    events?: {
         click: () => void;
     };
 }

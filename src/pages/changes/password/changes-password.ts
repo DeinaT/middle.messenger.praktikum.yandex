@@ -3,8 +3,10 @@ import '../../../components/button/button.ts'
 import '../../../components/input/input.ts'
 import '../../../css/style.sass'
 import Block from "../../../utils/Block";
-import {Input} from "../../../components/input/input";
+import Input from "../../../components/input/input";
 import {Button} from "../../../components/button/button";
+import {ConstructionDefault} from "../../../utils/validation/ConstructionDefault";
+import {Validation} from "../../../utils/validation/Validation";
 
 class ChangePasswordPage extends Block {
     constructor() {
@@ -12,24 +14,25 @@ class ChangePasswordPage extends Block {
     }
 
     init() {
+        this.children.input_old_password = ConstructionDefault.getDefaultPasswordInput(
+            "oldPassword",
+            "Старый пароль",
+            () => Validation.isEmptyInput(this.children.input_old_password as Input)
+        );
 
-        this.children.input_old_password = new Input({
-            input__name: "oldPassword",
-            input__placeholder: "Старый пароль",
-            input__is_password: true,
-        });
+        this.children.input_new_password = ConstructionDefault.getDefaultPasswordInput(
+            "newPassword",
+            "Новый пароль",
+            () => Validation.checkFirstPassword(this.children.input_new_password as Input,
+                this.children.input_new_password_repeat as Input)
+        );
 
-        this.children.input_new_password = new Input({
-            input__name: "newPassword",
-            input__placeholder: "Новый пароль",
-            input__is_password: true,
-        });
-
-        this.children.input_new_password_repeat = new Input({
-            input__name: "newPasswordRepeat",
-            input__placeholder: "Повторите новый пароль",
-            input__is_password: true,
-        });
+        this.children.input_new_password_repeat = ConstructionDefault.getDefaultPasswordInput(
+            "newPasswordRepeat",
+            "Повторите новый пароль",
+            () => Validation.checkTwoPassword(this.children.input_new_password as Input,
+                this.children.input_new_password_repeat as Input)
+        );
 
         this.children.button_cancel = new Button({
             button__text: "Отмена",
@@ -58,6 +61,7 @@ class ChangePasswordPage extends Block {
         return this.compile(template, this.props);
     }
 }
+
 window.addEventListener('DOMContentLoaded', () => {
     const changes_password = document.querySelector('#changes_password');
 

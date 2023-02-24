@@ -1,8 +1,10 @@
 import '../../css/style.sass'
 import Block from "../../utils/Block";
 import template from './authorization.hbs';
-import {Input} from "../../components/input/input";
+import Input from "../../components/input/input";
 import {Button} from "../../components/button/button";
+import {ConstructionDefault} from "../../utils/validation/ConstructionDefault";
+import {Validation} from "../../utils/validation/Validation";
 
 class AuthorizationPage extends Block {
     constructor() {
@@ -10,16 +12,13 @@ class AuthorizationPage extends Block {
     }
 
     init() {
-        this.children.input_login = new Input({
-            input__name: "login",
-            input__placeholder: "Логин",
-        });
+        this.children.input_login = ConstructionDefault.getDefaultNotEmptyInput("login", "Логин");
 
-        this.children.input_password = new Input({
-            input__name: "password",
-            input__placeholder: "Пароль",
-            input__is_password: true,
-        });
+        this.children.input_password = ConstructionDefault.getDefaultPasswordInput(
+            "password",
+            "Пароль",
+            () => Validation.isEmptyInput(this.children.input_password as Input)
+        );
 
         this.children.button = new Button({
             button__text: "Войти",
