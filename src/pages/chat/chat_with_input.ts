@@ -1,8 +1,8 @@
 import chat_template from './chat_with_input.hbs';
-import '../../components/button/button.js'
-import '../../components/find/find.js'
-import '../../components/message_item/message_item.js'
-import '../../components/message_preview/message_preview.js'
+import '../../components/button/button.ts'
+import '../../components/find/find.ts'
+import '../../components/message_item/message_item.ts'
+import '../../components/message_preview/message_preview.ts'
 import '../../css/style.sass'
 import '../../css/chat.sass'
 import '../../css/menu.sass'

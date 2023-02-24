@@ -1,16 +1,14 @@
-<div class="message_preview__main {{#if message-select}}select{{/if}}">
-    <div style="{{ style_width }}" class="message_preview__group">
-        <div class="div__show-avatar" name="avatar"></div>
-        <div class="div__message_preview__text">
-            <h5>{{ message_user }}</h5>
-            <p class="p__message_preview__text">
-                {{#if last_message_is_you}}<span class="is-you">Вы:</span>{{/if}}
-                {{ message_text }}
-            </p>
-        </div>
-        <div class="div__message_preview__info">
-            <p class="p__message_preview__data">{{ message_data }}</p>
-            <p class="p__message_preview__count {{#if show_message_count}}show{{/if}}">{{ message_count }}</p>
-        </div>
+<div style="{{ style_width }}" class="message_preview__group">
+    <div class="div__show-avatar" name="avatar"></div>
+    <div class="div__message_preview__text">
+        <h5>{{ message_user }}</h5>
+        <p class="p__message_preview__text">
+            {{#if last_message_is_you}}<span class="is-you">Вы:</span>{{/if}}
+            {{ message_text }}
+        </p>
+    </div>
+    <div class="div__message_preview__info">
+        <p class="p__message_preview__data">{{ message_data }}</p>
+        <p class="p__message_preview__count {{#if show_message_count}}show{{/if}}">{{ message_count }}</p>
     </div>
 </div>
