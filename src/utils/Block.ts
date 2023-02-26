@@ -138,11 +138,18 @@ class Block {
         return this;
     }
 
+    public getEventComponent(): HTMLElement {
+        if (this._classForEvent !== null)
+            return this.getContent()!.querySelector("." + this._classForEvent)!;
+        else
+            return this._element!;
+    }
+
     public addInnerClass(_newClass: string) {
         this._element!.classList.add(_newClass);
     }
 
-    protected compile(template: (context: any) => string, context: any) {
+    protected compile(template: (context: any) => string, context: any): DocumentFragment {
         const contextAndStubs = {...context};
 
         Object.entries(this.children).forEach(([name, component]) => {

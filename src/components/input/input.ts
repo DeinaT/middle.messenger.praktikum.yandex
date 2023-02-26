@@ -13,7 +13,6 @@ interface InputProps {
     events?: {
         blur?: () => void;
         focus?: () => void;
-        submit?: () => void;
     };
 }
 
@@ -25,27 +24,27 @@ class Input extends Block {
         this.getValue.bind(this.getValue);
     }
 
-    public getValue() {
+    public getValue(): string {
         this.props.input__value = this.getContent()!.querySelector("input")!.value;
         return this.props.input__value;
     }
 
-    public setError(_message?: string) {
+    public setError(_message?: string): void {
         if (_message !== undefined)
             this.props.input__error = _message;
         this.props.input__display_error = true;
     }
 
-    public clearError() {
+    public clearError(): void {
         if (this.props.input__display_error)
             this.props.input__display_error = false;
     }
 
-    public isValid(): boolean{
+    public isValid(): boolean {
         return !this.props.input__display_error;
     }
 
-    render() {
+    render(): DocumentFragment {
         return this.compile(template, this.props);
     }
 }

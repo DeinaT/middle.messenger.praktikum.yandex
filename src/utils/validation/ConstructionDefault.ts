@@ -11,10 +11,13 @@ export class ConstructionDefault {
             events: {
                 blur: () => {
                     Validation.isEmail(input as Input);
+                },
+                focus: () => {
+                    this._returnFocus(input)
                 }
             }
         });
-        return input.setClassForEvent(this.getCodeWord(_codeWordEvent)) as Input;
+        return input.setClassForEvent(this._getCodeWord(_codeWordEvent)) as Input;
     }
 
     public static getDefaultNotEmptyInput(_input__name: string, _input__placeholder: string, _codeWordEvent?: string): Input {
@@ -24,10 +27,13 @@ export class ConstructionDefault {
             events: {
                 blur: () => {
                     Validation.isEmptyInput(input as Input);
+                },
+                focus: () => {
+                    this._returnFocus(input)
                 }
             }
         });
-        return input.setClassForEvent(this.getCodeWord(_codeWordEvent)) as Input;
+        return input.setClassForEvent(this._getCodeWord(_codeWordEvent)) as Input;
     }
 
     public static getDefaultPasswordInput(_input__name: string, _input__placeholder: string, blurFun: () => void, _codeWordEvent?: string): Input {
@@ -36,13 +42,23 @@ export class ConstructionDefault {
             input__placeholder: _input__placeholder,
             input__is_password: true,
             events: {
-                blur: blurFun
+                blur: blurFun,
+                focus: () => {
+                    this._returnFocus(input)
+                }
             }
         });
-        return input.setClassForEvent(this.getCodeWord(_codeWordEvent)) as Input;
+        return input.setClassForEvent(this._getCodeWord(_codeWordEvent)) as Input;
     }
 
-    private static getCodeWord(_codeWordEvent?: string): string {
+    private static _getCodeWord(_codeWordEvent?: string): string {
         return (_codeWordEvent === null || _codeWordEvent === undefined) ? "for_event" : _codeWordEvent;
+    }
+
+    private static _returnFocus(_input: Input): void {
+        _input.clearError();
+        let htmlInputElement = _input.getEventComponent() as HTMLInputElement;
+        htmlInputElement.selectionStart = htmlInputElement.value.length;
+        htmlInputElement.focus();
     }
 }

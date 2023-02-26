@@ -3,7 +3,7 @@ import Input from "../../components/input/input";
 export class Validation {
 
     public static isEmail(_input: Input): void {
-        let sampleRegEx: RegExp = /.+@.+\..+/;
+        let sampleRegEx: RegExp = /.+@.+\.\w+/;
         let res: boolean = sampleRegEx.test(_input.getValue());
         if (res)
             _input.clearError()
