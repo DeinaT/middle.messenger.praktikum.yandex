@@ -2,33 +2,38 @@ import template from './changes-password.hbs';
 import '../../../components/button/button.ts'
 import '../../../components/input/input.ts'
 import '../../../css/style.sass'
-import Block from "../../../utils/Block";
 import Input from "../../../components/input/input";
 import {Button} from "../../../components/button/button";
 import {ConstructionDefault} from "../../../utils/validation/ConstructionDefault";
 import {Validation} from "../../../utils/validation/Validation";
+import {FormPage} from "../../../utils/validation/FormPage";
+import {UserPassword} from "../../../objects/UserPassword";
 
-class ChangePasswordPage extends Block {
+class ChangePasswordPage extends FormPage {
+
     constructor() {
-        super('main', null);
+        super(formData => {
+            let data: UserPassword = new UserPassword(formData);
+            console.log(data);
+        })
     }
 
     init() {
         this.children.input_old_password = ConstructionDefault.getDefaultPasswordInput(
-            "oldPassword",
+            "old_password",
             "Старый пароль",
             () => Validation.isEmptyInput(this.children.input_old_password as Input)
         );
 
         this.children.input_new_password = ConstructionDefault.getDefaultPasswordInput(
-            "newPassword",
+            "password",
             "Новый пароль",
             () => Validation.checkFirstPassword(this.children.input_new_password as Input,
                 this.children.input_new_password_repeat as Input)
         );
 
         this.children.input_new_password_repeat = ConstructionDefault.getDefaultPasswordInput(
-            "newPasswordRepeat",
+            "password_repeat",
             "Повторите новый пароль",
             () => Validation.checkTwoPassword(this.children.input_new_password as Input,
                 this.children.input_new_password_repeat as Input)
@@ -54,8 +59,15 @@ class ChangePasswordPage extends Block {
                 },
             },
         });
-        this.children.button_cancel.getContent()!.style.width = "45%"
-        this.children.button_save.getContent()!.style.width = "45%"
+        this.children.button_cancel.getContent()!.style.width = "45%";
+        this.children.button_save.getContent()!.style.width = "45%";
+
+        this.setClassForEvent("for_event")
+
+        this.props.checkInput = [
+            this.children.input_old_password,
+            this.children.input_new_password
+        ];
     }
 
     render() {

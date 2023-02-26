@@ -1,14 +1,19 @@
 import '../../css/style.sass'
-import Block from "../../utils/Block";
 import template from './authorization.hbs';
 import Input from "../../components/input/input";
 import {Button} from "../../components/button/button";
 import {ConstructionDefault} from "../../utils/validation/ConstructionDefault";
 import {Validation} from "../../utils/validation/Validation";
+import {FormPage} from "../../utils/validation/FormPage";
+import {UserAuthorization} from "../../objects/UserAuthorization";
 
-class AuthorizationPage extends Block {
+class AuthorizationPage extends FormPage {
+
     constructor() {
-        super('main', null);
+        super(formData => {
+            let data: UserAuthorization = new UserAuthorization(formData);
+            console.log(data);
+        })
     }
 
     init() {
@@ -30,6 +35,13 @@ class AuthorizationPage extends Block {
                 },
             },
         });
+
+        this.setClassForEvent("for_event")
+
+        this.props.checkInput = [
+            this.children.input_login,
+            this.children.input_password
+        ];
     }
 
     render() {

@@ -2,50 +2,21 @@ import template from './registration.hbs';
 import '../../components/button/button.ts'
 import '../../components/input/input.ts'
 import '../../css/style.sass'
-import Block from "../../utils/Block";
 import Input from "../../components/input/input";
 import {Button} from "../../components/button/button";
 import {Validation} from "../../utils/validation/Validation";
 import {UserRegistration} from "../../objects/UserRegistration";
 import {ConstructionDefault} from "../../utils/validation/ConstructionDefault";
+import {FormPage} from "../../utils/validation/FormPage";
 
 
-interface FormProps {
-    checkInput?: Array<Input>,
-    events?: {
-        submit?: (event: FormDataEvent) => void;
-    };
-}
-
-class RegistrationPage extends Block {
+class RegistrationPage extends FormPage {
 
     constructor() {
-        let props: FormProps = {
-            events: {
-                submit: (evt) => {
-                    evt.preventDefault()
-
-                    let isValid: boolean = true;
-                    for (let item of this.props.checkInput) {
-                        isValid = isValid && item.isValid();
-                    }
-                    if (isValid) {
-                        const formData = new FormData(this.getContent()!.querySelector("form")!)
-                        let data: object = new UserRegistration(
-                            formData.get("email") as string,
-                            formData.get("login") as string,
-                            formData.get("first_name") as string,
-                            formData.get("second_name") as string,
-                            formData.get("phone") as string,
-                            formData.get("password") as string
-                        )
-                        console.log(data);
-                    }
-                    return false;
-                }
-            }
-        }
-        super('main', props);
+        super(formData => {
+            let data: UserRegistration = new UserRegistration(formData);
+            console.log(data);
+        })
     }
 
     init() {

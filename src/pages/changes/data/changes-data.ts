@@ -1,13 +1,18 @@
 import template from './changes-data.hbs';
 import '../../../css/style.sass'
 import '../../../css/dialog.sass'
-import Block from "../../../utils/Block";
 import {Button} from "../../../components/button/button";
 import {ConstructionDefault} from "../../../utils/validation/ConstructionDefault";
+import {FormPage} from "../../../utils/validation/FormPage";
+import {UserData} from "../../../objects/UserData";
 
-class ChangeDataPage extends Block {
+class ChangeDataPage extends FormPage {
+
     constructor() {
-        super('main', null);
+        super(formData => {
+            let data: UserData = new UserData(formData);
+            console.log(data);
+        })
     }
 
     init() {
@@ -38,8 +43,19 @@ class ChangeDataPage extends Block {
                 },
             },
         });
-        this.children.button_cancel.getContent()!.style.width = "45%"
-        this.children.button_save.getContent()!.style.width = "45%"
+        this.children.button_cancel.getContent()!.style.width = "45%";
+        this.children.button_save.getContent()!.style.width = "45%";
+
+        this.setClassForEvent("for_event")
+
+        this.props.checkInput = [
+            this.children.input_email,
+            this.children.input_login,
+            this.children.input_first_name,
+            this.children.input_second_name,
+            this.children.input_phone,
+            this.children.input_display_name
+        ];
     }
 
     render() {
