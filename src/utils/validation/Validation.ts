@@ -2,6 +2,14 @@ import Input from "../../components/input/input";
 
 export class Validation {
 
+    public static isTelephone(_input: Input): void {
+        let sampleRegEx: RegExp = /\+7\([0-9]{3}\)[0-9]{2}[0-9]{2}[0-9]{3}/;
+        let res: boolean = sampleRegEx.test(_input.getValue());
+        if (res)
+            _input.clearError()
+        else
+            _input.setError()
+    }
     public static isEmail(_input: Input): void {
         let sampleRegEx: RegExp = /.+@.+\.\w+/;
         let res: boolean = sampleRegEx.test(_input.getValue());

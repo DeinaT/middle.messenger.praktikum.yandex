@@ -20,7 +20,7 @@ class ChangeDataPage extends FormPage {
         this.children.input_login = ConstructionDefault.getDefaultNotEmptyInput("login", "Логин");
         this.children.input_first_name = ConstructionDefault.getDefaultNotEmptyInput("first_name", "Имя");
         this.children.input_second_name = ConstructionDefault.getDefaultNotEmptyInput("second_name", "Фамилия");
-        this.children.input_phone = ConstructionDefault.getDefaultNotEmptyInput("phone", "Телефон");
+        this.children.input_phone = ConstructionDefault.getDefaultTelephoneInput();
         this.children.input_display_name = ConstructionDefault.getDefaultNotEmptyInput("display_name", "Имя в чате");
 
         this.children.button_cancel = new Button({

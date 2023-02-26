@@ -20,6 +20,23 @@ export class ConstructionDefault {
         return input.setClassForEvent(this._getCodeWord(_codeWordEvent)) as Input;
     }
 
+    public static getDefaultTelephoneInput(_codeWordEvent?: string): Input {
+        const input = new Input({
+            input__name: "phone",
+            input__placeholder: "Телефон",
+            input__error: "Введите телефон в формате +7(XXX)XXXXXXX",
+            events: {
+                blur: () => {
+                    Validation.isTelephone(input as Input);
+                },
+                focus: () => {
+                    this._returnFocus(input)
+                }
+            }
+        });
+        return input.setClassForEvent(this._getCodeWord(_codeWordEvent)) as Input;
+    }
+
     public static getDefaultNotEmptyInput(_input__name: string, _input__placeholder: string, _codeWordEvent?: string): Input {
         const input = new Input({
             input__name: _input__name,

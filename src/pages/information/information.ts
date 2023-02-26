@@ -18,7 +18,7 @@ class InformationPage extends Block {
     }
 
     init() {
-
+        // Классы только для отображения!
         this.children.input_email = new Input({
             input__name: "email",
             input__placeholder: "Почта",
