@@ -31,6 +31,7 @@ class ChangeDataPage extends Block {
         this.children.button_save = new Button({
             button__text: "Сохранить",
             button__state: "positive",
+            button__type: "submit",
             events: {
                 click: () => {
                     // todo validate

@@ -5,6 +5,7 @@ import template from './button.hbs';
 interface ButtonProps {
     button__text: string;
     button__state: string;
+    button__type?: string;
     events?: {
         click: () => void;
     };
@@ -14,6 +15,9 @@ export class Button extends Block {
     constructor(props: ButtonProps) {
         super('button', props);
         super.addInnerClass(this.props.button__state)
+        if (this.props.button__type === undefined)
+            this.props.button__type = "button";
+        (this.getContent()! as HTMLButtonElement).type = this.props.button__type
     }
 
     render() {

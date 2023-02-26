@@ -23,6 +23,7 @@ class AuthorizationPage extends Block {
         this.children.button = new Button({
             button__text: "Войти",
             button__state: "neutral",
+            button__type: "submit",
             events: {
                 click: () => {
                     // todo validate

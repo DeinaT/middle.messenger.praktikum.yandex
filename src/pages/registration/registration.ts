@@ -72,7 +72,8 @@ class RegistrationPage extends Block {
 
         this.children.button = new Button({
             button__text: "Зарегистрироваться",
-            button__state: "neutral"
+            button__state: "neutral",
+            button__type: "submit"
         });
 
         this.setClassForEvent("for_event")
