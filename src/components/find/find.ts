@@ -4,7 +4,7 @@ import template from './find.hbs';
 
 interface FindInputProps {
     type_name: string;
-    input__value: string;
+    input__value?: string;
 }
 
 export class FindInput extends Block {

@@ -6,10 +6,10 @@ interface MessagePreviewProps {
     message_user: string;
     message_text: string;
     message_data: string;
-    message_count: string;
+    message_count?: number;
     message_select?: boolean;
     last_message_is_you?: boolean;
-    show_message_count: boolean;
+    show_message_count?: boolean;
 }
 
 export class MessagePreview extends Block {

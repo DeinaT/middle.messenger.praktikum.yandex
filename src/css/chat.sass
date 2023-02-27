@@ -6,19 +6,21 @@ $delimiter-width: 2px
 $top-panel-height: 65px
 
 .div__base_left-menu
-  @include input__position
+  z-index: 2
+  position: fixed
   top: 0
   left: 0
   background: $dark-background-color
-  width: 25%
+  width: 35%
   height: 100%
   border-right: $delimiter-width solid $delimiter-color
 
 .div__base_right-menu
-  @include input__position
+  z-index: 2
+  position: fixed
   top: 0
-  left: calc(#{25%} + #{$delimiter-width})
-  width: 75%
+  left: calc(#{35%} + #{$delimiter-width})
+  width: 65%
   height: 100%
 
 h3
