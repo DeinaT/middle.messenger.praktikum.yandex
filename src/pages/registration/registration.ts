@@ -4,6 +4,8 @@ import '../../components/input/input.ts'
 import '../../css/style.sass'
 import Input from "../../components/input/input";
 import {Button} from "../../components/button/button";
+import {Label} from "../../components/label/label";
+import {Navigation} from "../../utils/Navigation";
 import {Validation} from "../../utils/validation/Validation";
 import {UserRegistration} from "../../objects/UserRegistration";
 import {ConstructionDefault} from "../../utils/validation/ConstructionDefault";
@@ -40,6 +42,16 @@ class RegistrationPage extends FormPage {
             () => Validation.checkTwoPassword(this.children.input_password as Input,
                 this.children.input_password_repeat as Input)
         );
+
+        this.children.label_entry = new Label({
+            label__text: "Войти",
+            events: {
+                click: () => {
+                    window.location.href = "../" + Navigation.authorization;
+                },
+            },
+        });
+        this.children.label_entry.getContent()!.style.marginTop="15px"
 
         this.children.button = new Button({
             button__text: "Зарегистрироваться",

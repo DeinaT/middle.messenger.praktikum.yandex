@@ -7,6 +7,7 @@ import icon_empty_avatar from '../../../static/icon/icon_empty_avatar.png'
 import Block from "../../utils/Block";
 import Input from "../../components/input/input";
 import {Button} from "../../components/button/button";
+import {Navigation} from "../../utils/Navigation";
 
 interface InformationProps {
     icon_empty_avatar: any;
@@ -55,7 +56,7 @@ class InformationPage extends Block {
             button__state: "neutral",
             events: {
                 click: () => {
-                    // todo validate
+                    window.location.href = "../" + Navigation.changes_data;
                 },
             },
         });
@@ -65,7 +66,7 @@ class InformationPage extends Block {
             button__state: "neutral",
             events: {
                 click: () => {
-                    // todo validate
+                    window.location.href = "../" + Navigation.changes_password;
                 },
             },
         });
@@ -75,7 +76,7 @@ class InformationPage extends Block {
             button__state: "neutral",
             events: {
                 click: () => {
-                    // todo validate
+                    window.location.href = "../" + Navigation.chats;
                 },
             },
         });
@@ -84,7 +85,7 @@ class InformationPage extends Block {
             button__state: "negative",
             events: {
                 click: () => {
-                    // todo validate
+                    window.location.href = "../" + Navigation.authorization;
                 },
             },
         });

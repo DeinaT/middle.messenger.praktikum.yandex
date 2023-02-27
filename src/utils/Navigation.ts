@@ -6,5 +6,5 @@ export enum Navigation {
     changes_password = "changes/password/changes-password.html",
     errors_404 = "error/404/error_404.html",
     errors_500 = "error/500/error_500.html",
-    chats = "/chat/chat.html"
+    chats = "chat/chat.html"
 }

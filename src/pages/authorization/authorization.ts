@@ -2,6 +2,8 @@ import '../../css/style.sass'
 import template from './authorization.hbs';
 import Input from "../../components/input/input";
 import {Button} from "../../components/button/button";
+import {Label} from "../../components/label/label";
+import {Navigation} from "../../utils/Navigation";
 import {ConstructionDefault} from "../../utils/validation/ConstructionDefault";
 import {Validation} from "../../utils/validation/Validation";
 import {FormPage} from "../../utils/validation/FormPage";
@@ -35,6 +37,17 @@ class AuthorizationPage extends FormPage {
                 },
             },
         });
+
+        this.children.label_reg = new Label({
+            label__text: "Нет аккаунта?",
+            events: {
+                click: () => {
+                    window.location.href = "../" + Navigation.registration;
+                },
+            },
+        });
+
+        this.children.label_reg.getContent()!.style.marginTop="15px"
 
         this.setClassForEvent("for_event")
 

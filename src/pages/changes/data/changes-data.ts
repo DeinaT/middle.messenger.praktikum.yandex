@@ -5,6 +5,7 @@ import {Button} from "../../../components/button/button";
 import {ConstructionDefault} from "../../../utils/validation/ConstructionDefault";
 import {FormPage} from "../../../utils/validation/FormPage";
 import {UserData} from "../../../objects/UserData";
+import {Navigation} from "../../../utils/Navigation";
 
 class ChangeDataPage extends FormPage {
 
@@ -28,7 +29,7 @@ class ChangeDataPage extends FormPage {
             button__state: "neutral",
             events: {
                 click: () => {
-                    // todo validate
+                    window.location.href = "../../" + Navigation.information;
                 },
             },
         });
@@ -36,12 +37,7 @@ class ChangeDataPage extends FormPage {
         this.children.button_save = new Button({
             button__text: "Сохранить",
             button__state: "positive",
-            button__type: "submit",
-            events: {
-                click: () => {
-                    // todo validate
-                },
-            },
+            button__type: "submit"
         });
         this.children.button_cancel.getContent()!.style.width = "45%";
         this.children.button_save.getContent()!.style.width = "45%";

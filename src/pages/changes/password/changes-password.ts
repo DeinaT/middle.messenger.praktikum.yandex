@@ -8,6 +8,7 @@ import {ConstructionDefault} from "../../../utils/validation/ConstructionDefault
 import {Validation} from "../../../utils/validation/Validation";
 import {FormPage} from "../../../utils/validation/FormPage";
 import {UserPassword} from "../../../objects/UserPassword";
+import {Navigation} from "../../../utils/Navigation";
 
 class ChangePasswordPage extends FormPage {
 
@@ -44,20 +45,15 @@ class ChangePasswordPage extends FormPage {
             button__state: "neutral",
             events: {
                 click: () => {
-                    // todo validate
-                },
-            },
+                    window.location.href = "../../" + Navigation.information;
+                }
+            }
         });
 
         this.children.button_save = new Button({
             button__text: "Сохранить",
             button__state: "positive",
-            button__type: "submit",
-            events: {
-                click: () => {
-                    // todo validate
-                },
-            },
+            button__type: "submit"
         });
         this.children.button_cancel.getContent()!.style.width = "45%";
         this.children.button_save.getContent()!.style.width = "45%";
