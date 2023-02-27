@@ -1,12 +1,16 @@
 import {Message} from "./Message";
 
 export class Chat {
-    public _user: string;
-    public _message: Array<Message>;
+    private _user: string;
+    private _message: Array<Message>;
 
     constructor(nameUser: string) {
         this._user = nameUser;
         this._message = [];
+    }
+
+    public getMessages(): Array<Message> {
+        return this._message;
     }
 
     public getUser(): string {

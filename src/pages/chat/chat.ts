@@ -9,6 +9,7 @@ import icon_rocket from '../../../static/icon/icon_rocket.png'
 import {FindInput} from "../../components/find/find";
 import {MessagePreview} from "../../components/message_preview/message_preview";
 import {Message} from "../../objects/Message";
+import {MessageList} from "../../components/message_list/message_list";
 
 interface ChatProps {
     icon_rocket: any
@@ -46,6 +47,16 @@ class ChatPage extends Block {
         this.getContent()!.querySelector(".left-menu__chats")!.append(chatPreView.getContent()!);
     }
 
+    public selectChat(chat: Chat): void {
+        let list: MessageList = new MessageList({
+            chat_user: chat.getUser(),
+            all_message: chat.getMessages()
+        });
+        list.some();
+        (this.getContent()!.querySelector(".start_chat")! as HTMLDivElement).style.display = "none";
+        this.getContent()!.querySelector(".list_message")!.append(list.getContent()!);
+    }
+
     render() {
         return this.compile(template, this.props);
     }
@@ -60,6 +71,9 @@ window.addEventListener('DOMContentLoaded', () => {
     ArrayChats.getArrayChats().forEach(value => {
         chatList.addChat(value);
     });
+
+    chatList.selectChat(ArrayChats.getArrayChats()[0]);
+
 
     root!.append(chatList.getContent()!);
 

@@ -1,0 +1,48 @@
+@import ../../css/color
+@import ../../css/font
+@import ../../css/support
+
+$delimiter-width: 2px
+$top-panel-height: 65px
+
+.all_message
+  @include position_center
+  align-items: start
+  flex-direction: column
+  display: flex
+  width: 100%
+  height: calc(#{100%} - #{$top-panel-height} - #{$top-panel-height})
+
+.div__bottom-chat-message
+  @include position
+  width: 100%
+  height: 70px
+  flex-direction: row
+  background: $dark-background-color
+  border-top: $delimiter-width solid $delimiter-color
+  align-self: center
+  align-items: center
+  justify-content: space-around
+
+.div__top-chat-user
+  @include position
+  width: 100%
+  height: $top-panel-height
+  flex-direction: row
+  background: $dark-background-color
+  border-bottom: $delimiter-width solid $delimiter-color
+
+  & div.icon-avatar
+    @include position
+    background: $icon-color
+    border-radius: 50%
+    width: 47px
+    height: 47px
+    margin: 10px
+
+  & p
+    @include position
+    color: $delimiter-color
+    width: 95%
+    height: 100%
+    margin: 10px
