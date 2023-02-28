@@ -149,6 +149,10 @@ class Block {
         this._element!.classList.add(_newClass);
     }
 
+    public removeInnerClass(_newClass: string) {
+        this._element!.classList.remove(_newClass);
+    }
+
     protected compile(template: (context: any) => string, context: any): DocumentFragment {
         const contextAndStubs = {...context};
 

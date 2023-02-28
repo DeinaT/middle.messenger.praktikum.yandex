@@ -22,9 +22,10 @@ export class MessageList extends Block {
         props.icon_setting = icon_setting;
         props.icon_add_object = icon_add_object;
         super('div', props);
+        this.initListMessage()
     }
 
-    public some(): void {
+    private initListMessage(): void {
         this.props.all_message.forEach((m: { data: string; text: string; isYou: boolean; }) => {
             let message: MessageItem = new MessageItem({
                 message_data: m.data,
@@ -32,6 +33,7 @@ export class MessageList extends Block {
                 message_is_you: m.isYou,
             });
 
+            this.getContent()!.style.height = "inherit";
             if (this.getContent()!.querySelector(".all_message") !== null)
                 this.getContent()!.querySelector(".all_message")!.append(message.getContent()!);
         })

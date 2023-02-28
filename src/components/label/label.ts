@@ -15,6 +15,14 @@ export class Label extends Block {
         super.addInnerClass("generate")
     }
 
+    public setClickEvent(clickFun: () => void): void {
+        this.props.events = {
+            click: () => {
+                clickFun()
+            }
+        };
+    }
+
     render() {
         return this.compile(template, this.props);
     }

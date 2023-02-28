@@ -10,17 +10,26 @@ interface MessagePreviewProps {
     message_select?: boolean;
     last_message_is_you?: boolean;
     show_message_count?: boolean;
+    events?: {
+        click: () => void;
+    };
 }
 
 export class MessagePreview extends Block {
     constructor(props: MessagePreviewProps) {
         super('div', props);
         super.addInnerClass("message_preview__main");
-        if (this.props.message_select === true)
-            super.addInnerClass("select");
+    }
+
+    public setSelect(value: boolean): void {
+        this.props.message_select = value;
     }
 
     render() {
+        if (this.props.message_select === true)
+            super.addInnerClass("select");
+        else
+            super.removeInnerClass("select");
         return this.compile(template, this.props);
     }
 }

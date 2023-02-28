@@ -1,6 +1,5 @@
 import template from './changes-data.hbs';
 import '../../../css/style.sass'
-import '../../../css/dialog.sass'
 import {Button} from "../../../components/button/button";
 import {ConstructionDefault} from "../../../utils/validation/ConstructionDefault";
 import {FormPage} from "../../../utils/validation/FormPage";
