@@ -24,8 +24,6 @@ interface ChatProps {
 
 class ChatPage extends Block {
 
-    private _menuIsShow: boolean = false;
-
     constructor(props: ChatProps) {
         super('main', props);
         if (this.props.all_preview === undefined)
@@ -49,11 +47,7 @@ class ChatPage extends Block {
     }
 
     private showSetting(): void {
-        if (this._menuIsShow)
-            this.children.dialog_setting.hide();
-        else
-            this.children.dialog_setting.show();
-        this._menuIsShow = !this._menuIsShow;
+        this.children.dialog_setting.changeVisible();
     }
 
     init() {
@@ -98,7 +92,8 @@ class ChatPage extends Block {
         });
         let list: MessageList = new MessageList({
             chat_user: chat.getUser(),
-            all_message: chat.getMessages()
+            all_message: chat.getMessages(),
+            dialog_add_user: this.children.dialog_add_user as DialogAsk
         });
         (this.getContent()!.querySelector(".start_chat")! as HTMLDivElement).style.display = "none";
         this.removeAllChildNodes(this.getContent()!.querySelector(".list_message")!);
@@ -119,7 +114,7 @@ class ChatPage extends Block {
 window.addEventListener('DOMContentLoaded', () => {
     const root = document.querySelector('#chat');
 
-    let dialogAddUser = new DialogAsk({});
+    let dialogAddUser = new DialogAsk({title: ""});
 
     let dialogSetting = new DialogMenu({
         exit_label: new Label({

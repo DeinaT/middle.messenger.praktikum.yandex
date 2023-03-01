@@ -14,13 +14,17 @@ interface ButtonProps {
 export class Button extends Block {
     constructor(props: ButtonProps) {
         super('button', props);
-        super.addInnerClass(this.props.button__state)
         if (this.props.button__type === undefined)
             this.props.button__type = "button";
         (this.getContent()! as HTMLButtonElement).type = this.props.button__type
     }
 
+    public removeAllEvent(): void {
+        delete this.props.events
+    }
+
     render() {
+        super.addInnerClass(this.props.button__state)
         return this.compile(template, this.props);
     }
 }

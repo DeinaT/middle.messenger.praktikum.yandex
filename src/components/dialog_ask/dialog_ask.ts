@@ -6,6 +6,7 @@ import Input from "../input/input";
 
 
 interface DialogAskProps {
+    title: string;
 }
 
 export class DialogAsk extends Block {
@@ -15,35 +16,58 @@ export class DialogAsk extends Block {
     }
 
     init() {
-        //{{> input input__value="" type_name=login_user input__placeholder="Логин"}}
         this.children.input__info = new Input({
             input__name: "new_user",
             input__placeholder: "Пользователь",
         });
 
         this.children.button__add = new Button({
-                        button__text: "Добавить",
-                        button__state: "positive"
-                    });
+            button__text: "Добавить",
+            button__state: "positive",
+            events: {
+                click: () => {
+                }
+            }
+        });
 
-        this.children.button__add.getContent()!.style.marginTop="20px"
-        this.children.button__add.getContent()!.style.width="80%"
+        this.children.button__add.getContent()!.style.marginTop = "20px"
+        this.children.button__add.getContent()!.style.width = "80%"
 
         this.children.button__cancel = new Button({
-                        button__text: "Отмена",
-                        button__state: "neutral",
-                        events: {
-                            click: () => {
-                                //window.location.href = item;
-                                this.hide();
-                            },
-                        },
-                    });
+            button__text: "Отмена",
+            button__state: "neutral",
+            events: {
+                click: () => {
+                    this.hide();
+                },
+            },
+        });
 
-        this.children.button__cancel.getContent()!.style.marginTop="20px"
-        this.children.button__cancel.getContent()!.style.width="80%"
-        this.getContent()!.style.display="none"
+        this.children.button__cancel.getContent()!.style.marginTop = "20px"
+        this.children.button__cancel.getContent()!.style.width = "80%"
+        this.getContent()!.style.display = "none"
     }
+
+    public setFunctionButton(_function: () => void) {
+        let newProps = {
+            events: {
+                click: _function
+            }
+        };
+        (this.children.button__add as Button).removeAllEvent();
+        this.children.button__add.setProps(newProps);
+    }
+
+    public setTypeButton(_nameButton: string, _typeButton: string) {
+        this.props.title = _nameButton;
+        let newProps = {
+            button__text: _nameButton,
+            button__state: _typeButton,
+        };
+        this.children.button__add.removeAllInnerClass();
+        this.children.button__add.setProps(newProps);
+    }
+
 
     render() {
         return this.compile(template, this.props);

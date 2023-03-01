@@ -7,7 +7,8 @@ class Block {
         INIT: "init",
         FLOW_CDM: "flow:component-did-mount",
         FLOW_CDU: "flow:component-did-update",
-        FLOW_RENDER: "flow:render"
+        FLOW_RENDER: "flow:render",
+        DELETE_EVENT: "delete_event"
     };
 
     public id = nanoid(6);
@@ -69,6 +70,7 @@ class Block {
         eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
         eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
         eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
+        eventBus.on(Block.EVENTS.DELETE_EVENT, this._removeEvents.bind(this));
     }
 
     _createResources() {
@@ -149,6 +151,10 @@ class Block {
         this._element!.classList.add(_newClass);
     }
 
+    public removeAllInnerClass() {
+        this._element!.classList.forEach(value => this._element!.classList.remove(value));
+    }
+
     public removeInnerClass(_newClass: string) {
         this._element!.classList.remove(_newClass);
     }
@@ -209,10 +215,19 @@ class Block {
                 self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, target);
                 return true;
             },
-            deleteProperty() {
-                throw new Error("Нет доступа");
+            deleteProperty(target, prop) {
+                if (prop === "events") {
+                    self.eventBus().emit(Block.EVENTS.DELETE_EVENT, Object.getOwnPropertyNames(target[prop])[0], target[prop]);
+                    return true;
+                } else {
+                    throw new Error("Нет доступа");
+                }
             }
         });
+    }
+
+    _removeEvents(eventName: string, events: any) {
+        this._element?.removeEventListener(eventName, events[eventName]);
     }
 
     _createDocumentElement(tagName: string) {
@@ -221,11 +236,18 @@ class Block {
     }
 
     show() {
-        this.getContent()!.style.display = "block";
+        this.getContent()!.style.display = "flex";
     }
 
     hide() {
         this.getContent()!.style.display = "none";
+    }
+
+    changeVisible() {
+        if (this.getContent()!.style.display === "none")
+            this.getContent()!.style.display = "flex";
+        else
+            this.getContent()!.style.display = "none";
     }
 }
 

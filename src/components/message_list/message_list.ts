@@ -7,6 +7,9 @@ import icon_add_object from '../../../static/icon/icon_add_object.png'
 import icon_send_mess from '../../../static/icon/icon_send_mess.png'
 import {Message} from "../../objects/Message";
 import {MessageItem} from "../message_item/message_item";
+import {DialogMenu} from "../dialog_menu/dialog_menu";
+import {Label} from "../label/label";
+import {DialogAsk} from "../dialog_ask/dialog_ask";
 
 interface MessageListProps {
     chat_user: string;
@@ -14,15 +17,69 @@ interface MessageListProps {
     icon_setting?: object;
     icon_add_object?: object;
     icon_send_mess?: object;
+    dialog_control?: DialogMenu;
+    dialog_add_user?: DialogAsk;
 }
 
 export class MessageList extends Block {
+
     constructor(props: MessageListProps) {
+        props.dialog_control = new DialogMenu({
+            exit_label: new Label({
+                label__text: "Удалить чат",
+
+            })
+        });
         props.icon_send_mess = icon_send_mess;
         props.icon_setting = icon_setting;
         props.icon_add_object = icon_add_object;
         super('div', props);
-        this.initListMessage()
+        this.initListMessage();
+        this.initControlMenu();
+    }
+
+    private initDialogAskAsAdd(): void {
+        (this.children.dialog_add_user as DialogAsk).setTypeButton("Добавить пользователя", "positive");
+        (this.children.dialog_add_user as DialogAsk).setFunctionButton(() => {
+            console.log("add");
+        });
+    }
+
+    private initDialogAskAsDelete(): void {
+        (this.children.dialog_add_user as DialogAsk).setTypeButton("Удалить пользователя", "negative");
+        (this.children.dialog_add_user as DialogAsk).setFunctionButton(() => {
+            console.log("delete");
+        });
+    }
+
+    private initControlMenu(): void {
+
+        let linkAddUser: Label = new Label({
+            label__text: "Добавить пользователя",
+            events: {
+                click: () => {
+                    this.initDialogAskAsAdd();
+                    this.children.dialog_add_user.changeVisible();
+                },
+            },
+        });
+
+
+        let linkRemoveUser: Label = new Label({
+            label__text: "Удалить пользователя",
+            events: {
+                click: () => {
+                    this.initDialogAskAsDelete();
+                    this.children.dialog_add_user.changeVisible();
+                },
+            },
+        });
+
+        (this.children.dialog_control as DialogMenu).addSettingLink(linkAddUser);
+        (this.children.dialog_control as DialogMenu).addSettingLink(linkRemoveUser);
+        this.children.dialog_control.getContent()!.style.top = "8px"
+        this.children.dialog_control.getContent()!.style.right = "16px"
+        this.children.dialog_control.getContent()!.style.left = "auto"
     }
 
     private initListMessage(): void {
@@ -37,6 +94,11 @@ export class MessageList extends Block {
             if (this.getContent()!.querySelector(".all_message") !== null)
                 this.getContent()!.querySelector(".all_message")!.append(message.getContent()!);
         })
+
+        this.getContent()!.querySelector(".div__menu-user")!
+            .addEventListener('click', () => {
+                this.children.dialog_control.changeVisible();
+            });
     }
 
     render() {
