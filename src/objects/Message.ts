@@ -3,7 +3,7 @@ export class Message {
 
     public object: object;
 
-    public _data: string;
+    public data: string;
 
     public isYou: boolean;
 
@@ -13,7 +13,7 @@ export class Message {
 
     constructor(_text: string, _data: string, _isYou: boolean, _isRead?: boolean) {
         this.text = _text;
-        this._data = _data;
+        this.data = _data;
         this.isYou = _isYou;
         this.isRead = (_isRead === undefined) ? true : _isRead;
     }

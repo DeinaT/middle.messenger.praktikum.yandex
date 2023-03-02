@@ -81,7 +81,7 @@ export class MessageList extends Block {
     private initListMessage(): void {
         this.props.all_message.forEach((m: { data: string; text: string; isYou: boolean; }) => {
             const message: MessageItem = new MessageItem({
-                message_data: m.mess,
+                message_data: m.data,
                 message_text: m.text,
                 message_is_you: m.isYou,
             });

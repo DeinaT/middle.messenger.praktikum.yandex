@@ -15,7 +15,7 @@ export abstract class FormPage extends Block {
                 submit: (evt) => {
                     evt.preventDefault();
 
-                    const isValid = true;
+                    let isValid = true;
                     for (let item of this.props.checkInput) {
                         isValid = isValid && item!.isValid();
                     }
