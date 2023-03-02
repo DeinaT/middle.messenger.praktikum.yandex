@@ -2,12 +2,17 @@
   "extends": "stylelint-config-sass-guidelines",
     "rules": {
       "indentation": null,
+      "at-rule-semicolon-newline-after": null,
       "block-no-empty": true,
       "color-hex-case": "lower",
       "declaration-block-trailing-semicolon": "never",
       "function-comma-space-after": "always",
       "selector-pseudo-element-no-unknown": true,
       "scss/at-mixin-pattern": "[a-zA-Z]",
+      "declaration-empty-line-before": null,
       "number-leading-zero": "always"
-    }
+    },
+    "ignoreFiles": [
+      "src/css/_color.sass", "src/css/_font.sass"
+    ]
 }
