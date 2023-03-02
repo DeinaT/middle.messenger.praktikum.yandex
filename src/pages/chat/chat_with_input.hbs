@@ -1,0 +1,53 @@
+<main>
+    <div style="display: flex;flex-direction: row;">
+
+        <div class="div__base_left-menu">
+
+            <div class="left-menu__top-panel">
+                <div class="div__menu-user">
+                    <span style="margin-top: 10px" class="line"></span>
+                    <span class="line"></span>
+                    <span class="line"></span>
+                </div>
+                {{> find style_width="width:70%;margin-top:10px" type_name="find_user" input__value=""}}
+            </div>
+
+            <div class="left-menu__chats">
+                {{> message_preview message_data="10:49" message_text="Изображение" message_user="Андрей" show_message_count=true message_count="2" }}
+                {{> message_preview message_data="12:00" message_text="стикер" message_user="Киноклуб" last_message_is_you=true}}
+                {{> message_preview message_data="Ср"  message_user="Илья" message_text="Друзья, у меня для вас особенный выпуск новостей! Какая-то другая информация" message_count="4" show_message_count=true}}
+                {{> message_preview message_data="12 Мая 2020" message_user="Вадим" message_text="Круто" last_message_is_you=true message-select=true message_count="1" show_message_count=true}}
+            </div>
+        </div>
+        <div class="div__base_right-menu">
+            <div style="display: flex;width: 100%;height: 100%;flex-direction: column;justify-content: flex-start;align-items: center">
+                <div class="div__top-chat-user">
+                    <div class="icon-avatar"></div>
+                    <p>Вадим</p>
+                    <div style="margin: 15px" class="div__menu-user">
+                        <img src={{ icon_setting }}>
+                    </div>
+                </div>
+                <div style="display: flex;width: 100%;height: 100%;flex-direction: column;justify-content: end;align-items: start">
+                    {{> message_item message_date="09:12"  message_text="Друзья, у меня для вас особенный выпуск новостей! Какая-то другая информация"}}
+                    {{> message_item message-is-you=true message_date="10:12"  message_text="Круто"}}
+
+                </div>
+                <div class="div__bottom-chat-message">
+                    <img src={{ icon_add_object }} alt="Иконка добавления объекта">
+                    <input name="message" class="input__for-chat"/>
+                    <img src={{ icon_send_mess }} alt="Иконка добавления объекта">
+                </div>
+            </div>
+        </div>
+
+
+        {{!-- <div class="div__for_dialog__dialog_ask" style="display: none;"> --}}
+        {{!--         <div style="height: 290px;" class="div__dialog_ask"><p id=title_dialog_ask>Добавить пользователя</p> --}}
+        {{!--         <div style="width:80%;margin-top:-10px">{{> input input__value="" type_name=login_user input__placeholder="Логин"}}</div> --}}
+        {{!--         {{> button custom_style="width:80%;margin-top:20px"  button__state="positive" button__text="Добавить"}} --}}
+        {{!--         {{> button custom_style="width:80%;margin-top:20px"  button__state="neutral" button__text="Отмена"}} --}}
+        {{!--     </div> --}}
+        {{!-- </div> --}}
+    </div>
+</main>

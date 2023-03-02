@@ -1,0 +1,98 @@
+@import ../../css/color
+@import ../../css/font
+@import ../../css/support
+
+$margin: 10px
+$size_icon: 47px
+
+.message_preview__main
+  @include position
+  width: 100%
+  height: 75px
+
+  &.select
+    background: $border-color
+
+.message_preview__group
+  @include position
+  width: calc(#{100%} - #{$margin} - #{$margin})
+  height: 75px
+  flex-direction: row
+  border-bottom: 1px solid $border-color
+  margin-left: 10px
+  margin-right: 10px
+  justify-content: flex-start
+  align-items: center
+
+  & div.div__show-avatar
+    @include position
+    background: $icon-color
+    border-radius: 50%
+    width: 47px
+    height: 47px
+
+
+  & div.div__message_preview__text
+    position: absolute
+    z-index: 2
+    width: calc(#{100%} - #{$size_icon} - #{$size_icon})
+    height: 100%
+    flex-direction: column
+    display: flex
+    left: $size_icon + 10px
+
+    & h5
+      margin: 10px 0 8px 0
+      color: $delimiter-color
+      font-size: $chat-message-title-size
+      text-overflow: ellipsis
+      white-space: nowrap
+      overflow: hidden
+
+    & p.p__message_preview__text
+      margin: 0
+      color: $text-title-color
+      font-size: $chat-message-title-size
+      text-overflow: ellipsis
+      white-space: nowrap
+      overflow: hidden
+      line-height: 1.5em
+      height: 3em
+
+      & span.is-you
+        margin: 0
+        color: $delimiter-color
+
+
+  & div.div__message_preview__info
+    @include position
+    align-self: end
+    width: calc(#{100%} - #{$size_icon})
+    height: 100%
+    flex-direction: column
+
+    & p
+      @include position
+      color: $text-title-60-color
+      width: 100%
+      height: 50%
+      font-size: $chat-info-size
+      flex-direction: column
+      justify-content: center
+      align-self: end
+      margin: 0
+      &.p__message_preview__data
+        text-align: end
+
+      &.p__message_preview__count
+        width: 20px
+        height: 20px
+        background: $delimiter-color
+        color: $background-color
+        border-radius: 50%
+        text-align: center
+        display: none
+
+        &.show
+          display: flex
+
