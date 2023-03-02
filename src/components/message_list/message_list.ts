@@ -17,47 +17,71 @@ interface MessageListProps {
     icon_setting?: object;
     icon_add_object?: object;
     icon_send_mess?: object;
-    dialog_control?: DialogMenu;
-    dialog_add_user?: DialogAsk;
 }
 
 export class MessageList extends Block {
+    private dialogAddUser: DialogAsk | null = null;
+    private dialogRemoveUser: DialogAsk | null = null;
+    private dialogControl: DialogMenu | null = null;
+
     constructor(props: MessageListProps) {
-        props.dialog_control = new DialogMenu({
-            exit_label: new Label({
-                label__text: 'Удалить чат',
-            }),
-        });
         props.icon_send_mess = iconSendMess;
         props.icon_setting = iconSetting;
         props.icon_add_object = iconAddObject;
         super('div', props);
+        this.initDialogAskAdd();
+        this.initDialogAskDelete();
         this.initListMessage();
         this.initControlMenu();
         this.initSendMessage()
     }
 
-    private initDialogAskAsAdd(): void {
-        (this.children.dialog_add_user as DialogAsk).setTypeButton('Добавить пользователя', 'positive');
-        (this.children.dialog_add_user as DialogAsk).setFunctionButton(() => {
-            console.log('add');
+    private initDialogAskAdd(): void {
+        this.dialogAddUser = new DialogAsk({
+            title: 'Добавить пользователя',
+            button_cancel_text: 'Отмена',
+            button_add_text: 'Добавить пользователя',
+            input_placeholder: 'Пользователь',
+            button_add_type: 'positive',
+            button_add_function: (input_value) => {
+                console.log('add ' + input_value);
+            },
         });
+
+        const root = window.document.querySelector('body');
+        root!.append(this.dialogAddUser.getContent()!);
     }
 
-    private initDialogAskAsDelete(): void {
-        (this.children.dialog_add_user as DialogAsk).setTypeButton('Удалить пользователя', 'negative');
-        (this.children.dialog_add_user as DialogAsk).setFunctionButton(() => {
-            console.log('delete');
+    private initDialogAskDelete(): void {
+        this.dialogRemoveUser = new DialogAsk({
+            title: 'Удалить пользователя',
+            button_cancel_text: 'Отмена',
+            button_add_text: 'Удалить пользователя',
+            input_placeholder: 'Пользователь',
+            button_add_type: 'negative',
+            button_add_function: (input_value) => {
+                console.log('delete ' + input_value);
+            },
         });
+
+        const root = window.document.querySelector('body');
+        root!.append(this.dialogRemoveUser.getContent()!);
     }
 
     private initControlMenu(): void {
+        this.dialogControl = new DialogMenu({
+            exit_label: new Label({
+                label__text: 'Удалить чат',
+            }),
+        });
+
         const linkAddUser: Label = new Label({
             label__text: 'Добавить пользователя',
             events: {
                 click: () => {
-                    this.initDialogAskAsAdd();
-                    this.children.dialog_add_user.changeVisible();
+                    if (this.dialogAddUser !== null) {
+                        this.dialogAddUser.changeVisible();
+                    }
                 },
             },
         });
@@ -66,17 +90,21 @@ export class MessageList extends Block {
             label__text: 'Удалить пользователя',
             events: {
                 click: () => {
-                    this.initDialogAskAsDelete();
-                    this.children.dialog_add_user.changeVisible();
+                    if (this.dialogRemoveUser !== null) {
+                        this.dialogRemoveUser.changeVisible();
+                    }
                 },
             },
         });
 
-        (this.children.dialog_control as DialogMenu).addSettingLink(linkAddUser);
-        (this.children.dialog_control as DialogMenu).addSettingLink(linkRemoveUser);
-        this.children.dialog_control.getContent()!.style.top = '8px';
-        this.children.dialog_control.getContent()!.style.right = '16px';
-        this.children.dialog_control.getContent()!.style.left = 'auto';
+        this.dialogControl.addSettingLink(linkAddUser);
+        this.dialogControl.addSettingLink(linkRemoveUser);
+        this.dialogControl.getContent()!.style.top = '8px';
+        this.dialogControl.getContent()!.style.right = '16px';
+        this.dialogControl.getContent()!.style.left = 'auto';
+
+        const root = window.document.querySelector('body');
+        root!.append(this.dialogControl.getContent()!);
     }
 
     private initListMessage(): void {
@@ -95,7 +123,9 @@ export class MessageList extends Block {
 
         this.getContent()!.querySelector('.div__menu-user')!
             .addEventListener('click', () => {
-                this.children.dialog_control.changeVisible();
+                if (this.dialogControl !== null) {
+                    this.dialogControl.changeVisible();
+                }
             });
     }
 

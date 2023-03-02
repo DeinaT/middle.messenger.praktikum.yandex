@@ -8,7 +8,6 @@ import Chat from '../../objects/Chat';
 import iconRocket from '../../../static/icon/icon_rocket.png';
 import FindInput from '../../components/find/find';
 import Label from '../../components/label/label';
-import DialogAsk from '../../components/dialog_ask/dialog_ask';
 import DialogMenu from '../../components/dialog_menu/dialog_menu';
 import MessagePreview from '../../components/message_preview/message_preview';
 import Message from '../../objects/Message';
@@ -17,7 +16,6 @@ import Navigation from '../../utils/Navigation';
 
 interface ChatProps {
     icon_rocket: object,
-    dialog_add_user: DialogAsk,
     dialog_setting: DialogMenu,
     all_preview?: Array<MessagePreview>
 }
@@ -95,7 +93,6 @@ class ChatPage extends Block {
         const list: MessageList = new MessageList({
             chat_user: chat.getUser(),
             all_message: chat.getMessages(),
-            dialog_add_user: this.children.dialog_add_user as DialogAsk,
         });
         (this.getContent()!.querySelector('.start_chat')! as HTMLDivElement).style.display = 'none';
         this.removeAllChildNodes(this.getContent()!.querySelector('.list_message')!);
@@ -116,10 +113,6 @@ class ChatPage extends Block {
 window.addEventListener('DOMContentLoaded', () => {
     const root = document.querySelector('#chat');
 
-    const dialogAddUser = new DialogAsk({
-        title: '',
-    });
-
     const dialogSetting = new DialogMenu({
         exit_label: new Label({
             label__text: 'Выйти',
@@ -127,7 +120,6 @@ window.addEventListener('DOMContentLoaded', () => {
     });
     const chatList = new ChatPage({
         icon_rocket: iconRocket,
-        dialog_add_user: dialogAddUser,
         dialog_setting: dialogSetting,
     });
     ArrayChats.getArrayChats().forEach((value) => {
@@ -135,7 +127,6 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 
     root!.append(chatList.getContent()!);
-    root!.append(dialogAddUser.getContent()!);
     root!.append(dialogSetting.getContent()!);
 
     chatList.dispatchComponentDidMount();

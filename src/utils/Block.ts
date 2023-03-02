@@ -151,10 +151,6 @@ class Block<Prop extends Record<string, any> = any> {
         this._element!.classList.add(_newClass);
     }
 
-    public removeAllInnerClass() {
-        this._element!.classList.forEach(value => this._element!.classList.remove(value));
-    }
-
     public removeInnerClass(_newClass: string) {
         this._element!.classList.remove(_newClass);
     }
