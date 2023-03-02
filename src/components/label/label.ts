@@ -12,14 +12,14 @@ interface LabelProps {
 export class Label extends Block {
     constructor(props: LabelProps) {
         super('label', props);
-        super.addInnerClass("generate")
+        super.addInnerClass('generate');
     }
 
     public setClickEvent(clickFun: () => void): void {
         this.props.events = {
             click: () => {
-                clickFun()
-            }
+                clickFun();
+            },
         };
     }
 
@@ -27,3 +27,5 @@ export class Label extends Block {
         return this.compile(template, this.props);
     }
 }
+
+export default Label;

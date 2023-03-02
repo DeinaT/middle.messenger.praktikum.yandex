@@ -1,14 +1,14 @@
-import {EventBus} from "./EventBus";
+import {EventBus} from './EventBus';
 import {nanoid} from 'nanoid';
 
-// Нельзя создавать экземпляр данного класса
+
 class Block {
     static EVENTS = {
-        INIT: "init",
-        FLOW_CDM: "flow:component-did-mount",
-        FLOW_CDU: "flow:component-did-update",
-        FLOW_RENDER: "flow:render",
-        DELETE_EVENT: "delete_event"
+        INIT: 'init',
+        FLOW_CDM: 'flow:component-did-mount',
+        FLOW_CDU: 'flow:component-did-update',
+        FLOW_RENDER: 'flow:render',
+        DELETE_EVENT: 'delete_event'
     };
 
     public id = nanoid(6);
@@ -19,7 +19,7 @@ class Block {
     private _classForEvent: string | null = null;
     private _meta: { tagName: string; props: any; };
 
-    constructor(tagName = "div", propsWithChildren: any | null = {}) {
+    constructor(tagName = 'div', propsWithChildren: any | null = {}) {
         const eventBus = new EventBus();
 
         const {props, children} = this._getChildrenAndProps(propsWithChildren);
@@ -59,7 +59,7 @@ class Block {
         const {events = {}} = this.props as { events: Record<string, () => void> };
         Object.keys(events).forEach(eventName => {
             if (this._classForEvent !== null)
-                this.getContent()!.querySelector("." + this._classForEvent)!.addEventListener(eventName, events[eventName]);
+                this.getContent()!.querySelector('.' + this._classForEvent)!.addEventListener(eventName, events[eventName]);
             else
                 this._element?.addEventListener(eventName, events[eventName]);
         });
@@ -142,7 +142,7 @@ class Block {
 
     public getEventComponent(): HTMLElement {
         if (this._classForEvent !== null)
-            return this.getContent()!.querySelector("." + this._classForEvent)!;
+            return this.getContent()!.querySelector('.' + this._classForEvent)!;
         else
             return this._element!;
     }
@@ -163,7 +163,7 @@ class Block {
         const contextAndStubs = {...context};
 
         Object.entries(this.children).forEach(([name, component]) => {
-            contextAndStubs[name] = `<div data-id="${component.id}"></div>`;
+            contextAndStubs[name] = `<div data-id='${component.id}'></div>`;
         });
 
         const html = template(contextAndStubs);
@@ -173,7 +173,7 @@ class Block {
         temp.innerHTML = html;
 
         Object.entries(this.children).forEach(([_, component]) => {
-            const stub = temp.content.querySelector(`[data-id="${component.id}"]`);
+            const stub = temp.content.querySelector(`[data-id='${component.id}']`);
 
             if (!stub) {
                 return;
@@ -203,7 +203,7 @@ class Block {
         return new Proxy(props, {
             get(target, prop) {
                 const value = target[prop];
-                return typeof value === "function" ? value.bind(target) : value;
+                return typeof value === 'function' ? value.bind(target) : value;
             },
             set(target, prop, value) {
                 const oldTarget = {...target}
@@ -216,11 +216,11 @@ class Block {
                 return true;
             },
             deleteProperty(target, prop) {
-                if (prop === "events") {
+                if (prop === 'events') {
                     self.eventBus().emit(Block.EVENTS.DELETE_EVENT, Object.getOwnPropertyNames(target[prop])[0], target[prop]);
                     return true;
                 } else {
-                    throw new Error("Нет доступа");
+                    throw new Error('Нет доступа');
                 }
             }
         });
@@ -236,18 +236,18 @@ class Block {
     }
 
     show() {
-        this.getContent()!.style.display = "flex";
+        this.getContent()!.style.display = 'flex';
     }
 
     hide() {
-        this.getContent()!.style.display = "none";
+        this.getContent()!.style.display = 'none';
     }
 
     changeVisible() {
-        if (this.getContent()!.style.display === "none")
-            this.getContent()!.style.display = "flex";
+        if (this.getContent()!.style.display === 'none')
+            this.getContent()!.style.display = 'flex';
         else
-            this.getContent()!.style.display = "none";
+            this.getContent()!.style.display = 'none';
     }
 }
 

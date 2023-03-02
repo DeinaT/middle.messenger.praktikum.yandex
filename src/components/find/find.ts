@@ -1,4 +1,4 @@
-import './find.sass'
+import './find.sass';
 import Block from '../../utils/Block';
 import template from './find.hbs';
 
@@ -10,10 +10,12 @@ interface FindInputProps {
 export class FindInput extends Block {
     constructor(props: FindInputProps) {
         super('div', props);
-        super.addInnerClass("find-group");
+        super.addInnerClass('find-group');
     }
 
     render() {
         return this.compile(template, this.props);
     }
 }
+
+export default FindInput;

@@ -1,4 +1,4 @@
-import './message_item.sass'
+import './message_item.sass';
 import Block from '../../utils/Block';
 import template from './message_item.hbs';
 
@@ -11,12 +11,15 @@ interface MessageItemProps {
 export class MessageItem extends Block {
     constructor(props: MessageItemProps) {
         super('div', props);
-        super.addInnerClass("p__message_text");
-        if (this.props.message_is_you === true)
-            super.addInnerClass("is-you");
+        super.addInnerClass('p__message_text');
+        if (this.props.message_is_you === true) {
+            super.addInnerClass('is-you');
+        }
     }
 
     render() {
         return this.compile(template, this.props);
     }
 }
+
+export default MessageItem;

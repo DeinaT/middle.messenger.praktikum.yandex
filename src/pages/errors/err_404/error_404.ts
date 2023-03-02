@@ -1,14 +1,14 @@
 import template from './error_404.hbs';
-import '../../../components/button/button.ts'
-import '../../../components/input/input.ts'
-import '../../../css/style.sass'
-import '../../../css/alert.sass'
-import image_404 from '../../../../static/image/image_error_404.png'
-import Block from "../../../utils/Block";
-import {Button} from "../../../components/button/button";
+import '../../../components/button/button.ts';
+import '../../../components/input/input.ts';
+import '../../../css/style.sass';
+import '../../../css/alert.sass';
+import image404 from '../../../../static/image/image_error_404.png';
+import Block from '../../../utils/Block';
+import Button from '../../../components/button/button';
 
 interface Error404Props {
-    image_404: any;
+    image_404: object;
 }
 
 class Error404Page extends Block {
@@ -18,8 +18,8 @@ class Error404Page extends Block {
 
     init() {
         this.children.button_back = new Button({
-            button__text: "Назад к чатам",
-            button__state: "neutral",
+            button__text: 'Назад к чатам',
+            button__state: 'neutral',
             events: {
                 click: () => {
                     // todo validate
@@ -27,7 +27,7 @@ class Error404Page extends Block {
             },
         });
 
-        this.children.button_back.getContent()!.style.marginTop="170px"
+        this.children.button_back.getContent()!.style.marginTop = '170px';
     }
 
     render() {
@@ -36,10 +36,12 @@ class Error404Page extends Block {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-    const error_404 = document.querySelector('#error_404');
+    const error404 = document.querySelector('#error_404');
 
-    const error404Page = new Error404Page({image_404});
-    error_404!.append(error404Page.getContent()!);
+    const error404Page = new Error404Page({
+        image404
+    });
+    error404!.append(error404Page.getContent()!);
 
     error404Page.dispatchComponentDidMount();
 });

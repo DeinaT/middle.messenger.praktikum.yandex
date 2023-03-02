@@ -19,5 +19,8 @@ module.exports = {
         "@typescript-eslint"
     ],
     "rules": {
+        "indent": 0,
+        'no-plusplus': 'off',
+        'prefer-template': 'off'
     }
 }

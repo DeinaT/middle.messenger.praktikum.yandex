@@ -1,7 +1,7 @@
 import Block from '../../utils/Block';
 import template from './dialog_menu.hbs';
 import './dialog_menu.sass';
-import {Label} from "../label/label";
+import Label from '../label/label';
 
 interface DialogMenuProps {
     link_labels?: Array<Label>,
@@ -11,16 +11,17 @@ interface DialogMenuProps {
 export class DialogMenu extends Block {
     constructor(props: DialogMenuProps) {
         super('div', props);
-        if (this.props.link_labels === undefined)
+        if (this.props.link_labels === undefined) {
             this.props.link_labels = [];
-        super.addInnerClass("div__for_dialog__menu")
-        this.children.exit_label.addInnerClass("cancel");
-        this.getContent()!.style.display = "none"
+        }
+        super.addInnerClass('div__for_dialog__menu');
+        this.children.exit_label.addInnerClass('cancel');
+        this.getContent()!.style.display = 'none';
     }
 
     public addSettingLink(link: Label) {
         this.props.link_labels.push(link);
-        this.getContent()!.querySelector(".all_links")!.append(link.getContent()!);
+        this.getContent()!.querySelector('.all_links')!.append(link.getContent()!);
     }
 
     public setCancelEvent(cancelFun: () => void): void {
@@ -31,3 +32,5 @@ export class DialogMenu extends Block {
         return this.compile(template, this.props);
     }
 }
+
+export default DialogMenu;

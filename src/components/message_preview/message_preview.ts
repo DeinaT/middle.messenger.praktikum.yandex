@@ -18,7 +18,7 @@ interface MessagePreviewProps {
 export class MessagePreview extends Block {
     constructor(props: MessagePreviewProps) {
         super('div', props);
-        super.addInnerClass("message_preview__main");
+        super.addInnerClass('message_preview__main');
     }
 
     public setSelect(value: boolean): void {
@@ -26,10 +26,13 @@ export class MessagePreview extends Block {
     }
 
     render() {
-        if (this.props.message_select === true)
-            super.addInnerClass("select");
-        else
-            super.removeInnerClass("select");
+        if (this.props.message_select === true) {
+            super.addInnerClass('select');
+        } else {
+            super.removeInnerClass('select');
+        }
         return this.compile(template, this.props);
     }
 }
+
+export default MessagePreview;

@@ -1,4 +1,4 @@
-import './input.sass'
+import './input.sass';
 import Block from '../../utils/Block';
 import template from './input.hbs';
 
@@ -18,26 +18,28 @@ interface InputProps {
 
 class Input extends Block {
     constructor(props: InputProps) {
-        props.input__value = "";
+        props.input__value = '';
         super('div', props);
-        super.addInnerClass("input-group");
+        super.addInnerClass('input-group');
         this.getValue.bind(this.getValue);
     }
 
     public getValue(): string {
-        this.props.input__value = this.getContent()!.querySelector("input")!.value;
+        this.props.input__value = this.getContent()!.querySelector('input')!.value;
         return this.props.input__value;
     }
 
     public setError(_message?: string): void {
-        if (_message !== undefined)
+        if (_message !== undefined) {
             this.props.input__error = _message;
+        }
         this.props.input__display_error = true;
     }
 
     public clearError(): void {
-        if (this.props.input__display_error)
+        if (this.props.input__display_error) {
             this.props.input__display_error = false;
+        }
     }
 
     public isValid(): boolean {

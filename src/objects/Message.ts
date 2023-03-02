@@ -1,39 +1,46 @@
 export class Message {
-    private _text: string;
-    private _object: object;
-    private _data: string;
-    private _isYou: boolean;
-    private _isRead: boolean;
-    private _isDelivered: boolean;
+    private text: string;
+
+    private object: object;
+
+    private data: string;
+
+    private isYou: boolean;
+
+    private isRead: boolean;
+
+    private isDelivered: boolean;
 
     constructor(_text: string, _data: string, _isYou: boolean, _isRead?: boolean) {
-        this._text = _text;
-        this._data = _data;
-        this._isYou = _isYou;
-        this._isRead = (_isRead === undefined) ? true : _isRead;
+        this.text = _text;
+        this.data = _data;
+        this.isYou = _isYou;
+        this.isRead = (_isRead === undefined) ? true : _isRead;
     }
 
     get text(): string {
-        return this._text;
+        return this.text;
     }
 
     get data(): string {
-        return this._data;
+        return this.data;
     }
 
     get isYou(): boolean {
-        return this._isYou;
+        return this.isYou;
     }
 
     get isRead(): boolean {
-        return this._isRead;
+        return this.isRead;
     }
 
     get object(): object {
-        return this._object;
+        return this.object;
     }
 
     get isDelivered(): boolean {
-        return this._isDelivered;
+        return this.isDelivered;
     }
 }
+
+export default Message;

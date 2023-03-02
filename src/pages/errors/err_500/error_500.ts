@@ -1,15 +1,14 @@
 import template from './error_500.hbs';
-import '../../../components/button/button.ts'
-import '../../../components/input/input.ts'
-import '../../../css/style.sass'
-import '../../../css/alert.sass'
-import image_500 from '../../../../static/image/image_error_500.png'
-import Block from "../../../utils/Block";
-import {Button} from "../../../components/button/button";
-
+import '../../../components/button/button.ts';
+import '../../../components/input/input.ts';
+import '../../../css/style.sass';
+import '../../../css/alert.sass';
+import image500 from '../../../../static/image/image_error_500.png';
+import Block from '../../../utils/Block';
+import Button from '../../../components/button/button';
 
 interface Error500Props {
-    image_500: any;
+    image_500: object;
 }
 
 class Error500Page extends Block {
@@ -19,8 +18,8 @@ class Error500Page extends Block {
 
     init() {
         this.children.button_back = new Button({
-            button__text: "Назад к чатам",
-            button__state: "neutral",
+            button__text: 'Назад к чатам',
+            button__state: 'neutral',
             events: {
                 click: () => {
                     // todo validate
@@ -28,7 +27,7 @@ class Error500Page extends Block {
             },
         });
 
-        this.children.button_back.getContent()!.style.marginTop = "170px"
+        this.children.button_back.getContent()!.style.marginTop = '170px';
     }
 
     render() {
@@ -37,10 +36,12 @@ class Error500Page extends Block {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-    const error_500 = document.querySelector('#error_500');
+    const error500 = document.querySelector('#error_500');
 
-    const error500Page = new Error500Page({image_500});
-    error_500!.append(error500Page.getContent()!);
+    const error500Page = new Error500Page({
+        image500
+    });
+    error500!.append(error500Page.getContent()!);
 
     error500Page.dispatchComponentDidMount();
 });
