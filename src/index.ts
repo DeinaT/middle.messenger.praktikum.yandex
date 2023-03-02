@@ -1,5 +1,5 @@
-import Nav from '../../components/nav/nav';
-import '../../css/style.sass';
+import Nav from './components/nav/nav';
+import './css/style.sass';
 
 window.addEventListener('DOMContentLoaded', () => {
     const root = document.querySelector('#app')!;

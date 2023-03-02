@@ -2,9 +2,9 @@
   "name": "cosmess",
   "version": "1.0.0",
   "description": "CosMess - мессенжер просто космос",
-  "source": "src/pages/index/index.html",
+  "source": "src/index.html",
   "scripts": {
-    "dev": "parcel src/pages/index/index.html --open",
+    "dev": "parcel src/index.html --open",
     "build": "parcel build",
     "start": "npm run build && node src/app.js"
   },
