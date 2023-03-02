@@ -34,6 +34,7 @@ export class MessageList extends Block {
         super('div', props);
         this.initListMessage();
         this.initControlMenu();
+        this.initSendMessage()
     }
 
     private initDialogAskAsAdd(): void {
@@ -96,6 +97,16 @@ export class MessageList extends Block {
             .addEventListener('click', () => {
                 this.children.dialog_control.changeVisible();
             });
+    }
+
+    private initSendMessage(): void {
+        this.getContent()!.querySelector('#icon_send_message')!.addEventListener('click', () => {
+            console.log({message: this.getNewMessage()});
+        });
+    }
+
+    public getNewMessage(): string {
+        return (this.getContent()!.querySelector('.input__for-chat')! as HTMLInputElement).value;
     }
 
     render() {

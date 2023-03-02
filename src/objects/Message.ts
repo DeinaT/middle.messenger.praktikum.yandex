@@ -1,7 +1,7 @@
 export class Message {
     public text: string;
 
-    public object: object;
+    //public object: object;
 
     public data: string;
 
@@ -9,7 +9,7 @@ export class Message {
 
     public isRead: boolean;
 
-    public isDelivered: boolean;
+    //public isDelivered: boolean;
 
     constructor(_text: string, _data: string, _isYou: boolean, _isRead?: boolean) {
         this.text = _text;

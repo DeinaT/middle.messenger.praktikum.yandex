@@ -7,6 +7,7 @@ import icon_empty_avatar from '../../../static/icon/icon_empty_avatar.png';
 import Block from '../../utils/Block';
 import Input from '../../components/input/input';
 import Button from '../../components/button/button';
+import DialogSelectFile from '../../components/dialog_select_file/dialog_select_file';
 import Navigation from '../../utils/Navigation';
 
 interface InformationProps {
@@ -16,6 +17,14 @@ interface InformationProps {
 class InformationPage extends Block {
     constructor(props: InformationProps) {
         super('main', props);
+
+        const dialogSelectFile = new DialogSelectFile({title: "Загрузите файл"});
+
+        const root = window.document.querySelector('body');
+        root!.append(dialogSelectFile.getContent()!);
+        this.getContent()!.querySelector('#avatar')!.addEventListener('click', () => {
+            dialogSelectFile.show();
+        });
     }
 
     init() {
