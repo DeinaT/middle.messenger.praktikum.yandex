@@ -2,7 +2,7 @@ import {EventBus} from './EventBus';
 import {nanoid} from 'nanoid';
 
 
-class Block {
+class Block<Prop extends Record<string, any> = any> {
     static EVENTS = {
         INIT: 'init',
         FLOW_CDM: 'flow:component-did-mount',
@@ -12,14 +12,14 @@ class Block {
     };
 
     public id = nanoid(6);
-    protected props: any;
+    protected props: Prop;
     public children: Record<string, Block>;
     private eventBus: () => EventBus;
     private _element: HTMLElement | null = null;
     private _classForEvent: string | null = null;
     private _meta: { tagName: string; props: any; };
 
-    constructor(tagName = 'div', propsWithChildren: any | null = {}) {
+    constructor(tagName = 'div', propsWithChildren: Prop) {
         const eventBus = new EventBus();
 
         const {props, children} = this._getChildrenAndProps(propsWithChildren);
@@ -39,8 +39,8 @@ class Block {
         eventBus.emit(Block.EVENTS.INIT);
     }
 
-    _getChildrenAndProps(childrenAndProps: any | null) {
-        const props: Record<string, any> = {};
+    _getChildrenAndProps(childrenAndProps: Prop) {
+        let props: Record<string, any> = {};
         const children: Record<string, Block> = {};
 
         if (childrenAndProps)
@@ -56,7 +56,7 @@ class Block {
     }
 
     _addEvents() {
-        const {events = {}} = this.props as { events: Record<string, () => void> };
+        const {events = {}} = this.props;
         Object.keys(events).forEach(eventName => {
             if (this._classForEvent !== null)
                 this.getContent()!.querySelector('.' + this._classForEvent)!.addEventListener(eventName, events[eventName]);
@@ -102,17 +102,17 @@ class Block {
         Object.values(this.children).forEach(child => child.dispatchComponentDidMount());
     }
 
-    private _componentDidUpdate(oldProps: any, newProps: any) {
+    private _componentDidUpdate(oldProps: Prop, newProps: Prop) {
         if (this.componentDidUpdate(oldProps, newProps)) {
             this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
         }
     }
 
-    protected componentDidUpdate(oldProps: any, newProps: any) {
+    protected componentDidUpdate(oldProps: Prop, newProps: Prop) {
         return (oldProps !== newProps);
     }
 
-    setProps = (nextProps: any) => {
+    setProps = (nextProps: Prop) => {
         if (!nextProps) {
             return;
         }
