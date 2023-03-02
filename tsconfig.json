@@ -6,13 +6,13 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "sourceMap": true,
-    "module": "commonjs",
     "strictNullChecks": true,
+    "module": "commonjs",
     "skipLibCheck": true,
     "strict": true,
     "lib": [
       "ESNext",
-      "DOM",
+      "DOM"
     ]
   }
 }
