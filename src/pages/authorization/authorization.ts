@@ -41,7 +41,7 @@ class AuthorizationPage extends FormPage {
             label__text: 'Нет аккаунта?',
             events: {
                 click: () => {
-                    window.location.href = '../' + Navigation.registration;
+                    window.location.href = '../../' + Navigation.registration;
                 },
             },
         });

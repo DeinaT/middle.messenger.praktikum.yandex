@@ -31,12 +31,12 @@ class ChatPage extends Block {
             label__text: 'Настройки',
             events: {
                 click: () => {
-                    window.location.href = '../' + Navigation.information;
+                    window.location.href = '../../' + Navigation.information;
                 },
             },
         });
         (this.children.dialog_setting as DialogMenu).setCancelEvent(() => {
-            window.location.href = '../' + Navigation.authorization;
+            window.location.href = '../../' + Navigation.authorization;
         });
         (this.children.dialog_setting as DialogMenu).addSettingLink(linkSetting);
         this.getContent()!.querySelector('.div__menu-user')!.addEventListener('click', () => {

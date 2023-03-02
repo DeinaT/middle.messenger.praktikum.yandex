@@ -1,12 +1,12 @@
 export enum Navigation {
-    authorization = 'authorization/authorization.html',
-    information = 'information/information.html',
-    registration = 'registration/registration.html',
-    changes_data = 'changes/data/changes-data.html',
-    changes_password = 'changes/password/changes-password.html',
-    errors_404 = 'error/404/error_404.html',
-    errors_500 = 'error/500/error_500.html',
-    chats = 'chat/chat.html'
+    authorization = 'pages/authorization/authorization.html',
+    information = 'pages/information/information.html',
+    registration = 'pages/registration/registration.html',
+    changes_data = 'pages/changes/data/changes-data.html',
+    changes_password = 'pages/changes/password/changes-password.html',
+    errors_404 = 'pages/errors/err_404/error_404.html',
+    errors_500 = 'pages/errors/err_500/error_500.html',
+    chats = 'pages/chat/chat.html'
 }
 
 export default Navigation;

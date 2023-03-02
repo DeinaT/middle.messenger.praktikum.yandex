@@ -45,7 +45,7 @@ class RegistrationPage extends FormPage {
             label__text: 'Войти',
             events: {
                 click: () => {
-                    window.location.href = '../' + Navigation.authorization;
+                    window.location.href = '../../' + Navigation.authorization;
                 },
             },
         });

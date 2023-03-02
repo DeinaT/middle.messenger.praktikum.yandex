@@ -64,7 +64,7 @@ class InformationPage extends Block {
             button__state: 'neutral',
             events: {
                 click: () => {
-                    window.location.href = '../' + Navigation.changes_data;
+                    window.location.href = '../../' + Navigation.changes_data;
                 },
             },
         });
@@ -74,7 +74,7 @@ class InformationPage extends Block {
             button__state: 'neutral',
             events: {
                 click: () => {
-                    window.location.href = '../' + Navigation.changes_password;
+                    window.location.href = '../../' + Navigation.changes_password;
                 },
             },
         });
@@ -84,7 +84,7 @@ class InformationPage extends Block {
             button__state: 'neutral',
             events: {
                 click: () => {
-                    window.location.href = '../' + Navigation.chats;
+                    window.location.href = '../../' + Navigation.chats;
                 },
             },
         });
@@ -93,7 +93,7 @@ class InformationPage extends Block {
             button__state: 'negative',
             events: {
                 click: () => {
-                    window.location.href = '../' + Navigation.authorization;
+                    window.location.href = '../../' + Navigation.authorization;
                 },
             },
         });

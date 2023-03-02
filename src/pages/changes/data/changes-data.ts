@@ -27,7 +27,7 @@ class ChangeDataPage extends FormPage {
             button__state: 'neutral',
             events: {
                 click: () => {
-                    window.location.href = '../../' + Navigation.information;
+                    window.location.href = '../../../' + Navigation.information;
                 },
             },
         });
