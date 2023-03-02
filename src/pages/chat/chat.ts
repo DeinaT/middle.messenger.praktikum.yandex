@@ -72,7 +72,7 @@ class ChatPage extends Block {
         const chatPreView = new MessagePreview({
             message_user: chat.getUser(),
             message_text: lastMessage.text,
-            message_data: lastMessage.data,
+            message_data: lastMessage.mess,
             last_message_is_you: lastMessage.isYou,
             show_message_count: showUnreadableMessage,
             message_count: countUnreadableMessage,

@@ -3,7 +3,7 @@ import '../../../components/button/button.ts';
 import '../../../components/input/input.ts';
 import '../../../css/style.sass';
 import '../../../css/alert.sass';
-import image500 from '../../../../static/image/image_error_500.png';
+import image_500 from '../../../../static/image/image_error_500.png';
 import Block from '../../../utils/Block';
 import Button from '../../../components/button/button';
 
@@ -39,7 +39,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const error500 = document.querySelector('#error_500');
 
     const error500Page = new Error500Page({
-        image500
+        image_500
     });
     error500!.append(error500Page.getContent()!);
 

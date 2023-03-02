@@ -3,7 +3,7 @@ import '../../components/button/button.ts';
 import '../../components/input/input.ts';
 import '../../css/style.sass';
 import '../../css/icon_avatar.sass';
-import iconEmptyAvatar from '../../../static/icon/icon_empty_avatar.png';
+import icon_empty_avatar from '../../../static/icon/icon_empty_avatar.png';
 import Block from '../../utils/Block';
 import Input from '../../components/input/input';
 import Button from '../../components/button/button';
@@ -104,7 +104,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const information = document.querySelector('#information');
 
     const informationPage = new InformationPage({
-        iconEmptyAvatar,
+        icon_empty_avatar,
     });
     information!.append(informationPage.getContent()!);
 

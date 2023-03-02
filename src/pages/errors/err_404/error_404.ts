@@ -3,7 +3,7 @@ import '../../../components/button/button.ts';
 import '../../../components/input/input.ts';
 import '../../../css/style.sass';
 import '../../../css/alert.sass';
-import image404 from '../../../../static/image/image_error_404.png';
+import image_404 from '../../../../static/image/image_error_404.png';
 import Block from '../../../utils/Block';
 import Button from '../../../components/button/button';
 
@@ -39,7 +39,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const error404 = document.querySelector('#error_404');
 
     const error404Page = new Error404Page({
-        image404
+        image_404
     });
     error404!.append(error404Page.getContent()!);
 
