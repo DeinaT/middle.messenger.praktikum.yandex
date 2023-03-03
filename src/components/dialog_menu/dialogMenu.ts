@@ -1,6 +1,6 @@
-import Block from '../../utils/Block';
-import template from './dialog_menu.hbs';
-import './dialog_menu.sass';
+import Block from '../../utils/block';
+import template from './dialogMenu.hbs';
+import './dialogMenu.sass';
 import Label from '../label/label';
 
 interface DialogMenuProps {

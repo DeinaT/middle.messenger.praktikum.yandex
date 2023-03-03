@@ -1,6 +1,6 @@
-import Block from '../../utils/Block';
-import template from './dialog_select_file.hbs';
-import './dialog_select_file.sass';
+import Block from '../../utils/block';
+import template from './dialogSelectFile.hbs';
+import './dialogSelectFile.sass';
 import Label from '../label/label';
 import Button from '../button/button';
 

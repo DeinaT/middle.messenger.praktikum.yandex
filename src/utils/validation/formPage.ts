@@ -1,5 +1,5 @@
 import Input from '../../components/input/input';
-import Block from '../Block';
+import Block from '../block';
 
 interface FormProps {
     checkInput?: Array<Input>,

@@ -2,17 +2,17 @@ import template from './chat.hbs';
 import '../../css/style.sass';
 import '../../css/chat.sass';
 import '../../css/menu.sass';
-import Block from '../../utils/Block';
-import ArrayChats from '../../objects/ArrayChats';
-import Chat from '../../objects/Chat';
+import Block from '../../utils/block';
+import ArrayChats from '../../objects/arrayChats';
+import Chat from '../../objects/chat';
 import iconRocket from '../../../static/icon/icon_rocket.png';
 import FindInput from '../../components/find/find';
 import Label from '../../components/label/label';
-import DialogMenu from '../../components/dialog_menu/dialog_menu';
-import MessagePreview from '../../components/message_preview/message_preview';
-import Message from '../../objects/Message';
-import MessageList from '../../components/message_list/message_list';
-import Navigation from '../../utils/Navigation';
+import DialogMenu from '../../components/dialog_menu/dialogMenu';
+import MessagePreview from '../../components/message_preview/messagePreview';
+import Message from '../../objects/message';
+import MessageList from '../../components/message_list/messageList';
+import Navigation from '../../utils/navigation';
 
 interface ChatProps {
     icon_rocket: object,

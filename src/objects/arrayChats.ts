@@ -1,5 +1,5 @@
-import Chat from './Chat';
-import Message from './Message';
+import Chat from './chat';
+import Message from './message';
 
 export class ArrayChats {
     public static getArrayChats(): Array<Chat> {

@@ -1,5 +1,5 @@
 import Input from '../../components/input/input';
-import Validation from './Validation';
+import Validation from './validation';
 
 export class ConstructionDefault {
     public static getDefaultEmailInput(_codeWordEvent?: string): Input {

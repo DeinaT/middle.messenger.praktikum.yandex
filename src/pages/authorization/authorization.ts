@@ -3,11 +3,11 @@ import template from './authorization.hbs';
 import Input from '../../components/input/input';
 import Button from '../../components/button/button';
 import Label from '../../components/label/label';
-import Navigation from '../../utils/Navigation';
-import ConstructionDefault from '../../utils/validation/ConstructionDefault';
-import Validation from '../../utils/validation/Validation';
-import FormPage from '../../utils/validation/FormPage';
-import UserAuthorization from '../../objects/UserAuthorization';
+import Navigation from '../../utils/navigation';
+import ConstructionDefault from '../../utils/validation/constructionDefault';
+import Validation from '../../utils/validation/validation';
+import FormPage from '../../utils/validation/formPage';
+import UserAuthorization from '../../objects/userAuthorization';
 
 class AuthorizationPage extends FormPage {
     constructor() {
@@ -30,11 +30,6 @@ class AuthorizationPage extends FormPage {
             button__text: 'Войти',
             button__state: 'neutral',
             button__type: 'submit',
-            events: {
-                click: () => {
-                    // todo validate
-                },
-            },
         });
 
         this.children.label_reg = new Label({
@@ -48,7 +43,7 @@ class AuthorizationPage extends FormPage {
 
         this.children.label_reg.getContent()!.style.marginTop = '15px';
 
-        this.setClassForEvent('for_event');
+        this.setClassForEvent('for_event_form');
 
         this.props.checkInput = [
             this.children.input_login,

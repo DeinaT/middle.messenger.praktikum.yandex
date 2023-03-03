@@ -1,5 +1,5 @@
 import './button.sass';
-import Block from '../../utils/Block';
+import Block from '../../utils/block';
 import template from './button.hbs';
 
 interface ButtonProps {

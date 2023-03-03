@@ -5,11 +5,11 @@ import '../../css/style.sass';
 import Input from '../../components/input/input';
 import Button from '../../components/button/button';
 import Label from '../../components/label/label';
-import Navigation from '../../utils/Navigation';
-import Validation from '../../utils/validation/Validation';
-import UserRegistration from '../../objects/UserRegistration';
-import ConstructionDefault from '../../utils/validation/ConstructionDefault';
-import FormPage from '../../utils/validation/FormPage';
+import Navigation from '../../utils/navigation';
+import Validation from '../../utils/validation/validation';
+import UserRegistration from '../../objects/userRegistration';
+import ConstructionDefault from '../../utils/validation/constructionDefault';
+import FormPage from '../../utils/validation/formPage';
 
 class RegistrationPage extends FormPage {
     constructor() {
@@ -57,7 +57,7 @@ class RegistrationPage extends FormPage {
             button__type: 'submit',
         });
 
-        this.setClassForEvent('for_event');
+        this.setClassForEvent('for_event_form');
 
         this.props.checkInput = [
             this.children.input_email,

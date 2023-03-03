@@ -1,15 +1,15 @@
-import './message_list.sass';
-import '../message_item/message_item.sass';
-import Block from '../../utils/Block';
-import template from './message_list.hbs';
+import './messageList.sass';
+import '../message_item/messageItem.sass';
+import Block from '../../utils/block';
+import template from './messageList.hbs';
 import iconSetting from '../../../static/icon/icon_setting.png';
 import iconAddObject from '../../../static/icon/icon_add_object.png';
 import iconSendMess from '../../../static/icon/icon_send_mess.png';
-import Message from '../../objects/Message';
-import MessageItem from '../message_item/message_item';
-import DialogMenu from '../dialog_menu/dialog_menu';
+import Message from '../../objects/message';
+import MessageItem from '../message_item/messageItem';
+import DialogMenu from '../dialog_menu/dialogMenu';
 import Label from '../label/label';
-import DialogAsk from '../dialog_ask/dialog_ask';
+import DialogAsk from '../dialog_ask/dialogAsk';
 
 interface MessageListProps {
     chat_user: string;

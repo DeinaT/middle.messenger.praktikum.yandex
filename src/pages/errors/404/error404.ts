@@ -1,18 +1,18 @@
-import template from './error_500.hbs';
+import template from './error404.hbs';
 import '../../../components/button/button.ts';
 import '../../../components/input/input.ts';
 import '../../../css/style.sass';
 import '../../../css/alert.sass';
-import image_500 from '../../../../static/image/image_error_500.png';
-import Block from '../../../utils/Block';
+import image404 from '../../../../static/image/image_error_404.png';
+import Block from '../../../utils/block';
 import Button from '../../../components/button/button';
 
-interface Error500Props {
-    image_500: object;
+interface Error404Props {
+    image404: object;
 }
 
-class Error500Page extends Block {
-    constructor(props: Error500Props) {
+class Error404Page extends Block {
+    constructor(props: Error404Props) {
         super('main', props);
     }
 
@@ -36,12 +36,12 @@ class Error500Page extends Block {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-    const error500 = document.querySelector('#error_500');
+    const error404 = document.querySelector('#error_404');
 
-    const error500Page = new Error500Page({
-        image_500
+    const error404Page = new Error404Page({
+        image404
     });
-    error500!.append(error500Page.getContent()!);
+    error404!.append(error404Page.getContent()!);
 
-    error500Page.dispatchComponentDidMount();
+    error404Page.dispatchComponentDidMount();
 });

@@ -1,14 +1,14 @@
-import template from './changes-password.hbs';
+import template from './password.hbs';
 import '../../../components/button/button.ts';
 import '../../../components/input/input.ts';
 import '../../../css/style.sass';
 import Input from '../../../components/input/input';
 import Button from '../../../components/button/button';
-import ConstructionDefault from '../../../utils/validation/ConstructionDefault';
-import Validation from '../../../utils/validation/Validation';
-import FormPage from '../../../utils/validation/FormPage';
-import UserPassword from '../../../objects/UserPassword';
-import Navigation from '../../../utils/Navigation';
+import ConstructionDefault from '../../../utils/validation/constructionDefault';
+import Validation from '../../../utils/validation/validation';
+import FormPage from '../../../utils/validation/formPage';
+import UserPassword from '../../../objects/userPassword';
+import Navigation from '../../../utils/navigation';
 
 class ChangePasswordPage extends FormPage {
     constructor() {
@@ -57,7 +57,7 @@ class ChangePasswordPage extends FormPage {
         this.children.button_cancel.getContent()!.style.width = '45%';
         this.children.button_save.getContent()!.style.width = '45%';
 
-        this.setClassForEvent('for_event');
+        this.setClassForEvent('for_event_form');
 
         this.props.checkInput = [
             this.children.input_old_password,

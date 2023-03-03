@@ -1,10 +1,10 @@
-import template from './changes-data.hbs';
+import template from './data.hbs';
 import '../../../css/style.sass';
 import Button from '../../../components/button/button';
-import ConstructionDefault from '../../../utils/validation/ConstructionDefault';
-import FormPage from '../../../utils/validation/FormPage';
-import UserData from '../../../objects/UserData';
-import Navigation from '../../../utils/Navigation';
+import ConstructionDefault from '../../../utils/validation/constructionDefault';
+import FormPage from '../../../utils/validation/formPage';
+import UserData from '../../../objects/userData';
+import Navigation from '../../../utils/navigation';
 
 class ChangeDataPage extends FormPage {
     constructor() {
@@ -40,7 +40,7 @@ class ChangeDataPage extends FormPage {
         this.children.button_cancel.getContent()!.style.width = '45%';
         this.children.button_save.getContent()!.style.width = '45%';
 
-        this.setClassForEvent('for_event');
+        this.setClassForEvent('for_event_form');
 
         this.props.checkInput = [
             this.children.input_email,

@@ -1,6 +1,6 @@
-import './message_item.sass';
-import Block from '../../utils/Block';
-import template from './message_item.hbs';
+import './messageItem.sass';
+import Block from '../../utils/block';
+import template from './messageItem.hbs';
 
 interface MessageItemProps {
     message_text: string;

@@ -1,6 +1,6 @@
-import Block from '../../utils/Block';
-import template from './dialog_ask.hbs';
-import './dialog_ask.sass';
+import Block from '../../utils/block';
+import template from './dialogAsk.hbs';
+import './dialogAsk.sass';
 import Button from '../button/button';
 import Input from '../input/input';
 

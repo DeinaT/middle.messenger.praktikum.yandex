@@ -1,8 +1,8 @@
-import Block from '../../utils/Block';
+import Block from '../../utils/block';
 import template from './nav.hbs';
 import './nav.sass';
 import Button from '../button/button';
-import Navigation from '../../utils/Navigation';
+import Navigation from '../../utils/navigation';
 
 export class Nav extends Block {
     constructor() {

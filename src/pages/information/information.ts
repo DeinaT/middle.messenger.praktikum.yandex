@@ -4,11 +4,11 @@ import '../../components/input/input.ts';
 import '../../css/style.sass';
 import '../../css/icon_avatar.sass';
 import icon_empty_avatar from '../../../static/icon/icon_empty_avatar.png';
-import Block from '../../utils/Block';
+import Block from '../../utils/block';
 import Input from '../../components/input/input';
 import Button from '../../components/button/button';
-import DialogSelectFile from '../../components/dialog_select_file/dialog_select_file';
-import Navigation from '../../utils/Navigation';
+import DialogSelectFile from '../../components/dialog_select_file/dialogSelectFile';
+import Navigation from '../../utils/navigation';
 
 interface InformationProps {
     icon_empty_avatar: object;

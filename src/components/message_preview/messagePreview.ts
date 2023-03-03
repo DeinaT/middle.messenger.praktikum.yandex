@@ -1,6 +1,6 @@
-import './message_preview.sass'
-import Block from '../../utils/Block';
-import template from './message_preview.hbs';
+import './messagePreview.sass'
+import Block from '../../utils/block';
+import template from './messagePreview.hbs';
 
 interface MessagePreviewProps {
     message_user: string;
