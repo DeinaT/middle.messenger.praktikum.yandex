@@ -22,9 +22,13 @@ class InformationPage extends Block {
 
         const root = window.document.querySelector('body');
         root!.append(dialogSelectFile.getContent()!);
-        this.getContent()!.querySelector('#avatar')!.addEventListener('click', () => {
-            dialogSelectFile.show();
-        });
+
+        this.setClassForEvent('for_event');
+        this.props.events = {
+            click: () => {
+                dialogSelectFile.show();
+            }
+        };
     }
 
     init() {
@@ -88,7 +92,7 @@ class InformationPage extends Block {
                 },
             },
         });
-        this.children.button_out = new Button({
+        this.children.buttonOut = new Button({
             buttonText: 'Выйти',
             buttonState: 'negative',
             events: {
@@ -101,7 +105,7 @@ class InformationPage extends Block {
         this.children.button_change_data.getContent()!.style.width = '45%';
         this.children.button_change_password.getContent()!.style.width = '45%';
         this.children.buttonBack.getContent()!.style.width = '45%';
-        this.children.button_out.getContent()!.style.width = '45%';
+        this.children.buttonOut.getContent()!.style.width = '45%';
     }
 
     render() {
