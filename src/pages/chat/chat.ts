@@ -39,9 +39,13 @@ class ChatPage extends Block {
             window.location.href = '../../' + Navigation.authorization;
         });
         (this.children.dialogSetting as DialogMenu).addSettingLink(linkSetting);
-        this.getContent()!.querySelector('.div__menu-user')!.addEventListener('click', () => {
-            this.showSetting();
-        });
+
+        this.setClassForEvent('for_event');
+        this.props.events = {
+            click: () => {
+                this.showSetting();
+            }
+        };
     }
 
     private showSetting(): void {
