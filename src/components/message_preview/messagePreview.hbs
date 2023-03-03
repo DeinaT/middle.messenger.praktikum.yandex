@@ -1,0 +1,14 @@
+<div style="{{ styleWidth }}" class="message_preview__group">
+    <div class="div__show-avatar" name="avatar"></div>
+    <div class="div__message_preview__text">
+        <h5>{{ messageUser }}</h5>
+        <p class="p__message_preview__text">
+            {{#if lastMessageIsYou}}<span class="is-you">Вы:</span>{{/if}}
+            {{ messageText }}
+        </p>
+    </div>
+    <div class="div__message_preview__info">
+        <p class="p__message_preview__data">{{ messagedata }}</p>
+        <p class="p__message_preview__count {{#if showMessageCount}}show{{/if}}">{{ messageCount }}</p>
+    </div>
+</div>

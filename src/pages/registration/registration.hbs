@@ -1,21 +1,18 @@
-<main>
-    <form style="display: flex;justify-content: center;flex-direction: column;">
-        <div style="height: 80%" class="div__form-input">
-            <h1 style="margin-top: 100px">Регистрация</h1>
+<form class="for_event_form" style="display: flex;justify-content: center;flex-direction: column;" action="#">
+    <div style="height: 80%" class="div__form-input">
+        <h1 style="margin-top: 100px">Регистрация</h1>
 
-            {{> input input__value="" type_name="email" input__placeholder="Почта"}}
-            {{> input input__value="" type_name="login" input__placeholder="Логин"}}
-            {{> input input__value="" type_name="first_name" input__placeholder="Имя"}}
-            {{> input input__value="" type_name="second_name" input__placeholder="Фамилия"}}
-            {{> input input__value="" type_name="phone" input__placeholder="Телефон"}}
-            {{> input input__value="" type_name="password" input__placeholder="Пароль" input__is-password=true}}
-            {{> input input__value="" type_name="email_repead" input__placeholder="Пароль (еще раз)" input__is-password=true}}
-        </div>
+        {{{ inputEmail }}}
+        {{{ inputLogin }}}
+        {{{ inputFirstName }}}
+        {{{ inputSecondName }}}
+        {{{ inputPhone }}}
+        {{{ inputPassword }}}
+        {{{ inputPasswordRepeat }}}
+    </div>
 
-        <div style="margin-top: 50px;height: 30%" class="div__form-input">
-            {{> button button__state="neutral" button_type="submit" button__text="Зарегистрироваться"}}
-            <label style="margin-top: 15px" class="div__form-input__label"
-                   href="src/pages/authorization/authorization.html">Войти</label>
-        </div>
-    </form>
-</main>
+    <div style="margin-top: 50px;height: 30%" class="div__form-input">
+        {{{ button }}}
+        {{{ labelEntry }}}
+    </div>
+</form>
