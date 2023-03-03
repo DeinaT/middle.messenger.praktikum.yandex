@@ -19,29 +19,29 @@ class ChangePasswordPage extends FormPage {
     }
 
     init() {
-        this.children.input_old_password = ConstructionDefault.getDefaultPasswordInput(
+        this.children.inputOldPassword = ConstructionDefault.getDefaultPasswordInput(
             'old_password',
             'Старый пароль',
-            () => Validation.isEmptyInput(this.children.input_old_password as Input),
+            () => Validation.isEmptyInput(this.children.inputOldPassword as Input),
         );
 
-        this.children.input_new_password = ConstructionDefault.getDefaultPasswordInput(
+        this.children.inputNewPassword = ConstructionDefault.getDefaultPasswordInput(
             'password',
             'Новый пароль',
-            () => Validation.checkFirstPassword(this.children.input_new_password as Input,
-                this.children.input_new_password_repeat as Input),
+            () => Validation.checkFirstPassword(this.children.inputNewPassword as Input,
+                this.children.inputNewPasswordRepeat as Input),
         );
 
-        this.children.input_new_password_repeat = ConstructionDefault.getDefaultPasswordInput(
+        this.children.inputNewPasswordRepeat = ConstructionDefault.getDefaultPasswordInput(
             'password_repeat',
             'Повторите новый пароль',
-            () => Validation.checkTwoPassword(this.children.input_new_password as Input,
-                this.children.input_new_password_repeat as Input),
+            () => Validation.checkTwoPassword(this.children.inputNewPassword as Input,
+                this.children.inputNewPasswordRepeat as Input),
         );
 
-        this.children.button_cancel = new Button({
-            button__text: 'Отмена',
-            button__state: 'neutral',
+        this.children.buttonCancel = new Button({
+            buttonText: 'Отмена',
+            buttonState: 'neutral',
             events: {
                 click: () => {
                     window.location.href = '../../../' + Navigation.information;
@@ -49,19 +49,19 @@ class ChangePasswordPage extends FormPage {
             },
         });
 
-        this.children.button_save = new Button({
-            button__text: 'Сохранить',
-            button__state: 'positive',
-            button__type: 'submit',
+        this.children.buttonSave = new Button({
+            buttonText: 'Сохранить',
+            buttonState: 'positive',
+            buttonType: 'submit',
         });
-        this.children.button_cancel.getContent()!.style.width = '45%';
-        this.children.button_save.getContent()!.style.width = '45%';
+        this.children.buttonCancel.getContent()!.style.width = '45%';
+        this.children.buttonSave.getContent()!.style.width = '45%';
 
         this.setClassForEvent('for_event_form');
 
         this.props.checkInput = [
-            this.children.input_old_password,
-            this.children.input_new_password,
+            this.children.inputOldPassword,
+            this.children.inputNewPassword,
         ];
     }
 

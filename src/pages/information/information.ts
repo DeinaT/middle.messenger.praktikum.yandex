@@ -29,39 +29,39 @@ class InformationPage extends Block {
 
     init() {
         // Классы только для отображения!
-        this.children.input_email = new Input({
-            input__name: 'email',
-            input__placeholder: 'Почта',
+        this.children.inputEmail = new Input({
+            inputName: 'email',
+            inputPlaceholder: 'Почта',
         });
 
-        this.children.input_login = new Input({
-            input__name: 'login',
-            input__placeholder: 'Логин',
+        this.children.inputLogin = new Input({
+            inputName: 'login',
+            inputPlaceholder: 'Логин',
         });
 
-        this.children.input_first_name = new Input({
-            input__name: 'first_name',
-            input__placeholder: 'Имя',
+        this.children.inputFirstName = new Input({
+            inputName: 'first_name',
+            inputPlaceholder: 'Имя',
         });
 
-        this.children.input_second_name = new Input({
-            input__name: 'second_name',
-            input__placeholder: 'Фамилия',
+        this.children.inputSecondName = new Input({
+            inputName: 'second_name',
+            inputPlaceholder: 'Фамилия',
         });
 
-        this.children.input_phone = new Input({
-            input__name: 'phone',
-            input__placeholder: 'Телефон',
+        this.children.inputPhone = new Input({
+            inputName: 'phone',
+            inputPlaceholder: 'Телефон',
         });
 
-        this.children.input_display_name = new Input({
-            input__name: 'display_name',
-            input__placeholder: 'Имя в чате',
+        this.children.inputDisplayName = new Input({
+            inputName: 'display_name',
+            inputPlaceholder: 'Имя в чате',
         });
 
         this.children.button_change_data = new Button({
-            button__text: 'Изменть настройки',
-            button__state: 'neutral',
+            buttonText: 'Изменть настройки',
+            buttonState: 'neutral',
             events: {
                 click: () => {
                     window.location.href = '../../' + Navigation.changes_data;
@@ -70,8 +70,8 @@ class InformationPage extends Block {
         });
 
         this.children.button_change_password = new Button({
-            button__text: 'Изменть пароль',
-            button__state: 'neutral',
+            buttonText: 'Изменть пароль',
+            buttonState: 'neutral',
             events: {
                 click: () => {
                     window.location.href = '../../' + Navigation.changes_password;
@@ -79,9 +79,9 @@ class InformationPage extends Block {
             },
         });
 
-        this.children.button_back = new Button({
-            button__text: 'Назад',
-            button__state: 'neutral',
+        this.children.buttonBack = new Button({
+            buttonText: 'Назад',
+            buttonState: 'neutral',
             events: {
                 click: () => {
                     window.location.href = '../../' + Navigation.chats;
@@ -89,8 +89,8 @@ class InformationPage extends Block {
             },
         });
         this.children.button_out = new Button({
-            button__text: 'Выйти',
-            button__state: 'negative',
+            buttonText: 'Выйти',
+            buttonState: 'negative',
             events: {
                 click: () => {
                     window.location.href = '../../' + Navigation.authorization;
@@ -100,7 +100,7 @@ class InformationPage extends Block {
 
         this.children.button_change_data.getContent()!.style.width = '45%';
         this.children.button_change_password.getContent()!.style.width = '45%';
-        this.children.button_back.getContent()!.style.width = '45%';
+        this.children.buttonBack.getContent()!.style.width = '45%';
         this.children.button_out.getContent()!.style.width = '45%';
     }
 

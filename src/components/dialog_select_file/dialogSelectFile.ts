@@ -17,20 +17,20 @@ export class DialogSelectFile extends Block {
     }
 
     init() {
-        this.children.label__info = new Label({
-            label__text: 'Выбрать файл',
+        this.children.labelInfo = new Label({
+            labelText: 'Выбрать файл',
             events: {
                 click: () => {
                     this.importData();
                 }
             },
         });
-        this.children.label__info.getContent()!.style.marginTop = "20px"
-        this.children.label__info.getContent()!.style.marginBottom = "20px"
+        this.children.labelInfo.getContent()!.style.marginTop = "20px"
+        this.children.labelInfo.getContent()!.style.marginBottom = "20px"
 
-        this.children.button__add = new Button({
-            button__text: 'Изменить',
-            button__state: 'positive',
+        this.children.buttonAdd = new Button({
+            buttonText: 'Изменить',
+            buttonState: 'positive',
             events: {
                 click: () => {
                     if (this.selectFile !== null)
@@ -39,12 +39,12 @@ export class DialogSelectFile extends Block {
             },
         });
 
-        this.children.button__add.getContent()!.style.marginTop = '20px';
-        this.children.button__add.getContent()!.style.width = '80%';
+        this.children.buttonAdd.getContent()!.style.marginTop = '20px';
+        this.children.buttonAdd.getContent()!.style.width = '80%';
 
-        this.children.button__cancel = new Button({
-            button__text: 'Отмена',
-            button__state: 'neutral',
+        this.children.buttonCancel = new Button({
+            buttonText: 'Отмена',
+            buttonState: 'neutral',
             events: {
                 click: () => {
                     this.hide();
@@ -52,8 +52,8 @@ export class DialogSelectFile extends Block {
             },
         });
 
-        this.children.button__cancel.getContent()!.style.marginTop = '20px';
-        this.children.button__cancel.getContent()!.style.width = '80%';
+        this.children.buttonCancel.getContent()!.style.marginTop = '20px';
+        this.children.buttonCancel.getContent()!.style.width = '80%';
         this.getContent()!.style.display = 'none';
     }
 
@@ -64,7 +64,7 @@ export class DialogSelectFile extends Block {
             if (input.files!.length === 1) {
                 // @ts-ignore // из-за проверки выше всегда будет 1 элемент // в последующих спринтах это измениться
                 this.selectFile = input.files[0];
-                this.children.label__info.setProps({label__text: this.selectFile.name});
+                this.children.labelInfo.setProps({labelText: this.selectFile.name});
             }
         };
         input.click();

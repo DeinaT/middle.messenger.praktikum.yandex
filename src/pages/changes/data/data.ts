@@ -15,16 +15,16 @@ class ChangeDataPage extends FormPage {
     }
 
     init() {
-        this.children.input_email = ConstructionDefault.getDefaultEmailInput();
-        this.children.input_login = ConstructionDefault.getDefaultNotEmptyInput('login', 'Логин');
-        this.children.input_first_name = ConstructionDefault.getDefaultNotEmptyInput('first_name', 'Имя');
-        this.children.input_second_name = ConstructionDefault.getDefaultNotEmptyInput('second_name', 'Фамилия');
-        this.children.input_phone = ConstructionDefault.getDefaultTelephoneInput();
-        this.children.input_display_name = ConstructionDefault.getDefaultNotEmptyInput('display_name', 'Имя в чате');
+        this.children.inputEmail = ConstructionDefault.getDefaultEmailInput();
+        this.children.inputLogin = ConstructionDefault.getDefaultNotEmptyInput('login', 'Логин');
+        this.children.inputFirstName = ConstructionDefault.getDefaultNotEmptyInput('first_name', 'Имя');
+        this.children.inputSecondName = ConstructionDefault.getDefaultNotEmptyInput('second_name', 'Фамилия');
+        this.children.inputPhone = ConstructionDefault.getDefaultTelephoneInput();
+        this.children.inputDisplayName = ConstructionDefault.getDefaultNotEmptyInput('display_name', 'Имя в чате');
 
-        this.children.button_cancel = new Button({
-            button__text: 'Отмена',
-            button__state: 'neutral',
+        this.children.buttonCancel = new Button({
+            buttonText: 'Отмена',
+            buttonState: 'neutral',
             events: {
                 click: () => {
                     window.location.href = '../../../' + Navigation.information;
@@ -32,23 +32,23 @@ class ChangeDataPage extends FormPage {
             },
         });
 
-        this.children.button_save = new Button({
-            button__text: 'Сохранить',
-            button__state: 'positive',
-            button__type: 'submit',
+        this.children.buttonSave = new Button({
+            buttonText: 'Сохранить',
+            buttonState: 'positive',
+            buttonType: 'submit',
         });
-        this.children.button_cancel.getContent()!.style.width = '45%';
-        this.children.button_save.getContent()!.style.width = '45%';
+        this.children.buttonCancel.getContent()!.style.width = '45%';
+        this.children.buttonSave.getContent()!.style.width = '45%';
 
         this.setClassForEvent('for_event_form');
 
         this.props.checkInput = [
-            this.children.input_email,
-            this.children.input_login,
-            this.children.input_first_name,
-            this.children.input_second_name,
-            this.children.input_phone,
-            this.children.input_display_name,
+            this.children.inputEmail,
+            this.children.inputLogin,
+            this.children.inputFirstName,
+            this.children.inputSecondName,
+            this.children.inputPhone,
+            this.children.inputDisplayName,
         ];
     }
 

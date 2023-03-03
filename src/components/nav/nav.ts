@@ -10,8 +10,8 @@ export class Nav extends Block {
 
         Object.values(Navigation).forEach((item: Navigation) => {
             const but = new Button({
-                button__text: item,
-                button__state: 'neutral',
+                buttonText: item,
+                buttonState: 'neutral',
                 events: {
                     click: () => {
                         window.location.href = item;

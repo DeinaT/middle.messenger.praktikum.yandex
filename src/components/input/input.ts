@@ -3,12 +3,12 @@ import Block from '../../utils/block';
 import template from './input.hbs';
 
 interface InputProps {
-    input__name: string;
-    input__value?: string;
-    input__placeholder: string;
-    input__error?: string;
-    input__is_password?: boolean;
-    input__display_error?: boolean;
+    inputName: string;
+    inputValue?: string;
+    inputPlaceholder: string;
+    inputError?: string;
+    inputIsPassword?: boolean;
+    inputDisplayError?: boolean;
 
     events?: {
         blur?: () => void;
@@ -18,32 +18,32 @@ interface InputProps {
 
 class Input extends Block {
     constructor(props: InputProps) {
-        props.input__value = '';
+        props.inputValue = '';
         super('div', props);
         super.addInnerClass('input-group');
         this.getValue.bind(this.getValue);
     }
 
     public getValue(): string {
-        this.props.input__value = this.getContent()!.querySelector('input')!.value;
-        return this.props.input__value;
+        this.props.inputValue = this.getContent()!.querySelector('input')!.value;
+        return this.props.inputValue;
     }
 
     public setError(_message?: string): void {
         if (_message !== undefined) {
-            this.props.input__error = _message;
+            this.props.inputError = _message;
         }
-        this.props.input__display_error = true;
+        this.props.inputDisplayError = true;
     }
 
     public clearError(): void {
-        if (this.props.input__display_error) {
-            this.props.input__display_error = false;
+        if (this.props.inputDisplayError) {
+            this.props.inputDisplayError = false;
         }
     }
 
     public isValid(): boolean {
-        return !this.props.input__display_error;
+        return !this.props.inputDisplayError;
     }
 
     render(): DocumentFragment {

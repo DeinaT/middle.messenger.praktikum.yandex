@@ -1,6 +1,6 @@
-<input name="{{input__name}}" type="{{#if input__is_password}}password{{else}}text{{/if}}"
-       class="for_event input-value {{#if input__display_error}}valid-error{{/if}}"
-        required value="{{ input__value }}"/>
-<label class="input-placeholder">{{ input__placeholder }}</label>
-<label style="{{#if input__display_error}}display: block;{{else}}display: none;{{/if}}"
-       class="input-error">{{ input__error }}</label>
+<input name="{{inputName}}" type="{{#if inputIsPassword}}password{{else}}text{{/if}}"
+       class="for_event input-value {{#if inputDisplayError}}valid-error{{/if}}"
+        required value="{{ inputValue }}"/>
+<label class="input-placeholder">{{ inputPlaceholder }}</label>
+<label style="{{#if inputDisplayError}}display: block;{{else}}display: none;{{/if}}"
+       class="input-error">{{ inputError }}</label>

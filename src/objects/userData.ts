@@ -1,4 +1,5 @@
 export class UserData {
+    // по заданию надо отправлять по такой структуре, поэтому не camelCase
     email: string | undefined;
 
     login: string | undefined;

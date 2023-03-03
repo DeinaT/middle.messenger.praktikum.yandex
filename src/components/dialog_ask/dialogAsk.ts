@@ -6,11 +6,11 @@ import Input from '../input/input';
 
 interface DialogAskProps {
     title: string;
-    input_placeholder: string;
-    button_add_text: string;
-    button_add_type: string;
-    button_cancel_text: string;
-    button_add_function: (input_value: string) => void;
+    inputPlaceholder: string;
+    buttonAddText: string;
+    buttonAddType: string;
+    buttonCancelText: string;
+    buttonAddFunction: (input_value: string) => void;
 }
 
 export class DialogAsk extends Block {
@@ -20,27 +20,27 @@ export class DialogAsk extends Block {
     }
 
     init() {
-        this.children.input__info = new Input({
-            input__name: 'input_value',
-            input__placeholder: this.props.input_placeholder,
+        this.children.inputInfo = new Input({
+            inputName: 'input_value',
+            inputPlaceholder: this.props.inputPlaceholder,
         });
 
-        this.children.button__add = new Button({
-            button__text: this.props.button_add_text,
-            button__state: this.props.button_add_type,
+        this.children.buttonAdd = new Button({
+            buttonText: this.props.buttonAddText,
+            buttonState: this.props.buttonAddType,
             events: {
                 click: () => {
-                    this.props.button_add_function((this.children.input__info as Input).getValue());
+                    this.props.buttonAddFunction((this.children.input__info as Input).getValue());
                 },
             },
         });
 
-        this.children.button__add.getContent()!.style.marginTop = '20px';
-        this.children.button__add.getContent()!.style.width = '80%';
+        this.children.buttonAdd.getContent()!.style.marginTop = '20px';
+        this.children.buttonAdd.getContent()!.style.width = '80%';
 
-        this.children.button__cancel = new Button({
-            button__text: this.props.button_cancel_text,
-            button__state: 'neutral',
+        this.children.buttonCancel = new Button({
+            buttonText: this.props.buttonCancelText,
+            buttonState: 'neutral',
             events: {
                 click: () => {
                     this.hide();
@@ -48,8 +48,8 @@ export class DialogAsk extends Block {
             },
         });
 
-        this.children.button__cancel.getContent()!.style.marginTop = '20px';
-        this.children.button__cancel.getContent()!.style.width = '80%';
+        this.children.buttonCancel.getContent()!.style.marginTop = '20px';
+        this.children.buttonCancel.getContent()!.style.width = '80%';
         this.getContent()!.style.display = 'none';
     }
 

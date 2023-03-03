@@ -4,28 +4,28 @@ import './dialogMenu.sass';
 import Label from '../label/label';
 
 interface DialogMenuProps {
-    link_labels?: Array<Label>,
-    exit_label: Label,
+    linkLabels?: Array<Label>,
+    exitLabel: Label,
 }
 
 export class DialogMenu extends Block {
     constructor(props: DialogMenuProps) {
         super('div', props);
-        if (this.props.link_labels === undefined) {
-            this.props.link_labels = [];
+        if (this.props.linkLabels === undefined) {
+            this.props.linkLabels = [];
         }
         super.addInnerClass('div__for_dialog__menu');
-        this.children.exit_label.addInnerClass('cancel');
+        this.children.exitLabel.addInnerClass('cancel');
         this.getContent()!.style.display = 'none';
     }
 
     public addSettingLink(link: Label) {
-        this.props.link_labels.push(link);
+        this.props.linkLabels.push(link);
         this.getContent()!.querySelector('.all_links')!.append(link.getContent()!);
     }
 
     public setCancelEvent(cancelFun: () => void): void {
-        (this.children.exit_label as Label).setClickEvent(cancelFun);
+        (this.children.exitLabel as Label).setClickEvent(cancelFun);
     }
 
     render() {

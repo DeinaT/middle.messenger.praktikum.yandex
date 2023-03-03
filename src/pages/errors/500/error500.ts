@@ -8,7 +8,7 @@ import Block from '../../../utils/block';
 import Button from '../../../components/button/button';
 
 interface Error500Props {
-    image_500: object;
+    image500: object;
 }
 
 class Error500Page extends Block {
@@ -17,9 +17,9 @@ class Error500Page extends Block {
     }
 
     init() {
-        this.children.button_back = new Button({
-            button__text: 'Назад к чатам',
-            button__state: 'neutral',
+        this.children.buttonBack = new Button({
+            buttonText: 'Назад к чатам',
+            buttonState: 'neutral',
             events: {
                 click: () => {
                     // todo validate
@@ -27,7 +27,7 @@ class Error500Page extends Block {
             },
         });
 
-        this.children.button_back.getContent()!.style.marginTop = '170px';
+        this.children.buttonBack.getContent()!.style.marginTop = '170px';
     }
 
     render() {

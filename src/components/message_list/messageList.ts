@@ -12,11 +12,11 @@ import Label from '../label/label';
 import DialogAsk from '../dialog_ask/dialogAsk';
 
 interface MessageListProps {
-    chat_user: string;
-    all_message: Array<Message>;
-    icon_setting?: object;
-    icon_add_object?: object;
-    icon_send_mess?: object;
+    chatUser: string;
+    allMessage: Array<Message>;
+    iconSetting?: object;
+    iconAddObject?: object;
+    iconSendMess?: object;
 }
 
 export class MessageList extends Block {
@@ -25,9 +25,9 @@ export class MessageList extends Block {
     private dialogControl: DialogMenu | null = null;
 
     constructor(props: MessageListProps) {
-        props.icon_send_mess = iconSendMess;
-        props.icon_setting = iconSetting;
-        props.icon_add_object = iconAddObject;
+        props.iconSendMess = iconSendMess;
+        props.iconSetting = iconSetting;
+        props.iconAddObject = iconAddObject;
         super('div', props);
         this.initDialogAskAdd();
         this.initDialogAskDelete();
@@ -39,11 +39,11 @@ export class MessageList extends Block {
     private initDialogAskAdd(): void {
         this.dialogAddUser = new DialogAsk({
             title: 'Добавить пользователя',
-            button_cancel_text: 'Отмена',
-            button_add_text: 'Добавить пользователя',
-            input_placeholder: 'Пользователь',
-            button_add_type: 'positive',
-            button_add_function: (input_value) => {
+            buttonCancelText: 'Отмена',
+            buttonAddText: 'Добавить пользователя',
+            inputPlaceholder: 'Пользователь',
+            buttonAddType: 'positive',
+            buttonAddFunction: (input_value) => {
                 console.log('add ' + input_value);
             },
         });
@@ -55,11 +55,11 @@ export class MessageList extends Block {
     private initDialogAskDelete(): void {
         this.dialogRemoveUser = new DialogAsk({
             title: 'Удалить пользователя',
-            button_cancel_text: 'Отмена',
-            button_add_text: 'Удалить пользователя',
-            input_placeholder: 'Пользователь',
-            button_add_type: 'negative',
-            button_add_function: (input_value) => {
+            buttonCancelText: 'Отмена',
+            buttonAddText: 'Удалить пользователя',
+            inputPlaceholder: 'Пользователь',
+            buttonAddType: 'negative',
+            buttonAddFunction: (input_value) => {
                 console.log('delete ' + input_value);
             },
         });
@@ -70,13 +70,13 @@ export class MessageList extends Block {
 
     private initControlMenu(): void {
         this.dialogControl = new DialogMenu({
-            exit_label: new Label({
-                label__text: 'Удалить чат',
+            exitLabel: new Label({
+                labelText: 'Удалить чат',
             }),
         });
 
         const linkAddUser: Label = new Label({
-            label__text: 'Добавить пользователя',
+            labelText: 'Добавить пользователя',
             events: {
                 click: () => {
                     if (this.dialogAddUser !== null) {
@@ -87,7 +87,7 @@ export class MessageList extends Block {
         });
 
         const linkRemoveUser: Label = new Label({
-            label__text: 'Удалить пользователя',
+            labelText: 'Удалить пользователя',
             events: {
                 click: () => {
                     if (this.dialogRemoveUser !== null) {
@@ -108,11 +108,11 @@ export class MessageList extends Block {
     }
 
     private initListMessage(): void {
-        this.props.all_message.forEach((m: { data: string; text: string; isYou: boolean; }) => {
+        this.props.allMessage.forEach((m: { data: string; text: string; isYou: boolean; }) => {
             const message: MessageItem = new MessageItem({
-                message_data: m.data,
-                message_text: m.text,
-                message_is_you: m.isYou,
+                messageData: m.data,
+                messageText: m.text,
+                messageIsYou: m.isYou,
             });
 
             this.getContent()!.style.height = 'inherit';

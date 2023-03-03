@@ -4,9 +4,9 @@ import Validation from './validation';
 export class ConstructionDefault {
     public static getDefaultEmailInput(_codeWordEvent?: string): Input {
         const input = new Input({
-            input__name: 'email',
-            input__placeholder: 'Почта',
-            input__error: 'Некорректный адрес',
+            inputName: 'email',
+            inputPlaceholder: 'Почта',
+            inputError: 'Некорректный адрес',
             events: {
                 blur: () => {
                     Validation.isEmail(input as Input);
@@ -21,9 +21,9 @@ export class ConstructionDefault {
 
     public static getDefaultTelephoneInput(_codeWordEvent?: string): Input {
         const input = new Input({
-            input__name: 'phone',
-            input__placeholder: 'Телефон',
-            input__error: 'Введите телефон в формате +7(XXX)XXXXXXX',
+            inputName: 'phone',
+            inputPlaceholder: 'Телефон',
+            inputError: 'Введите телефон в формате +7(XXX)XXXXXXX',
             events: {
                 blur: () => {
                     Validation.isTelephone(input as Input);
@@ -38,8 +38,8 @@ export class ConstructionDefault {
 
     public static getDefaultNotEmptyInput(_inputName: string, _inputPlaceholder: string, _codeWordEvent?: string): Input {
         const input = new Input({
-            input__name: _inputName,
-            input__placeholder: _inputPlaceholder,
+            inputName: _inputName,
+            inputPlaceholder: _inputPlaceholder,
             events: {
                 blur: () => {
                     Validation.isEmptyInput(input as Input);
@@ -54,9 +54,9 @@ export class ConstructionDefault {
 
     public static getDefaultPasswordInput(_inputName: string, _inputPlaceholder: string, blurFun: () => void, _codeWordEvent?: string): Input {
         const input = new Input({
-            input__name: _inputName,
-            input__placeholder: _inputPlaceholder,
-            input__is_password: true,
+            inputName: _inputName,
+            inputPlaceholder: _inputPlaceholder,
+            inputIsPassword: true,
             events: {
                 blur: blurFun,
                 focus: () => {

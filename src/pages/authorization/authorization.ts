@@ -18,22 +18,22 @@ class AuthorizationPage extends FormPage {
     }
 
     init() {
-        this.children.input_login = ConstructionDefault.getDefaultNotEmptyInput('login', 'Логин');
+        this.children.inputLogin = ConstructionDefault.getDefaultNotEmptyInput('login', 'Логин');
 
-        this.children.input_password = ConstructionDefault.getDefaultPasswordInput(
+        this.children.inputPassword = ConstructionDefault.getDefaultPasswordInput(
             'password',
             'Пароль',
-            () => Validation.isEmptyInput(this.children.input_password as Input),
+            () => Validation.isEmptyInput(this.children.inputPassword as Input),
         );
 
         this.children.button = new Button({
-            button__text: 'Войти',
-            button__state: 'neutral',
-            button__type: 'submit',
+            buttonText: 'Войти',
+            buttonState: 'neutral',
+            buttonType: 'submit',
         });
 
-        this.children.label_reg = new Label({
-            label__text: 'Нет аккаунта?',
+        this.children.labelReg = new Label({
+            labelText: 'Нет аккаунта?',
             events: {
                 click: () => {
                     window.location.href = '../../' + Navigation.registration;
@@ -41,13 +41,13 @@ class AuthorizationPage extends FormPage {
             },
         });
 
-        this.children.label_reg.getContent()!.style.marginTop = '15px';
+        this.children.labelReg.getContent()!.style.marginTop = '15px';
 
         this.setClassForEvent('for_event_form');
 
         this.props.checkInput = [
-            this.children.input_login,
-            this.children.input_password,
+            this.children.inputLogin,
+            this.children.inputPassword,
         ];
     }
 

@@ -3,8 +3,8 @@ import Block from '../../utils/block';
 import template from './find.hbs';
 
 interface FindInputProps {
-    type_name: string;
-    input__value?: string;
+    typeName: string;
+    inputValue?: string;
 }
 
 export class FindInput extends Block {

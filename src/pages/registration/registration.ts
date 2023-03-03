@@ -20,53 +20,53 @@ class RegistrationPage extends FormPage {
     }
 
     init() {
-        this.children.input_email = ConstructionDefault.getDefaultEmailInput();
+        this.children.inputEmail = ConstructionDefault.getDefaultEmailInput();
 
-        this.children.input_login = ConstructionDefault.getDefaultNotEmptyInput('login', 'Логин');
-        this.children.input_first_name = ConstructionDefault.getDefaultNotEmptyInput('first_name', 'Имя');
-        this.children.input_second_name = ConstructionDefault.getDefaultNotEmptyInput('second_name', 'Фамилия');
-        this.children.input_phone = ConstructionDefault.getDefaultTelephoneInput();
+        this.children.inputLogin = ConstructionDefault.getDefaultNotEmptyInput('login', 'Логин');
+        this.children.inputFirstName = ConstructionDefault.getDefaultNotEmptyInput('first_name', 'Имя');
+        this.children.inputSecondName = ConstructionDefault.getDefaultNotEmptyInput('second_name', 'Фамилия');
+        this.children.inputPhone = ConstructionDefault.getDefaultTelephoneInput();
 
-        this.children.input_password = ConstructionDefault.getDefaultPasswordInput(
+        this.children.inputPassword = ConstructionDefault.getDefaultPasswordInput(
             'password',
             'Пароль',
-            () => Validation.checkFirstPassword(this.children.input_password as Input,
-                this.children.input_password_repeat as Input),
+            () => Validation.checkFirstPassword(this.children.inputPassword as Input,
+                this.children.inputPasswordRepeat as Input),
         );
 
-        this.children.input_password_repeat = ConstructionDefault.getDefaultPasswordInput(
+        this.children.inputPasswordRepeat = ConstructionDefault.getDefaultPasswordInput(
             'password_repeat',
             'Пароль (еще раз)',
-            () => Validation.checkTwoPassword(this.children.input_password as Input,
-                this.children.input_password_repeat as Input),
+            () => Validation.checkTwoPassword(this.children.inputPassword as Input,
+                this.children.inputPasswordRepeat as Input),
         );
 
-        this.children.label_entry = new Label({
-            label__text: 'Войти',
+        this.children.labelEntry = new Label({
+            labelText: 'Войти',
             events: {
                 click: () => {
                     window.location.href = '../../' + Navigation.authorization;
                 },
             },
         });
-        this.children.label_entry.getContent()!.style.marginTop = '15px';
+        this.children.labelEntry.getContent()!.style.marginTop = '15px';
 
         this.children.button = new Button({
-            button__text: 'Зарегистрироваться',
-            button__state: 'neutral',
-            button__type: 'submit',
+            buttonText: 'Зарегистрироваться',
+            buttonState: 'neutral',
+            buttonType: 'submit',
         });
 
         this.setClassForEvent('for_event_form');
 
         this.props.checkInput = [
-            this.children.input_email,
-            this.children.input_login,
-            this.children.input_first_name,
-            this.children.input_second_name,
-            this.children.input_phone,
-            this.children.input_password,
-            this.children.input_password_repeat,
+            this.children.inputEmail,
+            this.children.inputLogin,
+            this.children.inputFirstName,
+            this.children.inputSecondName,
+            this.children.inputPhone,
+            this.children.inputPassword,
+            this.children.inputPasswordRepeat,
         ];
     }
 

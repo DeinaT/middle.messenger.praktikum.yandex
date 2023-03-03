@@ -3,9 +3,9 @@ import Block from '../../utils/block';
 import template from './button.hbs';
 
 interface ButtonProps {
-    button__text: string;
-    button__state: string;
-    button__type?: string;
+    buttonText: string;
+    buttonState: string;
+    buttonType?: string;
     events?: {
         click: () => void;
     };
@@ -14,10 +14,10 @@ interface ButtonProps {
 export class Button extends Block {
     constructor(props: ButtonProps) {
         super('button', props);
-        if (this.props.button__type === undefined) {
-            this.props.button__type = 'button';
+        if (this.props.buttonType === undefined) {
+            this.props.buttonType = 'button';
         }
-        (this.getContent()! as HTMLButtonElement).type = this.props.button__type;
+        (this.getContent()! as HTMLButtonElement).type = this.props.buttonType;
     }
 
     public removeAllEvent(): void {
@@ -25,7 +25,7 @@ export class Button extends Block {
     }
 
     render() {
-        super.addInnerClass(this.props.button__state);
+        super.addInnerClass(this.props.buttonState);
         return this.compile(template, this.props);
     }
 }

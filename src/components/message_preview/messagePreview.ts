@@ -3,13 +3,13 @@ import Block from '../../utils/block';
 import template from './messagePreview.hbs';
 
 interface MessagePreviewProps {
-    message_user: string;
-    message_text: string;
-    message_data: string;
-    message_count?: number;
-    message_select?: boolean;
-    last_message_is_you?: boolean;
-    show_message_count?: boolean;
+    messageUser: string;
+    messageText: string;
+    messageData: string;
+    messageCount?: number;
+    messageSelect?: boolean;
+    lastMessageIsYou?: boolean;
+    showMessageCount?: boolean;
     events?: {
         click: () => void;
     };
@@ -22,11 +22,11 @@ export class MessagePreview extends Block {
     }
 
     public setSelect(value: boolean): void {
-        this.props.message_select = value;
+        this.props.messageSelect = value;
     }
 
     render() {
-        if (this.props.message_select === true) {
+        if (this.props.messageSelect === true) {
             super.addInnerClass('select');
         } else {
             super.removeInnerClass('select');

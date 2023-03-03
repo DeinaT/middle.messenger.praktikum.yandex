@@ -3,7 +3,7 @@ import Block from '../../utils/block';
 import template from './label.hbs';
 
 interface LabelProps {
-    label__text: string;
+    labelText: string;
     events?: {
         click: () => void;
     };

@@ -15,48 +15,48 @@ import MessageList from '../../components/message_list/messageList';
 import Navigation from '../../utils/navigation';
 
 interface ChatProps {
-    icon_rocket: object,
-    dialog_setting: DialogMenu,
-    all_preview?: Array<MessagePreview>
+    iconRocket: object,
+    dialogSetting: DialogMenu,
+    allPreview?: Array<MessagePreview>
 }
 
 class ChatPage extends Block {
     constructor(props: ChatProps) {
         super('main', props);
-        if (this.props.all_preview === undefined) {
-            this.props.all_preview = [];
+        if (this.props.allPreview === undefined) {
+            this.props.allPreview = [];
         }
 
         const linkSetting: Label = new Label({
-            label__text: 'Настройки',
+            labelText: 'Настройки',
             events: {
                 click: () => {
                     window.location.href = '../../' + Navigation.information;
                 },
             },
         });
-        (this.children.dialog_setting as DialogMenu).setCancelEvent(() => {
+        (this.children.dialogSetting as DialogMenu).setCancelEvent(() => {
             window.location.href = '../../' + Navigation.authorization;
         });
-        (this.children.dialog_setting as DialogMenu).addSettingLink(linkSetting);
+        (this.children.dialogSetting as DialogMenu).addSettingLink(linkSetting);
         this.getContent()!.querySelector('.div__menu-user')!.addEventListener('click', () => {
             this.showSetting();
         });
     }
 
     private showSetting(): void {
-        this.children.dialog_setting.changeVisible();
+        this.children.dialogSetting.changeVisible();
     }
 
     init() {
-        this.children.find_input = new FindInput({
-            type_name: 'find_user',
+        this.children.findInput = new FindInput({
+            typeName: 'find_user',
         });
 
-        this.children.find_input.getContent()!.style.width = '70%';
-        this.children.find_input.getContent()!.style.marginTop = '10px';
+        this.children.findInput.getContent()!.style.width = '70%';
+        this.children.findInput.getContent()!.style.marginTop = '10px';
 
-        this.children.find_input.setClassForEvent('for_event');
+        this.children.findInput.setClassForEvent('for_event');
     }
 
     public addChat(chat: Chat): void {
@@ -68,12 +68,12 @@ class ChatPage extends Block {
             showUnreadableMessage = true;
         }
         const chatPreView = new MessagePreview({
-            message_user: chat.getUser(),
-            message_text: lastMessage.text,
-            message_data: lastMessage.data,
-            last_message_is_you: lastMessage.isYou,
-            show_message_count: showUnreadableMessage,
-            message_count: countUnreadableMessage,
+            messageUser: chat.getUser(),
+            messageText: lastMessage.text,
+            messageData: lastMessage.data,
+            lastMessageIsYou: lastMessage.isYou,
+            showMessageCount: showUnreadableMessage,
+            messageCount: countUnreadableMessage,
             events: {
                 click: () => {
                     this.selectChat(chat);
@@ -82,17 +82,17 @@ class ChatPage extends Block {
             },
         });
 
-        this.props.all_preview.push(chatPreView);
+        this.props.allPreview.push(chatPreView);
         this.getContent()!.querySelector('.left-menu__chats')!.append(chatPreView.getContent()!);
     }
 
     public selectChat(chat: Chat): void {
-        this.props.all_preview.forEach((ch: { props: { message_select: boolean; }; }) => {
-            ch.props.message_select = false;
+        this.props.allPreview.forEach((ch: { props: { messageSelect: boolean; }; }) => {
+            ch.props.messageSelect = false;
         });
         const list: MessageList = new MessageList({
-            chat_user: chat.getUser(),
-            all_message: chat.getMessages(),
+            chatUser: chat.getUser(),
+            allMessage: chat.getMessages(),
         });
         (this.getContent()!.querySelector('.start_chat')! as HTMLDivElement).style.display = 'none';
         this.removeAllChildNodes(this.getContent()!.querySelector('.list_message')!);
@@ -114,13 +114,13 @@ window.addEventListener('DOMContentLoaded', () => {
     const root = document.querySelector('#chat');
 
     const dialogSetting = new DialogMenu({
-        exit_label: new Label({
-            label__text: 'Выйти',
+        exitLabel: new Label({
+            labelText: 'Выйти',
         })
     });
     const chatList = new ChatPage({
-        icon_rocket: iconRocket,
-        dialog_setting: dialogSetting,
+        iconRocket: iconRocket,
+        dialogSetting: dialogSetting,
     });
     ArrayChats.getArrayChats().forEach((value) => {
         chatList.addChat(value);
