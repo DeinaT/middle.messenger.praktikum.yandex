@@ -59,7 +59,7 @@ class Block<Prop extends Record<string, any> = any> {
         const {events = {}} = this.props;
         Object.keys(events).forEach(eventName => {
             if (this._classForEvent !== null)
-                this.getContent()!.querySelector('.' + this._classForEvent)!.addEventListener(eventName, events[eventName]);
+                this._element?.querySelector('.' + this._classForEvent)!.addEventListener(eventName, events[eventName]);
             else
                 this._element?.addEventListener(eventName, events[eventName]);
         });
@@ -71,6 +71,18 @@ class Block<Prop extends Record<string, any> = any> {
         eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
         eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
         eventBus.on(Block.EVENTS.DELETE_EVENT, this._removeEvents.bind(this));
+    }
+
+    _removeEvents() {
+        if (this.props.events !== null && this.props.events !== undefined) {
+            Object.keys(this.props.events).forEach(eventName => {
+              if (this._classForEvent !== null) {
+                  if (this._element?.querySelector('.' + this._classForEvent) !== null)
+                    this._element?.querySelector('.' + this._classForEvent)!.removeEventListener(eventName, this.props.events[eventName]);
+              } else
+                  this._element?.removeEventListener(eventName, this.props.events[eventName]);
+            });
+        };
     }
 
     _createResources() {
@@ -127,6 +139,7 @@ class Block<Prop extends Record<string, any> = any> {
     private _render() {
         const fragment = this.render();
 
+        this._removeEvents();
         this._element!.innerHTML = '';
 
         this._element!.append(fragment);
@@ -142,7 +155,7 @@ class Block<Prop extends Record<string, any> = any> {
 
     public getEventComponent(): HTMLElement {
         if (this._classForEvent !== null)
-            return this.getContent()!.querySelector('.' + this._classForEvent)!;
+            return this._element?.querySelector('.' + this._classForEvent)!;
         else
             return this._element!;
     }
@@ -220,10 +233,6 @@ class Block<Prop extends Record<string, any> = any> {
                 }
             }
         });
-    }
-
-    _removeEvents(eventName: string, events: any) {
-        this._element?.removeEventListener(eventName, events[eventName]);
     }
 
     _createDocumentElement(tagName: string) {
