@@ -8,9 +8,7 @@ import iconSendMess from '../../../static/icon/icon_send_mess.png';
 import Message from '../../objects/message';
 import MessageItem from '../message_item/messageItem';
 import DialogMenu from '../dialog_menu/dialogMenu';
-import Label from '../label/label';
 import Icon from '../icon/icon';
-import DialogAsk from '../dialog_ask/dialogAsk';
 
 interface MessageListProps {
     chatUser: string;
@@ -18,21 +16,18 @@ interface MessageListProps {
     iconSetting?: Icon;
     iconAddObject?: Icon;
     iconSendMess?: Icon;
+    dialogControl: DialogMenu;
 }
 
 export class MessageList extends Block {
-    private dialogAddUser: DialogAsk | null = null;
-    private dialogRemoveUser: DialogAsk | null = null;
-    private dialogControl: DialogMenu | null = null;
-
     constructor(props: MessageListProps) {
         props.iconSetting = new Icon({
             iconSrc: iconSetting,
             iconAlt: 'Иконка настроек',
             events: {
                 click: () => {
-                    if (this.dialogControl !== null) {
-                        this.dialogControl.changeVisible();
+                    if (this.children.dialogControl !== null) {
+                        this.children.dialogControl.changeVisible();
                     }
                 },
             },
@@ -57,83 +52,8 @@ export class MessageList extends Block {
             },
         });
 
-
         super('div', props);
-        this.initDialogAskAdd();
-        this.initDialogAskDelete();
         this.initListMessage();
-        this.initControlMenu();
-    }
-
-    private initDialogAskAdd(): void {
-        this.dialogAddUser = new DialogAsk({
-            title: 'Добавить пользователя',
-            buttonCancelText: 'Отмена',
-            buttonAddText: 'Добавить пользователя',
-            inputPlaceholder: 'Пользователь',
-            buttonAddType: 'positive',
-            buttonAddFunction: (input_value) => {
-                console.log('add ' + input_value);
-            },
-        });
-
-        const root = window.document.querySelector('body');
-        root!.append(this.dialogAddUser.getContent()!);
-    }
-
-    private initDialogAskDelete(): void {
-        this.dialogRemoveUser = new DialogAsk({
-            title: 'Удалить пользователя',
-            buttonCancelText: 'Отмена',
-            buttonAddText: 'Удалить пользователя',
-            inputPlaceholder: 'Пользователь',
-            buttonAddType: 'negative',
-            buttonAddFunction: (input_value) => {
-                console.log('delete ' + input_value);
-            },
-        });
-
-        const root = window.document.querySelector('body');
-        root!.append(this.dialogRemoveUser.getContent()!);
-    }
-
-    private initControlMenu(): void {
-        this.dialogControl = new DialogMenu({
-            exitLabel: new Label({
-                labelText: 'Удалить чат',
-            }),
-        });
-
-        const linkAddUser: Label = new Label({
-            labelText: 'Добавить пользователя',
-            events: {
-                click: () => {
-                    if (this.dialogAddUser !== null) {
-                        this.dialogAddUser.changeVisible();
-                    }
-                },
-            },
-        });
-
-        const linkRemoveUser: Label = new Label({
-            labelText: 'Удалить пользователя',
-            events: {
-                click: () => {
-                    if (this.dialogRemoveUser !== null) {
-                        this.dialogRemoveUser.changeVisible();
-                    }
-                },
-            },
-        });
-
-        this.dialogControl.addSettingLink(linkAddUser);
-        this.dialogControl.addSettingLink(linkRemoveUser);
-        this.dialogControl.getContent()!.style.top = '8px';
-        this.dialogControl.getContent()!.style.right = '16px';
-        this.dialogControl.getContent()!.style.left = 'auto';
-
-        const root = window.document.querySelector('body');
-        root!.append(this.dialogControl.getContent()!);
     }
 
     private initListMessage(): void {

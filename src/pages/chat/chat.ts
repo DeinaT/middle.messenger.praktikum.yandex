@@ -9,6 +9,7 @@ import iconRocket from '../../../static/icon/icon_rocket.png';
 import FindInput from '../../components/find/find';
 import Label from '../../components/label/label';
 import DialogMenu from '../../components/dialog_menu/dialogMenu';
+import DialogAsk from '../../components/dialog_ask/dialogAsk';
 import MessagePreview from '../../components/message_preview/messagePreview';
 import Message from '../../objects/message';
 import MessageList from '../../components/message_list/messageList';
@@ -17,6 +18,7 @@ import Navigation from '../../utils/navigation';
 interface ChatProps {
     iconRocket: object,
     dialogSetting: DialogMenu,
+    dialogControlUser: DialogMenu,
     allPreview?: Array<MessagePreview>
 }
 
@@ -97,6 +99,7 @@ class ChatPage extends Block {
         const list: MessageList = new MessageList({
             chatUser: chat.getUser(),
             allMessage: chat.getMessages(),
+            dialogControl: this.children.dialogControlUser as DialogMenu,
         });
         (this.getContent()!.querySelector('.start_chat')! as HTMLDivElement).style.display = 'none';
         this.removeAllChildNodes(this.getContent()!.querySelector('.list_message')!);
@@ -114,6 +117,70 @@ class ChatPage extends Block {
     }
 }
 
+function initDialogMenu(root: Element | null): DialogMenu {
+        const dialogAddUser = new DialogAsk({
+            title: 'Добавить пользователя',
+            buttonCancelText: 'Отмена',
+            buttonAddText: 'Добавить пользователя',
+            inputPlaceholder: 'Пользователь',
+            buttonAddType: 'positive',
+            buttonAddFunction: (input_value) => {
+                console.log('add ' + input_value);
+            },
+        });
+        root!.append(dialogAddUser.getContent()!);
+
+        const dialogRemoveUser = new DialogAsk({
+            title: 'Удалить пользователя',
+            buttonCancelText: 'Отмена',
+            buttonAddText: 'Удалить пользователя',
+            inputPlaceholder: 'Пользователь',
+            buttonAddType: 'negative',
+            buttonAddFunction: (input_value) => {
+                console.log('delete ' + input_value);
+            },
+        });
+        root!.append(dialogRemoveUser.getContent()!);
+
+        const dialogControl = new DialogMenu({
+            exitLabel: new Label({
+                labelText: 'Удалить чат',
+            }),
+        });
+
+        const linkAddUser: Label = new Label({
+            labelText: 'Добавить пользователя',
+            events: {
+                click: () => {
+                    if (dialogAddUser !== null) {
+                        dialogAddUser.changeVisible();
+                    }
+                },
+            },
+        });
+
+        const linkRemoveUser: Label = new Label({
+            labelText: 'Удалить пользователя',
+            events: {
+                click: () => {
+                    if (dialogRemoveUser !== null) {
+                        dialogRemoveUser.changeVisible();
+                    }
+                },
+            },
+        });
+
+        dialogControl.addSettingLink(linkAddUser);
+        dialogControl.addSettingLink(linkRemoveUser);
+        dialogControl.getContent()!.style.top = '8px';
+        dialogControl.getContent()!.style.right = '16px';
+        dialogControl.getContent()!.style.left = 'auto';
+
+        root!.append(dialogControl.getContent()!);
+
+        return dialogControl;
+}
+
 window.addEventListener('DOMContentLoaded', () => {
     const root = document.querySelector('#chat');
 
@@ -125,6 +192,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const chatList = new ChatPage({
         iconRocket: iconRocket,
         dialogSetting: dialogSetting,
+        dialogControlUser: initDialogMenu(root),
     });
     ArrayChats.getArrayChats().forEach((value) => {
         chatList.addChat(value);
