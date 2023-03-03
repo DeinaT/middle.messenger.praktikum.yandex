@@ -9,14 +9,15 @@ import Message from '../../objects/message';
 import MessageItem from '../message_item/messageItem';
 import DialogMenu from '../dialog_menu/dialogMenu';
 import Label from '../label/label';
+import Icon from '../icon/icon';
 import DialogAsk from '../dialog_ask/dialogAsk';
 
 interface MessageListProps {
     chatUser: string;
     allMessage: Array<Message>;
-    iconSetting?: object;
-    iconAddObject?: object;
-    iconSendMess?: object;
+    iconSetting?: Icon;
+    iconAddObject?: Icon;
+    iconSendMess?: Icon;
 }
 
 export class MessageList extends Block {
@@ -25,15 +26,43 @@ export class MessageList extends Block {
     private dialogControl: DialogMenu | null = null;
 
     constructor(props: MessageListProps) {
-        props.iconSendMess = iconSendMess;
-        props.iconSetting = iconSetting;
-        props.iconAddObject = iconAddObject;
+        props.iconSetting = new Icon({
+            iconSrc: iconSetting,
+            iconAlt: 'Иконка настроек',
+            events: {
+                click: () => {
+                    if (this.dialogControl !== null) {
+                        this.dialogControl.changeVisible();
+                    }
+                },
+            },
+        });
+        props.iconAddObject = new Icon({
+              iconSrc: iconAddObject,
+              iconAlt: 'Иконка добавления объекта',
+              events: {
+                  click: () => {
+                      // todo
+                  },
+              },
+          });
+
+        props.iconSendMess = new Icon({
+            iconSrc: iconSendMess,
+            iconAlt: 'Иконка отправления сообщения',
+            events: {
+                click: () => {
+                    console.log({message: this.getNewMessage()});
+                },
+            },
+        });
+
+
         super('div', props);
         this.initDialogAskAdd();
         this.initDialogAskDelete();
         this.initListMessage();
         this.initControlMenu();
-        this.initSendMessage()
     }
 
     private initDialogAskAdd(): void {
@@ -119,19 +148,6 @@ export class MessageList extends Block {
             if (this.getContent()!.querySelector('.all_message') !== null) {
                 this.getContent()!.querySelector('.all_message')!.append(message.getContent()!);
             }
-        });
-
-        this.getContent()!.querySelector('.div__menu-user')!
-            .addEventListener('click', () => {
-                if (this.dialogControl !== null) {
-                    this.dialogControl.changeVisible();
-                }
-            });
-    }
-
-    private initSendMessage(): void {
-        this.getContent()!.querySelector('#icon_send_message')!.addEventListener('click', () => {
-            console.log({message: this.getNewMessage()});
         });
     }
 

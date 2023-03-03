@@ -20,10 +20,6 @@ export class Button extends Block {
         (this.getContent()! as HTMLButtonElement).type = this.props.buttonType;
     }
 
-    public removeAllEvent(): void {
-        delete this.props.events;
-    }
-
     render() {
         super.addInnerClass(this.props.buttonState);
         return this.compile(template, this.props);
