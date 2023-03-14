@@ -1,11 +1,21 @@
-import Nav from './components/nav/nav';
 import './css/style.sass';
+import Router from "./route/router";
+import Error404Page from "./pages/errors/404/error404";
+import Error500Page from "./pages/errors/500/error500";
+import AuthorizationPage from "./pages/authorization/authorization";
+import RegistrationPage from "./pages/registration/registration";
+import InformationPage from "./pages/information/information";
 
 window.addEventListener('DOMContentLoaded', () => {
-    const root = document.querySelector('#app')!;
+    const router = new Router("#app");
 
-    const navList = new Nav();
-    root.append(navList.getContent()!);
+    router
+        .use("/", AuthorizationPage)
+        .use("/sign-up", RegistrationPage)
+        .use("/setting", InformationPage)
+        //.use("/messenger", ChatPage)
+        .use("/404", Error404Page)
+        .use("/500", Error500Page)
+        .start();
 
-    navList.dispatchComponentDidMount();
 });

@@ -7,13 +7,11 @@ import image500 from '../../../../static/image/image_error_500.png';
 import Block from '../../../utils/block';
 import Button from '../../../components/button/button';
 
-interface Error500Props {
-    image500: object;
-}
 
 class Error500Page extends Block {
-    constructor(props: Error500Props) {
-        super('main', props);
+    constructor() {
+
+        super('div', {image500: image500});
     }
 
     init() {
@@ -35,13 +33,4 @@ class Error500Page extends Block {
     }
 }
 
-window.addEventListener('DOMContentLoaded', () => {
-    const error500 = document.querySelector('#error_500');
-
-    const error500Page = new Error500Page({
-        image500
-    });
-    error500!.append(error500Page.getContent()!);
-
-    error500Page.dispatchComponentDidMount();
-});
+export default Error500Page;

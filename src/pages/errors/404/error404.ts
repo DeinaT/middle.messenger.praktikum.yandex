@@ -12,8 +12,11 @@ interface Error404Props {
 }
 
 class Error404Page extends Block {
-    constructor(props: Error404Props) {
-        super('main', props);
+    constructor() {
+        let prop: Error404Props = {
+            image404: image404,
+        }
+        super('div', prop);
     }
 
     init() {
@@ -35,13 +38,4 @@ class Error404Page extends Block {
     }
 }
 
-window.addEventListener('DOMContentLoaded', () => {
-    const error404 = document.querySelector('#error_404');
-
-    const error404Page = new Error404Page({
-        image404
-    });
-    error404!.append(error404Page.getContent()!);
-
-    error404Page.dispatchComponentDidMount();
-});
+export default Error404Page;

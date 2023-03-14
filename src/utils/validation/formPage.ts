@@ -26,7 +26,7 @@ export abstract class FormPage extends Block {
                 },
             },
         };
-        super('main', props);
+        super('div', props);
     }
 }
 

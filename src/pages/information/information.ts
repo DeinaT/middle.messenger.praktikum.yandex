@@ -3,20 +3,17 @@ import '../../components/button/button.ts';
 import '../../components/input/input.ts';
 import '../../css/style.sass';
 import '../../css/icon_avatar.sass';
-import icon_empty_avatar from '../../../static/icon/icon_empty_avatar.png';
+import iconEmptyAvatar from '../../../static/icon/icon_empty_avatar.png';
 import Block from '../../utils/block';
 import Input from '../../components/input/input';
 import Button from '../../components/button/button';
 import DialogSelectFile from '../../components/dialog_select_file/dialogSelectFile';
 import Navigation from '../../utils/navigation';
 
-interface InformationProps {
-    icon_empty_avatar: object;
-}
 
 class InformationPage extends Block {
-    constructor(props: InformationProps) {
-        super('main', props);
+    constructor() {
+        super('div', {iconEmptyAvatar: iconEmptyAvatar});
 
         const dialogSelectFile = new DialogSelectFile({title: "Загрузите файл"});
 
@@ -113,13 +110,4 @@ class InformationPage extends Block {
     }
 }
 
-window.addEventListener('DOMContentLoaded', () => {
-    const information = document.querySelector('#information');
-
-    const informationPage = new InformationPage({
-        icon_empty_avatar,
-    });
-    information!.append(informationPage.getContent()!);
-
-    informationPage.dispatchComponentDidMount();
-});
+export default InformationPage;

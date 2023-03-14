@@ -16,15 +16,15 @@ import MessageList from '../../components/message_list/messageList';
 import Navigation from '../../utils/navigation';
 
 interface ChatProps {
-    iconRocket: object,
-    dialogSetting: DialogMenu,
-    dialogControlUser: DialogMenu,
+    iconRocket?: object,
+    dialogSetting?: DialogMenu,
+    dialogControlUser?: DialogMenu,
     allPreview?: Array<MessagePreview>
 }
 
 class ChatPage extends Block {
     constructor(props: ChatProps) {
-        super('main', props);
+        super('div', props);
         if (this.props.allPreview === undefined) {
             this.props.allPreview = [];
         }
@@ -117,7 +117,7 @@ class ChatPage extends Block {
     }
 }
 
-function initDialogMenu(root: Element | null): DialogMenu {
+ function  initDialogMenu(root: Element | null): DialogMenu {
         const dialogAddUser = new DialogAsk({
             title: 'Добавить пользователя',
             buttonCancelText: 'Отмена',
@@ -203,3 +203,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
     chatList.dispatchComponentDidMount();
 });
+
+
+export default ChatPage;

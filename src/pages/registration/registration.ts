@@ -75,11 +75,4 @@ class RegistrationPage extends FormPage {
     }
 }
 
-window.addEventListener('DOMContentLoaded', () => {
-    const registration = document.querySelector('#registration');
-
-    const registrationPage = new RegistrationPage();
-    registration!.append(registrationPage.getContent()!);
-
-    registrationPage.dispatchComponentDidMount();
-});
+export default RegistrationPage;
