@@ -3,18 +3,18 @@ import template from './authorization.hbs';
 import Input from '../../components/input/input';
 import Button from '../../components/button/button';
 import Label from '../../components/label/label';
-//import Navigation from '../../utils/navigation';
 import ConstructionDefault from '../../utils/validation/constructionDefault';
 import Validation from '../../utils/validation/validation';
 import FormPage from '../../utils/validation/formPage';
 import UserAuthorization from '../../objects/userAuthorization';
 import Router from "../../route/router";
+import AuthController from "../../controllers/AuthController";
+import {NavString} from "../../utils/navigation";
 
 class AuthorizationPage extends FormPage {
     constructor() {
         super(formData => {
-            const data: UserAuthorization = new UserAuthorization(formData);
-            console.log(data);
+            AuthController.signin(new UserAuthorization(formData));
         });
     }
 
@@ -37,8 +37,7 @@ class AuthorizationPage extends FormPage {
             labelText: 'Нет аккаунта?',
             events: {
                 click: () => {
-                    //window.location.href = '../../' + Navigation.registration;
-                    new Router("#app").go("/sign-up");
+                    Router.go(NavString.REGISTRATION)
                 },
             },
         });

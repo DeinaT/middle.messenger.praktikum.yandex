@@ -4,7 +4,7 @@ import Button from '../../../components/button/button';
 import ConstructionDefault from '../../../utils/validation/constructionDefault';
 import FormPage from '../../../utils/validation/formPage';
 import UserData from '../../../objects/userData';
-import Navigation from '../../../utils/navigation';
+import Router from "../../../route/router";
 
 class ChangeDataPage extends FormPage {
     constructor() {
@@ -27,7 +27,7 @@ class ChangeDataPage extends FormPage {
             buttonState: 'neutral',
             events: {
                 click: () => {
-                    window.location.href = '../../../' + Navigation.information;
+                    Router.back();
                 },
             },
         });
@@ -56,11 +56,5 @@ class ChangeDataPage extends FormPage {
         return this.compile(template, this.props);
     }
 }
-window.addEventListener('DOMContentLoaded', () => {
-    const changesData = document.querySelector('#changes_data');
 
-    const changeDataPage = new ChangeDataPage();
-    changesData!.append(changeDataPage.getContent()!);
-
-    changeDataPage.dispatchComponentDidMount();
-});
+export default ChangeDataPage;

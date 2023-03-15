@@ -8,7 +8,7 @@ import ConstructionDefault from '../../../utils/validation/constructionDefault';
 import Validation from '../../../utils/validation/validation';
 import FormPage from '../../../utils/validation/formPage';
 import UserPassword from '../../../objects/userPassword';
-import Navigation from '../../../utils/navigation';
+import Router from "../../../route/router";
 
 class ChangePasswordPage extends FormPage {
     constructor() {
@@ -44,7 +44,7 @@ class ChangePasswordPage extends FormPage {
             buttonState: 'neutral',
             events: {
                 click: () => {
-                    window.location.href = '../../../' + Navigation.information;
+                    Router.back();
                 },
             },
         });
@@ -70,11 +70,4 @@ class ChangePasswordPage extends FormPage {
     }
 }
 
-window.addEventListener('DOMContentLoaded', () => {
-    const changesPassword = document.querySelector('#changes_password');
-
-    const changePasswordPage = new ChangePasswordPage();
-    changesPassword!.append(changePasswordPage.getContent()!);
-
-    changePasswordPage.dispatchComponentDidMount();
-});
+export default ChangePasswordPage;

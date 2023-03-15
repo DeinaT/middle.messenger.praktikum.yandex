@@ -5,17 +5,18 @@ import '../../css/style.sass';
 import Input from '../../components/input/input';
 import Button from '../../components/button/button';
 import Label from '../../components/label/label';
-import Navigation from '../../utils/navigation';
 import Validation from '../../utils/validation/validation';
 import UserRegistration from '../../objects/userRegistration';
 import ConstructionDefault from '../../utils/validation/constructionDefault';
 import FormPage from '../../utils/validation/formPage';
+import AuthController from "../../controllers/AuthController";
+import Router from "../../route/router";
+import {NavString} from "../../utils/navigation";
 
 class RegistrationPage extends FormPage {
     constructor() {
         super(formData => {
-            let data: UserRegistration = new UserRegistration(formData);
-            console.log(data);
+            AuthController.signup(new UserRegistration(formData));
         });
     }
 
@@ -45,7 +46,7 @@ class RegistrationPage extends FormPage {
             labelText: 'Войти',
             events: {
                 click: () => {
-                    window.location.href = '../../' + Navigation.authorization;
+                    Router.go(NavString.AUTHORIZATION)
                 },
             },
         });

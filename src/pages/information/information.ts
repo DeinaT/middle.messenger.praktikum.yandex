@@ -8,7 +8,9 @@ import Block from '../../utils/block';
 import Input from '../../components/input/input';
 import Button from '../../components/button/button';
 import DialogSelectFile from '../../components/dialog_select_file/dialogSelectFile';
-import Navigation from '../../utils/navigation';
+import Router from '../../route/router';
+import AuthController from "../../controllers/AuthController";
+import {NavString} from "../../utils/navigation";
 
 
 class InformationPage extends Block {
@@ -65,7 +67,7 @@ class InformationPage extends Block {
             buttonState: 'neutral',
             events: {
                 click: () => {
-                    window.location.href = '../../' + Navigation.changes_data;
+                    Router.go(NavString.CHANGE_DATA);
                 },
             },
         });
@@ -75,7 +77,7 @@ class InformationPage extends Block {
             buttonState: 'neutral',
             events: {
                 click: () => {
-                    window.location.href = '../../' + Navigation.changes_password;
+                    Router.go(NavString.CHANGE_PASSWORD);
                 },
             },
         });
@@ -85,7 +87,7 @@ class InformationPage extends Block {
             buttonState: 'neutral',
             events: {
                 click: () => {
-                    window.location.href = '../../' + Navigation.chats;
+                    Router.back();
                 },
             },
         });
@@ -94,7 +96,7 @@ class InformationPage extends Block {
             buttonState: 'negative',
             events: {
                 click: () => {
-                    window.location.href = '../../' + Navigation.authorization;
+                    AuthController.logout();
                 },
             },
         });
