@@ -3,6 +3,7 @@ import template from './dialogSelectFile.hbs';
 import './dialogSelectFile.sass';
 import Label from '../label/label';
 import Button from '../button/button';
+import UserController from "../../controllers/userController";
 
 interface DialogSelectFileProps {
     title: string;
@@ -33,8 +34,10 @@ export class DialogSelectFile extends Block {
             buttonState: 'positive',
             events: {
                 click: () => {
-                    if (this.selectFile !== null)
-                        console.log(this.selectFile);
+                    if (this.selectFile !== null){
+                        UserController.changeAvatar(this.selectFile);
+                        //console.log(this.selectFile)
+                    }
                 },
             },
         });

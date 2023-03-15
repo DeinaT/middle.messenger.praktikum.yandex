@@ -1,8 +1,10 @@
 export class UserPassword {
-    password: string | undefined;
+    oldPassword: string | undefined;
+    newPassword: string | undefined;
 
     constructor(data: FormData) {
-        this.password = data.get('password') as string;
+        this.oldPassword = data.get('old_password') as string;
+        this.newPassword = data.get('password') as string;
     }
 }
 

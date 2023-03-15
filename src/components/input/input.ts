@@ -29,6 +29,10 @@ class Input extends Block {
         return this.props.inputValue;
     }
 
+    public setValue(value: string): void {
+        this.props.inputValue = value;
+    }
+
     public setError(_message?: string): void {
         if (_message !== undefined) {
             this.props.inputError = _message;

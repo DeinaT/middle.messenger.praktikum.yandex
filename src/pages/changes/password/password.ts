@@ -9,12 +9,12 @@ import Validation from '../../../utils/validation/validation';
 import FormPage from '../../../utils/validation/formPage';
 import UserPassword from '../../../objects/userPassword';
 import Router from "../../../route/router";
+import UserController from "../../../controllers/userController";
 
 class ChangePasswordPage extends FormPage {
     constructor() {
         super((formData) => {
-            const data: UserPassword = new UserPassword(formData);
-            console.log(data);
+            UserController.changePassword(new UserPassword(formData))
         });
     }
 

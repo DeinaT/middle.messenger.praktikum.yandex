@@ -5,13 +5,26 @@ import ConstructionDefault from '../../../utils/validation/constructionDefault';
 import FormPage from '../../../utils/validation/formPage';
 import UserData from '../../../objects/userData';
 import Router from "../../../route/router";
+import UserController from "../../../controllers/userController";
+import AuthController from "../../../controllers/authController";
+import Input from "../../../components/input/input";
+import User from "../../../objects/user";
 
 class ChangeDataPage extends FormPage {
     constructor() {
         super(formData => {
-            const data: UserData = new UserData(formData);
-            console.log(data);
+            UserController.changeProfile(new UserData(formData))
         });
+
+
+        try {
+            AuthController.fetchUser().then(user => {
+                if (user.id !== 0) {
+                    this.fillInfo(user);
+                }
+            });
+        } catch (e: any) {
+        }
     }
 
     init() {
@@ -50,6 +63,15 @@ class ChangeDataPage extends FormPage {
             this.children.inputPhone,
             this.children.inputDisplayName,
         ];
+    }
+
+    fillInfo(info: User) {
+        (this.children.inputEmail as Input).setValue(info.email);
+        (this.children.inputLogin as Input).setValue(info.login);
+        (this.children.inputFirstName as Input).setValue(info.first_name);
+        (this.children.inputSecondName as Input).setValue(info.second_name);
+        (this.children.inputDisplayName as Input).setValue(info.display_name);
+        (this.children.inputPhone  as Input).setValue(info.phone);
     }
 
     render() {

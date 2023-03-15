@@ -4,6 +4,7 @@ import {NavString} from "../utils/navigation";
 import UserAuthorization from "../objects/userAuthorization";
 import UserRegistration from "../objects/userRegistration";
 import store from "../objects/store";
+import User from "../objects/user";
 
 export class AuthController {
     private readonly api: AuthApi;
@@ -34,10 +35,12 @@ export class AuthController {
         }
     }
 
-    async fetchUser() {
+    async fetchUser(): Promise<User> {
         const user = await this.api.read();
 
-        store.set('user', user);
+        //store.set('user', user);
+
+        return user;
     }
 
     async logout() {

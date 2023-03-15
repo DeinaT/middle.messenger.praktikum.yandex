@@ -9,8 +9,9 @@ import Input from '../../components/input/input';
 import Button from '../../components/button/button';
 import DialogSelectFile from '../../components/dialog_select_file/dialogSelectFile';
 import Router from '../../route/router';
-import AuthController from "../../controllers/AuthController";
+import AuthController from "../../controllers/authController";
 import {NavString} from "../../utils/navigation";
+import User from "../../objects/user";
 
 
 class InformationPage extends Block {
@@ -28,6 +29,16 @@ class InformationPage extends Block {
                 dialogSelectFile.show();
             }
         };
+
+
+        try {
+            AuthController.fetchUser().then(user => {
+                if (user.id !== 0) {
+                    this.fillInfo(user);
+                }
+            });
+        } catch (e: any) {
+        }
     }
 
     init() {
@@ -105,6 +116,15 @@ class InformationPage extends Block {
         this.children.button_change_password.getContent()!.style.width = '45%';
         this.children.buttonBack.getContent()!.style.width = '45%';
         this.children.buttonOut.getContent()!.style.width = '45%';
+    }
+
+    fillInfo(info: User) {
+        (this.children.inputEmail as Input).setValue(info.email);
+        (this.children.inputLogin as Input).setValue(info.login);
+        (this.children.inputFirstName as Input).setValue(info.first_name);
+        (this.children.inputSecondName as Input).setValue(info.second_name);
+        (this.children.inputDisplayName as Input).setValue(info.display_name);
+        (this.children.inputPhone  as Input).setValue(info.phone);
     }
 
     render() {

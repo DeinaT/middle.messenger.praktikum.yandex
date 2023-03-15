@@ -9,7 +9,7 @@ import Validation from '../../utils/validation/validation';
 import UserRegistration from '../../objects/userRegistration';
 import ConstructionDefault from '../../utils/validation/constructionDefault';
 import FormPage from '../../utils/validation/formPage';
-import AuthController from "../../controllers/AuthController";
+import AuthController from "../../controllers/authController";
 import Router from "../../route/router";
 import {NavString} from "../../utils/navigation";
 

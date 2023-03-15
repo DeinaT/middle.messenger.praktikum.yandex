@@ -8,7 +8,7 @@ import Validation from '../../utils/validation/validation';
 import FormPage from '../../utils/validation/formPage';
 import UserAuthorization from '../../objects/userAuthorization';
 import Router from "../../route/router";
-import AuthController from "../../controllers/AuthController";
+import AuthController from "../../controllers/authController";
 import {NavString} from "../../utils/navigation";
 
 class AuthorizationPage extends FormPage {
@@ -16,6 +16,13 @@ class AuthorizationPage extends FormPage {
         super(formData => {
             AuthController.signin(new UserAuthorization(formData));
         });
+        try {
+            AuthController.fetchUser().then(user => {
+                if (user.id !== 0)
+                Router.go(NavString.MESSENGER);
+            });
+        } catch (e: any) {
+        }
     }
 
     init() {

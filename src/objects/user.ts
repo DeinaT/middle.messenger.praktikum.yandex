@@ -1,16 +1,18 @@
 export class User {
     // по заданию надо отправлять по такой структуре, поэтому не camelCase
-    email: string | undefined;
+    id: number | undefined;
 
-    login: string | undefined;
+    email: string;
 
-    first_name: string | undefined;
+    login: string;
 
-    second_name: string | undefined;
+    first_name: string;
 
-    phone: string | undefined;
+    second_name: string;
 
-    display_name: string | undefined;
+    phone: string;
+
+    display_name: string;
 
     constructor(data: FormData) {
         this.email = data.get('email') as string;
