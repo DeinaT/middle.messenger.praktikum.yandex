@@ -13,45 +13,37 @@ import DialogAsk from '../../components/dialog_ask/dialogAsk';
 import MessagePreview from '../../components/message_preview/messagePreview';
 import Message from '../../objects/message';
 import MessageList from '../../components/message_list/messageList';
-import Navigation from '../../utils/navigation';
+import AuthController from "../../controllers/authController";
+import Router from '../../route/router';
+import {NavString} from "../../utils/navigation";
 
-interface ChatProps {
-    iconRocket?: object,
-    dialogSetting?: DialogMenu,
-    dialogControlUser?: DialogMenu,
-    allPreview?: Array<MessagePreview>
-}
 
 class ChatPage extends Block {
-    constructor(props: ChatProps) {
-        super('div', props);
-        if (this.props.allPreview === undefined) {
-            this.props.allPreview = [];
-        }
-
-        const linkSetting: Label = new Label({
-            labelText: 'Настройки',
-            events: {
-                click: () => {
-                    window.location.href = '../../' + Navigation.information;
-                },
-            },
+    constructor() {
+        super('div', {
+            iconRocket: iconRocket,
         });
-        (this.children.dialogSetting as DialogMenu).setCancelEvent(() => {
-            window.location.href = '../../' + Navigation.authorization;
-        });
-        (this.children.dialogSetting as DialogMenu).addSettingLink(linkSetting);
+        this.props.allPreview = [];
 
-        this.setClassForEvent('for_event');
         this.props.events = {
             click: () => {
                 this.showSetting();
             }
         };
+        this.setClassForEvent('for_event');
+
+        ArrayChats.getArrayChats().forEach((value) => {
+            this.addChat(value);
+        });
+
     }
 
     private showSetting(): void {
         this.children.dialogSetting.changeVisible();
+    }
+
+    private hideSetting(): void {
+        this.children.dialogSetting.hide();
     }
 
     init() {
@@ -62,7 +54,30 @@ class ChatPage extends Block {
         this.children.findInput.getContent()!.style.width = '70%';
         this.children.findInput.getContent()!.style.marginTop = '10px';
 
-        this.children.findInput.setClassForEvent('for_event');
+
+        this.children.dialogSetting = new DialogMenu({
+            exitLabel: new Label({
+                labelText: 'Выйти',
+            })
+        });
+
+        const linkSetting: Label = new Label({
+            labelText: 'Настройки',
+            events: {
+                click: () => {
+                    this.hideSetting();
+                    Router.go(NavString.INFORMATION);
+                },
+            },
+        });
+
+        (this.children.dialogSetting as DialogMenu).setCancelEvent(() => {
+            this.hideSetting();
+            AuthController.logout();
+        });
+        (this.children.dialogSetting as DialogMenu).addSettingLink(linkSetting);
+
+        this.initDialogMenu()
     }
 
     public addChat(chat: Chat): void {
@@ -99,7 +114,7 @@ class ChatPage extends Block {
         const list: MessageList = new MessageList({
             chatUser: chat.getUser(),
             allMessage: chat.getMessages(),
-            dialogControl: this.children.dialogControlUser as DialogMenu,
+            dialogControl: this.children.dialogControl as DialogMenu,
         });
         (this.getContent()!.querySelector('.start_chat')! as HTMLDivElement).style.display = 'none';
         this.removeAllChildNodes(this.getContent()!.querySelector('.list_message')!);
@@ -112,13 +127,8 @@ class ChatPage extends Block {
         }
     }
 
-    render() {
-        return this.compile(template, this.props);
-    }
-}
-
- function  initDialogMenu(root: Element | null): DialogMenu {
-        const dialogAddUser = new DialogAsk({
+    private initDialogMenu(): void {
+        this.children.dialogAddUser = new DialogAsk({
             title: 'Добавить пользователя',
             buttonCancelText: 'Отмена',
             buttonAddText: 'Добавить пользователя',
@@ -128,9 +138,8 @@ class ChatPage extends Block {
                 console.log('add ' + input_value);
             },
         });
-        root!.append(dialogAddUser.getContent()!);
 
-        const dialogRemoveUser = new DialogAsk({
+        this.children.dialogRemoveUser = new DialogAsk({
             title: 'Удалить пользователя',
             buttonCancelText: 'Отмена',
             buttonAddText: 'Удалить пользователя',
@@ -140,9 +149,8 @@ class ChatPage extends Block {
                 console.log('delete ' + input_value);
             },
         });
-        root!.append(dialogRemoveUser.getContent()!);
 
-        const dialogControl = new DialogMenu({
+        this.children.dialogControl = new DialogMenu({
             exitLabel: new Label({
                 labelText: 'Удалить чат',
             }),
@@ -152,8 +160,8 @@ class ChatPage extends Block {
             labelText: 'Добавить пользователя',
             events: {
                 click: () => {
-                    if (dialogAddUser !== null) {
-                        dialogAddUser.changeVisible();
+                    if (this.children.dialogAddUser !== null) {
+                        this.children.dialogAddUser.changeVisible();
                     }
                 },
             },
@@ -163,46 +171,23 @@ class ChatPage extends Block {
             labelText: 'Удалить пользователя',
             events: {
                 click: () => {
-                    if (dialogRemoveUser !== null) {
-                        dialogRemoveUser.changeVisible();
+                    if (this.children.dialogRemoveUser !== null) {
+                        this.children.dialogRemoveUser.changeVisible();
                     }
                 },
             },
         });
 
-        dialogControl.addSettingLink(linkAddUser);
-        dialogControl.addSettingLink(linkRemoveUser);
-        dialogControl.getContent()!.style.top = '8px';
-        dialogControl.getContent()!.style.right = '16px';
-        dialogControl.getContent()!.style.left = 'auto';
+        (this.children.dialogControl as DialogMenu).addSettingLink(linkAddUser);
+        (this.children.dialogControl as DialogMenu).addSettingLink(linkRemoveUser);
+        this.children.dialogControl.getContent()!.style.top = '8px';
+        this.children.dialogControl.getContent()!.style.right = '16px';
+        this.children.dialogControl.getContent()!.style.left = 'auto';
+    }
 
-        root!.append(dialogControl.getContent()!);
-
-        return dialogControl;
+    render() {
+        return this.compile(template, this.props);
+    }
 }
-
-window.addEventListener('DOMContentLoaded', () => {
-    const root = document.querySelector('#chat');
-
-    const dialogSetting = new DialogMenu({
-        exitLabel: new Label({
-            labelText: 'Выйти',
-        })
-    });
-    const chatList = new ChatPage({
-        iconRocket: iconRocket,
-        dialogSetting: dialogSetting,
-        dialogControlUser: initDialogMenu(root),
-    });
-    ArrayChats.getArrayChats().forEach((value) => {
-        chatList.addChat(value);
-    });
-
-    root!.append(chatList.getContent()!);
-    root!.append(dialogSetting.getContent()!);
-
-    chatList.dispatchComponentDidMount();
-});
-
 
 export default ChatPage;
