@@ -26,8 +26,8 @@ export class DialogSelectFile extends Block {
                 }
             },
         });
-        this.children.labelInfo.getContent()!.style.marginTop = "20px"
-        this.children.labelInfo.getContent()!.style.marginBottom = "20px"
+        this.children.labelInfo.getContent()!.style.marginTop = "20px";
+        this.children.labelInfo.getContent()!.style.marginBottom = "20px";
 
         this.children.buttonAdd = new Button({
             buttonText: 'Изменить',
@@ -36,7 +36,6 @@ export class DialogSelectFile extends Block {
                 click: () => {
                     if (this.selectFile !== null){
                         UserController.changeAvatar(this.selectFile);
-                        //console.log(this.selectFile)
                     }
                 },
             },
@@ -63,7 +62,7 @@ export class DialogSelectFile extends Block {
     private importData(): void {
         let input = window.document.createElement('input');
         input.type = 'file';
-        input.onchange = _ => {
+        input.onchange = () => {
             if (input.files!.length === 1) {
                 // @ts-ignore // из-за проверки выше всегда будет 1 элемент // в последующих спринтах это измениться
                 this.selectFile = input.files[0];
