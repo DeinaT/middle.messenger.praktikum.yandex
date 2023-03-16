@@ -133,6 +133,10 @@ class InformationPage extends Block {
         (this.children.inputPhone  as Input).setValue(info.phone);
     }
 
+    show(): void {
+        this.getContent()!.style.display = 'block';
+    }
+
     render() {
         return this.compile(template, this.props);
     }

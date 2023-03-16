@@ -71,6 +71,10 @@ class RegistrationPage extends FormPage {
         ];
     }
 
+    show(): void {
+        this.getContent()!.style.display = 'block';
+    }
+
     render() {
         return this.compile(template, this.props);
     }
