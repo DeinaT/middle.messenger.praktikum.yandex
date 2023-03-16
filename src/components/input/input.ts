@@ -9,6 +9,7 @@ interface InputProps {
     inputError?: string;
     inputIsPassword?: boolean;
     inputDisplayError?: boolean;
+    inputReadOnly?: boolean;
 
     events?: {
         blur?: () => void;
@@ -22,6 +23,8 @@ class Input extends Block {
         super('div', props);
         super.addInnerClass('input-group');
         this.getValue.bind(this.getValue);
+
+        (this.getContent()! as HTMLInputElement).readOnly = this.props.inputReadOnly;
     }
 
     public getValue(): string {

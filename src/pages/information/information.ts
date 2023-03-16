@@ -46,31 +46,37 @@ class InformationPage extends Block {
         this.children.inputEmail = new Input({
             inputName: 'email',
             inputPlaceholder: 'Почта',
+            inputReadOnly: true,
         });
 
         this.children.inputLogin = new Input({
             inputName: 'login',
             inputPlaceholder: 'Логин',
+            inputReadOnly: true,
         });
 
         this.children.inputFirstName = new Input({
             inputName: 'first_name',
             inputPlaceholder: 'Имя',
+            inputReadOnly: true,
         });
 
         this.children.inputSecondName = new Input({
             inputName: 'second_name',
             inputPlaceholder: 'Фамилия',
+            inputReadOnly: true,
         });
 
         this.children.inputPhone = new Input({
             inputName: 'phone',
             inputPlaceholder: 'Телефон',
+            inputReadOnly: true,
         });
 
         this.children.inputDisplayName = new Input({
             inputName: 'display_name',
             inputPlaceholder: 'Имя в чате',
+            inputReadOnly: true,
         });
 
         this.children.button_change_data = new Button({
