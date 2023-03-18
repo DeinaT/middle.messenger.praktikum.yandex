@@ -4,7 +4,6 @@ import '../../components/input/input.ts';
 import '../../css/style.sass';
 import '../../css/icon_avatar.sass';
 import iconEmptyAvatar from '../../../static/icon/icon_empty_avatar.png';
-import Block from '../../utils/block';
 import Input from '../../components/input/input';
 import Button from '../../components/button/button';
 import DialogSelectFile from '../../components/dialog_select_file/dialogSelectFile';
@@ -12,11 +11,17 @@ import Router from '../../route/router';
 import AuthController from "../../controllers/authController";
 import {NavString} from "../../utils/navigation";
 import User from "../../objects/user";
+import BlockStore from "../../utils/blockStore";
+import store from "../../objects/store";
 
 
-class InformationPage extends Block {
+class InformationPage extends BlockStore {
     constructor() {
-        super('div', {iconEmptyAvatar: iconEmptyAvatar});
+        super('div', {iconEmptyAvatar: iconEmptyAvatar}, state => {
+            if (state.user) {
+                this.fillInfo(state.user);
+            }
+        });
 
         const dialogSelectFile = new DialogSelectFile({title: "Загрузите файл"});
 
@@ -30,15 +35,8 @@ class InformationPage extends Block {
             }
         };
 
-
-        try {
-            AuthController.fetchUser().then(user => {
-                if (user.id !== 0) {
-                    this.fillInfo(user);
-                }
-            });
-        } catch (e: any) {
-        }
+        if (!store.getState().user)
+            AuthController.fetchUser();
     }
 
     init() {

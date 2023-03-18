@@ -34,16 +34,18 @@ export class AuthController {
     }
 
     public startFetchUser() {
-        this.fetchUser().then(resolved => {
-                store.set('user', resolved);
+        this.fetchUser().then(() => {
                 Router.go(NavString.MESSENGER);
             },
             () => {
+                Router.go(NavString.AUTHORIZATION);
             });
     }
 
     async fetchUser() {
-        await this.api.read();
+        await this.api.read().then(user => {
+            store.set('user', user);
+        });
     }
 
     async logout() {
