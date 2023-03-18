@@ -37,9 +37,10 @@ export default class HTTPTransport {
         });
     }
 
-    public delete<Response>(path: string): Promise<Response> {
+    public delete<Response>(path: string, data?: unknown): Promise<Response> {
         return this.request<Response>(this.endpoint + path, {
             method: Method.DELETE,
+            data
         });
     }
 
@@ -50,7 +51,7 @@ export default class HTTPTransport {
             const xhr = new XMLHttpRequest();
             xhr.open(method, url);
 
-            xhr.onreadystatechange = (e) => {
+            xhr.onreadystatechange = () => {
 
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     if (xhr.status < 400) {

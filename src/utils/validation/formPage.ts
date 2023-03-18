@@ -1,5 +1,5 @@
 import Input from '../../components/input/input';
-import Block from '../block';
+import BlockStore from "../blockStore";
 
 interface FormProps {
     checkInput?: Array<Input>,
@@ -8,8 +8,8 @@ interface FormProps {
     };
 }
 
-export abstract class FormPage extends Block {
-    protected constructor(useFormData: (formData: FormData) => void) {
+export abstract class FormPage extends BlockStore {
+    protected constructor(useFormData: (formData: FormData) => void, mapStateToProps: (state: any) => any) {
         const props: FormProps = {
             events: {
                 submit: (evt) => {
@@ -26,7 +26,7 @@ export abstract class FormPage extends Block {
                 },
             },
         };
-        super('div', props);
+        super('div', props, mapStateToProps);
     }
 }
 

@@ -3,7 +3,7 @@ import '../../../css/style.sass';
 import Button from '../../../components/button/button';
 import ConstructionDefault from '../../../utils/validation/constructionDefault';
 import FormPage from '../../../utils/validation/formPage';
-import UserData from '../../../objects/userData';
+import UserData from '../../../model/userData';
 import Router from "../../../route/router";
 import UserController from "../../../controllers/userController";
 import AuthController from "../../../controllers/authController";

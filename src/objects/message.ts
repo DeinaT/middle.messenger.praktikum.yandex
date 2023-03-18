@@ -1,4 +1,4 @@
-export class Message {
+export class MessageOld {
     public text: string;
 
     //public object: object;
@@ -19,4 +19,4 @@ export class Message {
     }
 }
 
-export default Message;
+export default MessageOld;

@@ -20,6 +20,11 @@ export enum NavString {
 }
 
 export class Navigation {
+    static sjsjs=0;
+    public  static getSSS():number{
+        this.sjsjs++;
+        return this.sjsjs;
+    }
     public static initRouter(): void {
         Router
             .use(NavString.AUTHORIZATION, AuthorizationPage)

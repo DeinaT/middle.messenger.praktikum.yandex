@@ -6,7 +6,7 @@ export class EventBus {
             this.listeners[event] = [];
         }
 
-        this.listeners[event].push(callback);
+        this.listeners[event]?.push(callback);
     }
 
     off(event: string, callback: (...args: any[]) => void) {
@@ -22,9 +22,10 @@ export class EventBus {
     emit(event: string, ...args: any[]) {
         if (!this.listeners[event]) {
             throw new Event(`Нет события: ${event}`);
+            //return;
         }
 
-        this.listeners[event].forEach(listener => {
+        this.listeners[event]!.forEach(listener => {
             listener(...(args as []));
         });
     }

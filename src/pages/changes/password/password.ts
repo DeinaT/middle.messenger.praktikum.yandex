@@ -7,7 +7,7 @@ import Button from '../../../components/button/button';
 import ConstructionDefault from '../../../utils/validation/constructionDefault';
 import Validation from '../../../utils/validation/validation';
 import FormPage from '../../../utils/validation/formPage';
-import UserPassword from '../../../objects/userPassword';
+import UserPassword from '../../../model/userPassword';
 import Router from "../../../route/router";
 import UserController from "../../../controllers/userController";
 

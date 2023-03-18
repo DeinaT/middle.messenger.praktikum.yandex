@@ -16,6 +16,7 @@ import MessageList from '../../components/message_list/messageList';
 import AuthController from "../../controllers/authController";
 import Router from '../../route/router';
 import {NavString} from "../../utils/navigation";
+import ChatController from "../../controllers/chatController";
 
 
 class ChatPage extends Block {
@@ -32,9 +33,12 @@ class ChatPage extends Block {
         };
         this.setClassForEvent('for_event');
 
-        ArrayChats.getArrayChats().forEach((value) => {
+        /*ArrayChats.getArrayChats().forEach((value) => {
             this.addChat(value);
-        });
+        });*/
+        ChatController.fetchChats().then(chat => {
+            console.log(chat);
+        })
 
     }
 

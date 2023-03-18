@@ -6,7 +6,7 @@ import Label from '../../components/label/label';
 import ConstructionDefault from '../../utils/validation/constructionDefault';
 import Validation from '../../utils/validation/validation';
 import FormPage from '../../utils/validation/formPage';
-import UserAuthorization from '../../objects/userAuthorization';
+import UserAuthorization from '../../model/userAuthorization';
 import Router from "../../route/router";
 import AuthController from "../../controllers/authController";
 import {NavString} from "../../utils/navigation";
@@ -14,18 +14,18 @@ import {NavString} from "../../utils/navigation";
 class AuthorizationPage extends FormPage {
     constructor() {
         super(formData => {
-            AuthController.signin(new UserAuthorization(formData));
-        });
-        try {
-            AuthController.fetchUser().then(user => {
-                if (user.id !== 0)
+            AuthController.signIn(new UserAuthorization(formData));
+        }, state => {
+            this.setTextError(state.errorUserAuthorization);
+            if (state.user) {
                 Router.go(NavString.MESSENGER);
-            });
-        } catch (e: any) {
-        }
+            }
+        });
+        AuthController.fetchUser();
     }
 
     init() {
+        this.props.textError = "";
         this.children.inputLogin = ConstructionDefault.getDefaultNotEmptyInput('login', 'Логин');
 
         this.children.inputPassword = ConstructionDefault.getDefaultPasswordInput(
@@ -51,12 +51,19 @@ class AuthorizationPage extends FormPage {
 
         this.children.labelReg.getContent()!.style.marginTop = '15px';
 
-        this.setClassForEvent('for_event_form');
-
         this.props.checkInput = [
             this.children.inputLogin,
             this.children.inputPassword,
         ];
+    }
+
+    private setTextError(value: boolean) {
+        this.props.textError = (value) ? "Неверный логин или пароль" : "";
+    }
+
+    show() {
+        this.setTextError(false);
+        super.show();
     }
 
     render() {

@@ -6,7 +6,7 @@ import Input from '../../components/input/input';
 import Button from '../../components/button/button';
 import Label from '../../components/label/label';
 import Validation from '../../utils/validation/validation';
-import UserRegistration from '../../objects/userRegistration';
+import UserRegistration from '../../model/userRegistration';
 import ConstructionDefault from '../../utils/validation/constructionDefault';
 import FormPage from '../../utils/validation/formPage';
 import AuthController from "../../controllers/authController";
@@ -16,7 +16,7 @@ import {NavString} from "../../utils/navigation";
 class RegistrationPage extends FormPage {
     constructor() {
         super(formData => {
-            AuthController.signup(new UserRegistration(formData));
+            AuthController.signUp(new UserRegistration(formData));
         });
     }
 

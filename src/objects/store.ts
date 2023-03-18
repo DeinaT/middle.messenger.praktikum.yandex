@@ -21,6 +21,9 @@ export class Store extends EventBus {
 
 const store = new Store();
 
+// @ts-ignore
+window.store = store;
+
 export function withStore(mapStateToProps: (state: any) => any) {
 
     return function wrap(Component: typeof Block){

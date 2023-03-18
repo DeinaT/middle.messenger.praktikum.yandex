@@ -1,10 +1,9 @@
 import AuthApi from '../api/authApi';
 import Router from '../route/router';
 import {NavString} from "../utils/navigation";
-import UserAuthorization from "../objects/userAuthorization";
-import UserRegistration from "../objects/userRegistration";
+import UserAuthorization from "../model/userAuthorization";
+import UserRegistration from "../model/userRegistration";
 import store from "../objects/store";
-import User from "../objects/user";
 
 export class AuthController {
     private readonly api: AuthApi;
@@ -13,17 +12,17 @@ export class AuthController {
         this.api = new AuthApi();
     }
 
-    async signin(data: UserAuthorization) {
-        try {
-            await this.api.signin(data);
-
+    async signIn(data: UserAuthorization) {
+        await this.api.signin(data).then(() => {
             Router.go(NavString.MESSENGER);
-        } catch (e: any) {
-            console.error(e);
-        }
+
+            store.set('errorUserAuthorization', false);
+        }, () => {
+            store.set('errorUserAuthorization', true);
+        });
     }
 
-    async signup(data: UserRegistration) {
+    async signUp(data: UserRegistration) {
         try {
             await this.api.signup(data);
 
@@ -35,12 +34,10 @@ export class AuthController {
         }
     }
 
-    async fetchUser(): Promise<User> {
-        const user = await this.api.read();
-
-        //store.set('user', user);
-
-        return user;
+    async fetchUser() {
+        await this.api.read().then(resolved => {
+            store.set('user', resolved);
+        }, () => {});
     }
 
     async logout() {

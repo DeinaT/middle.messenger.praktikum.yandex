@@ -1,6 +1,6 @@
 import BaseApi from "./baseApi";
-import UserAuthorization from "../objects/userAuthorization";
-import UserRegistration from "../objects/userRegistration";
+import UserAuthorization from "../model/userAuthorization";
+import UserRegistration from "../model/userRegistration";
 import User from "../objects/user";
 
 
@@ -10,12 +10,12 @@ export class AuthAPI extends BaseApi {
     }
 
     signin(data: UserAuthorization) {
-        return this.http.post('/signin', data);
+        return this.http.post('/signIn', data);
     }
 
 
     signup(data: UserRegistration) {
-        return this.http.post('/signup', data);
+        return this.http.post('/signUp', data);
     }
 
     read(): Promise<User> {
