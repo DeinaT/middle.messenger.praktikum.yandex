@@ -6,25 +6,25 @@ import FormPage from '../../../utils/validation/formPage';
 import UserData from '../../../model/userData';
 import Router from "../../../route/router";
 import UserController from "../../../controllers/userController";
-import AuthController from "../../../controllers/authController";
 import Input from "../../../components/input/input";
 import User from "../../../objects/user";
+import AuthController from "../../../controllers/authController";
+import store from "../../../objects/store";
+import {NavString} from "../../../utils/navigation";
 
 class ChangeDataPage extends FormPage {
     constructor() {
         super(formData => {
-            UserController.changeProfile(new UserData(formData))
+            UserController.changeProfile(new UserData(formData));
+            Router.go(NavString.INFORMATION);
+        }, state => {
+            if (state.user) {
+                this.fillInfo(state.user);
+            }
         });
 
-
-        try {
-            AuthController.fetchUser().then(user => {
-                if (user.id !== 0) {
-                    this.fillInfo(user);
-                }
-            });
-        } catch (e: any) {
-        }
+        if (!store.getState().user)
+            AuthController.fetchUser();
     }
 
     init() {

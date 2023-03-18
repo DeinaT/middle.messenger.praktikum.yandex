@@ -1,6 +1,7 @@
 import UserAPI from "../api/userApi";
 import UserData from "../model/userData";
 import UserPassword from "../model/userPassword";
+import AuthController from "./authController";
 
 export class UserController {
     private readonly api: UserAPI;
@@ -12,6 +13,7 @@ export class UserController {
     async changeProfile(data: UserData) {
         try {
             await this.api.changeProfile(data);
+            AuthController.fetchUser();
         } catch (e: any) {
             console.error(e);
         }
@@ -20,6 +22,7 @@ export class UserController {
     async changePassword(data: UserPassword) {
         try {
             await this.api.changePassword(data);
+            AuthController.fetchUser();
         } catch (e: any) {
             console.error(e);
         }
