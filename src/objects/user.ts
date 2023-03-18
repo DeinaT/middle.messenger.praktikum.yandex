@@ -12,6 +12,8 @@ export class User {
 
     phone: string;
 
+    avatar: string | undefined;
+
     display_name: string;
 
     constructor(data: FormData) {

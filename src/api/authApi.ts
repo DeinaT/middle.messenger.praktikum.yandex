@@ -4,7 +4,7 @@ import UserRegistration from "../model/userRegistration";
 import User from "../objects/user";
 
 
-export class AuthAPI extends BaseApi {
+export class AuthApi extends BaseApi {
     constructor() {
         super('/auth');
     }
@@ -31,4 +31,4 @@ export class AuthAPI extends BaseApi {
     delete = undefined;
 }
 
-export default AuthAPI;
+export default AuthApi;
