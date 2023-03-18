@@ -9,7 +9,7 @@ interface FormProps {
 }
 
 export abstract class FormPage extends BlockStore {
-    protected constructor(useFormData: (formData: FormData) => void, mapStateToProps: (state: any) => any) {
+    protected constructor(useFormData: (formData: FormData) => void, mapStateToProps?: (state: any) => any) {
         const props: FormProps = {
             events: {
                 submit: (evt) => {

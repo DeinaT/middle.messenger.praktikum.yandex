@@ -17,6 +17,8 @@ class RegistrationPage extends FormPage {
     constructor() {
         super(formData => {
             AuthController.signUp(new UserRegistration(formData));
+        }, state => {
+            this.setTextError(state.errorUserRegistration);
         });
     }
 
@@ -58,8 +60,6 @@ class RegistrationPage extends FormPage {
             buttonType: 'submit',
         });
 
-        this.setClassForEvent('for_event_form');
-
         this.props.checkInput = [
             this.children.inputEmail,
             this.children.inputLogin,
@@ -69,6 +69,10 @@ class RegistrationPage extends FormPage {
             this.children.inputPassword,
             this.children.inputPasswordRepeat,
         ];
+    }
+
+    setTextError(value: boolean) {
+        this.props.textError = (value) ? "Такой пользователь уже существует" : "";
     }
 
     show(): void {

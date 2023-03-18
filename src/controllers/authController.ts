@@ -23,21 +23,27 @@ export class AuthController {
     }
 
     async signUp(data: UserRegistration) {
-        try {
-            await this.api.signup(data);
+        await this.api.signup(data).then(() => {
 
-            await this.fetchUser();
+            this.startFetchUser();
 
-            Router.go(NavString.MESSENGER);
-        } catch (e: any) {
-            console.error(e);
-        }
+            store.set('errorUserRegistration', false);
+        }, () => {
+            store.set('errorUserRegistration', true);
+        });
+    }
+
+    public startFetchUser() {
+        this.fetchUser().then(resolved => {
+                store.set('user', resolved);
+                Router.go(NavString.MESSENGER);
+            },
+            () => {
+            });
     }
 
     async fetchUser() {
-        await this.api.read().then(resolved => {
-            store.set('user', resolved);
-        }, () => {});
+        await this.api.read();
     }
 
     async logout() {

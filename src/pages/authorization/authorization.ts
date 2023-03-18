@@ -17,11 +17,8 @@ class AuthorizationPage extends FormPage {
             AuthController.signIn(new UserAuthorization(formData));
         }, state => {
             this.setTextError(state.errorUserAuthorization);
-            if (state.user) {
-                Router.go(NavString.MESSENGER);
-            }
         });
-        AuthController.fetchUser();
+        AuthController.startFetchUser();
     }
 
     init() {
