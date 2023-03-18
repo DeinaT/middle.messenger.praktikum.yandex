@@ -23,8 +23,6 @@ class Input extends Block {
         super('div', props);
         super.addInnerClass('input-group');
         this.getValue.bind(this.getValue);
-
-        (this.getContent()! as HTMLInputElement).readOnly = this.props.inputReadOnly;
     }
 
     public getValue(): string {
