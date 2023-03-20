@@ -11,7 +11,7 @@ export class EventBus {
 
     off(event: string, callback: (...args: any[]) => void) {
         if (!this.listeners[event]) {
-            throw new Error(`Нет события: ${event}`);
+            return;
         }
 
         this.listeners[event] = this.listeners[event].filter(
@@ -21,8 +21,7 @@ export class EventBus {
 
     emit(event: string, ...args: any[]) {
         if (!this.listeners[event]) {
-            throw new Event(`Нет события: ${event}`);
-            //return;
+            return;
         }
 
         this.listeners[event]!.forEach(listener => {

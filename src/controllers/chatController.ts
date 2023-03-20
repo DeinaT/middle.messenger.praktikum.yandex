@@ -1,6 +1,7 @@
 import {ChatApi} from "../api/chatApi";
 import store from "../objects/store";
 import ChatInfo from "../model/chatInfo";
+import MessagesController from "./messagesController";
 
 export class ChatController {
     private readonly api: ChatApi;
@@ -18,11 +19,11 @@ export class ChatController {
     async fetchChats() : Promise<ChatInfo[]> {
         const chats = await this.api.read();
 
-        /*chats.map(async (chat) => {
+        chats.map(async (chat) => {
             const token = await this.getToken(chat.id);
 
             await MessagesController.connect(chat.id, token);
-        });*/
+        });
 
          store.set('chats', chats);
 

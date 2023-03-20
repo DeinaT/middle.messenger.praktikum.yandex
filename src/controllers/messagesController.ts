@@ -12,7 +12,7 @@ export class MessagesController {
             return;
         }
 
-        const userId = 88; //store.getState().user.id; // todo
+        const userId = store.getState().user.id;
 
         const wsTransport = new WsTransport(`wss://ya-praktikum.tech/ws/chats/${userId}/${id}/${token}`);
 

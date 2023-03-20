@@ -1,15 +1,11 @@
-import User from "../objects/user";
+import Message from "./message";
 
 export class ChatInfo {
     id: number;
     title: string;
     avatar: string;
     unread_count: number;
-    last_message: {
-        user: User,
-        time: string;
-        content: string;
-    }
+    last_message: Message
 }
 
 export default ChatInfo;

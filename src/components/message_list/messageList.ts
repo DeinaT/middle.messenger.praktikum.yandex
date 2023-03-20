@@ -1,25 +1,27 @@
 import './messageList.sass';
 import '../message_item/messageItem.sass';
-import Block from '../../utils/block';
 import template from './messageList.hbs';
 import iconSetting from '../../../static/icon/icon_setting.png';
 import iconAddObject from '../../../static/icon/icon_add_object.png';
 import iconSendMess from '../../../static/icon/icon_send_mess.png';
-import Message from '../../objects/message';
 import MessageItem from '../message_item/messageItem';
 import DialogMenu from '../dialog_menu/dialogMenu';
 import Icon from '../icon/icon';
+import BlockStore from "../../utils/blockStore";
+import Message from "../../model/message";
+import MessagesController from "../../controllers/messagesController";
+import ChatInfo from "../../model/chatInfo";
+import store from "../../objects/store";
 
 interface MessageListProps {
-    chatUser: string;
-    allMessage: Array<Message>;
+    chatUser?: string;
     iconSetting?: Icon;
     iconAddObject?: Icon;
     iconSendMess?: Icon;
     dialogControl: DialogMenu;
 }
 
-export class MessageList extends Block {
+export class MessageList extends BlockStore {
     constructor(props: MessageListProps) {
         props.iconSetting = new Icon({
             iconSrc: iconSetting,
@@ -33,35 +35,43 @@ export class MessageList extends Block {
             },
         });
         props.iconAddObject = new Icon({
-              iconSrc: iconAddObject,
-              iconAlt: 'Иконка добавления объекта',
-              events: {
-                  click: () => {
-                      // todo
-                  },
-              },
-          });
+            iconSrc: iconAddObject,
+            iconAlt: 'Иконка добавления объекта',
+            events: {
+                click: () => {
+                    // todo
+                },
+            },
+        });
 
         props.iconSendMess = new Icon({
             iconSrc: iconSendMess,
             iconAlt: 'Иконка отправления сообщения',
             events: {
                 click: () => {
-                    console.log({message: this.getNewMessage()});
+                    MessagesController.sendMessage(this.props.selectedChat!, this.getNewMessage());
                 },
             },
         });
 
-        super('div', props);
-        this.initListMessage();
+        super('div', props, store => {
+
+            if (store.selectedChat && store.messages) {
+                this.props.selectedChat = store.selectedChat;
+                const selectChat = store.chats.filter((chat: ChatInfo) => chat.id === store.selectedChat);
+                if (selectChat!.length > 0)
+                    this.props.chatUser = selectChat[0]!.title;
+                this.initListMessage((store.messages || {})[store.selectedChat] || [],);
+            }
+        });
     }
 
-    private initListMessage(): void {
-        this.props.allMessage.forEach((m: { data: string; text: string; isYou: boolean; }) => {
+    private initListMessage(messages: Message[]): void {
+        messages.forEach((m: Message) => {
             const message: MessageItem = new MessageItem({
-                messageData: m.data,
-                messageText: m.text,
-                messageIsYou: m.isYou,
+                messageData: m.time,
+                messageText: m.content,
+                messageIsYou: m.user_id === store.getState().user.id,
             });
 
             this.getContent()!.style.height = 'inherit';
