@@ -16,7 +16,7 @@ import ChatController from "../../controllers/chatController";
 import BlockStore from "../../utils/blockStore";
 import ChatInfo from "../../model/chatInfo";
 import Message from "../../model/message";
-import store from "../../objects/store";
+import store from "../../model/store";
 import UserController from "../../controllers/userController";
 
 

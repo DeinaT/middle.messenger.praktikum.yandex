@@ -1,7 +1,7 @@
 import BaseApi from "./baseApi";
 import UserAuthorization from "../model/userAuthorization";
 import UserRegistration from "../model/userRegistration";
-import User from "../objects/user";
+import User from "../model/user";
 
 
 export class AuthApi extends BaseApi {

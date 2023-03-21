@@ -5,7 +5,7 @@ export class ChatInfo {
     title: string;
     avatar: string;
     unread_count: number;
-    last_message: Message
+    last_message: Message;
 }
 
 export default ChatInfo;

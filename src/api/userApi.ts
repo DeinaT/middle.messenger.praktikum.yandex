@@ -1,7 +1,7 @@
 import BaseApi from "./baseApi";
 import UserData from "../model/userData";
 import UserPassword from "../model/userPassword";
-import User from "../objects/user";
+import User from "../model/user";
 
 
 export class UserAPI extends BaseApi {

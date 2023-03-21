@@ -1,5 +1,5 @@
 import ChatInfo from "../model/chatInfo";
-import User from "../objects/user";
+import User from "../model/user";
 import BaseApi from "./baseApi";
 
 

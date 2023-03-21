@@ -10,9 +10,9 @@ import DialogSelectFile from '../../components/dialog_select_file/dialogSelectFi
 import Router from '../../route/router';
 import AuthController from "../../controllers/authController";
 import {NavString} from "../../utils/navigation";
-import User from "../../objects/user";
+import User from "../../model/user";
 import BlockStore from "../../utils/blockStore";
-import store from "../../objects/store";
+import store from "../../model/store";
 
 
 class InformationPage extends BlockStore {

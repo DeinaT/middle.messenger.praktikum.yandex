@@ -3,7 +3,7 @@ import Router from '../route/router';
 import {NavString} from "../utils/navigation";
 import UserAuthorization from "../model/userAuthorization";
 import UserRegistration from "../model/userRegistration";
-import store from "../objects/store";
+import store from "../model/store";
 
 export class AuthController {
     private readonly api: AuthApi;

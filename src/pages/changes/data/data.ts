@@ -7,9 +7,9 @@ import UserData from '../../../model/userData';
 import Router from "../../../route/router";
 import UserController from "../../../controllers/userController";
 import Input from "../../../components/input/input";
-import User from "../../../objects/user";
+import User from "../../../model/user";
 import AuthController from "../../../controllers/authController";
-import store from "../../../objects/store";
+import store from "../../../model/store";
 import {NavString} from "../../../utils/navigation";
 
 class ChangeDataPage extends FormPage {

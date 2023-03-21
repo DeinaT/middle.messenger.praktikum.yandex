@@ -11,7 +11,7 @@ import BlockStore from "../../utils/blockStore";
 import Message from "../../model/message";
 import MessagesController from "../../controllers/messagesController";
 import ChatInfo from "../../model/chatInfo";
-import store from "../../objects/store";
+import store from "../../model/store";
 
 interface MessageListProps {
     chatUser?: string;
