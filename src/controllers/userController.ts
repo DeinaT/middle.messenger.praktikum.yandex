@@ -32,6 +32,7 @@ export class UserController {
     async changeAvatar(data: File) {
         try {
             await this.api.changeAvatar(data);
+            AuthController.fetchUser();
         } catch (e: any) {
             console.error(e);
         }

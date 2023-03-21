@@ -36,6 +36,7 @@ export class DialogSelectFile extends Block {
                 click: () => {
                     if (this.selectFile !== null){
                         UserController.changeAvatar(this.selectFile);
+                        this.hide();
                     }
                 },
             },

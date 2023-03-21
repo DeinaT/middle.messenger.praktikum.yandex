@@ -129,6 +129,8 @@ class InformationPage extends BlockStore {
         (this.children.inputSecondName as Input).setValue(info.second_name);
         (this.children.inputDisplayName as Input).setValue(info.display_name);
         (this.children.inputPhone  as Input).setValue(info.phone);
+        this.props.iconEmptyAvatar = "https://ya-praktikum.tech/api/v2/resources/" + info.avatar;
+        this.props.styleAvatar = "width:100%;height:100%";
     }
 
     show(): void {
