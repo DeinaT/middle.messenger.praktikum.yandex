@@ -24,7 +24,6 @@ class ChatPage extends BlockStore {
         super('div', {
             iconRocket: iconRocket,
         }, storeChat => {
-            console.log(storeChat.chats)
             this.removeAllChildNodes(this.getContent()!.querySelector('.left-menu__chats')!);
             storeChat.chats.forEach((chat: ChatInfo) => {
 
@@ -181,6 +180,10 @@ class ChatPage extends BlockStore {
             exitLabel: new Label({
                 labelText: 'Удалить чат',
             }),
+        });
+
+        (this.children.dialogControl as DialogMenu).setCancelEvent(() => {
+            ChatController.delete(store.getState().selectedChat)
         });
 
         const linkAddUser: Label = new Label({
