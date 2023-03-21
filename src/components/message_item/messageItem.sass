@@ -1,0 +1,33 @@
+@import ../../css/color
+@import ../../css/font
+@import ../../css/support
+
+div.p__message_text
+  position: relative
+  z-index: 2
+  width: fit-content
+  min-height: 37px
+  max-width: 80%
+  color: $text-title-color
+  font-size: $chat-message-title-size
+  line-height: 1.5em
+  height: fit-content
+  padding: 10px 10px 20px 10px
+  background: $chat-user-color
+  border-radius: 0 8px 8px 8px
+  margin: 10px 20px 10px 20px
+  align-self: start
+
+  &.is-you
+    border-radius: 8px 8px 0 8px
+    background: $background-color
+    align-self: end
+
+div.p__message-date
+  position: absolute
+  bottom: 0
+  right: 0
+  z-index: 3
+  color: $text-title-color
+  margin: 0 10px 5px 0
+  font-size: $chat-info-size
