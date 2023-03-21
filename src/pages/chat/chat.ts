@@ -123,11 +123,13 @@ class ChatPage extends BlockStore {
         let countUnreadableMessage = chat.unread_count;
         let showUnreadableMessage = (countUnreadableMessage > 0);
         let haveLastMessage = (lastMessage === null);
-        console.log(chat.title);
+        let dateMessage: Date = new Date(lastMessage.time);
+        let strDate: string =(dateMessage !== null)? `${dateMessage.getHours()}:${dateMessage.getMinutes()}` :"";
+        console.log(strDate)
         const chatPreView = new MessagePreview({
             messageUser: chat.title,
             messageText: (haveLastMessage) ? "" : lastMessage.content,
-            messageData: (haveLastMessage) ? "" : lastMessage.time,
+            messageData: strDate,
             lastMessageIsYou: (haveLastMessage) ? false : lastMessage.user_id === store.getState().user.id,
             showMessageCount: showUnreadableMessage,
             messageCount: countUnreadableMessage,

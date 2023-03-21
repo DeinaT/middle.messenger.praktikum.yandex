@@ -68,8 +68,10 @@ export class MessageList extends BlockStore {
 
     private initListMessage(messages: Message[]): void {
         messages.forEach((m: Message) => {
+            let dateMessage: Date = new Date(m.time);
+            let strDate: string =(dateMessage !== null)? `${dateMessage.getHours()}:${dateMessage.getMinutes()}` :"";
             const message: MessageItem = new MessageItem({
-                messageData: m.time,
+                messageData: strDate,
                 messageText: m.content,
                 messageIsYou: m.user_id === store.getState().user.id,
             });
