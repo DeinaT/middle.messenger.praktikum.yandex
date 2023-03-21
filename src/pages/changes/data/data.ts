@@ -4,13 +4,13 @@ import Button from '../../../components/button/button';
 import ConstructionDefault from '../../../utils/validation/constructionDefault';
 import FormPage from '../../../utils/validation/formPage';
 import UserData from '../../../model/userData';
-import Router from "../../../route/router";
-import UserController from "../../../controllers/userController";
-import Input from "../../../components/input/input";
-import User from "../../../model/user";
-import AuthController from "../../../controllers/authController";
-import store from "../../../model/store";
-import {NavString} from "../../../utils/navigation";
+import Router from '../../../route/router';
+import UserController from '../../../controllers/userController';
+import Input from '../../../components/input/input';
+import User from '../../../model/user';
+import AuthController from '../../../controllers/authController';
+import store from '../../../model/store';
+import {NavString} from '../../../utils/navigation';
 
 class ChangeDataPage extends FormPage {
     constructor() {
@@ -18,6 +18,8 @@ class ChangeDataPage extends FormPage {
             UserController.changeProfile(new UserData(formData));
             Router.go(NavString.INFORMATION);
         }, state => {
+            console.log('dsiuhsdf');
+            console.log(state.user);
             if (state.user) {
                 this.fillInfo(state.user);
             }
@@ -25,6 +27,10 @@ class ChangeDataPage extends FormPage {
 
         if (!store.getState().user)
             AuthController.fetchUser();
+
+        if (store.getState().user) {
+            this.fillInfo(store.getState().user);
+        }
     }
 
     init() {

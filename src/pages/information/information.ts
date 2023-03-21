@@ -8,11 +8,11 @@ import Input from '../../components/input/input';
 import Button from '../../components/button/button';
 import DialogSelectFile from '../../components/dialog_select_file/dialogSelectFile';
 import Router from '../../route/router';
-import AuthController from "../../controllers/authController";
-import {NavString} from "../../utils/navigation";
-import User from "../../model/user";
-import BlockStore from "../../utils/blockStore";
-import store from "../../model/store";
+import AuthController from '../../controllers/authController';
+import {NavString} from '../../utils/navigation';
+import User from '../../model/user';
+import BlockStore from '../../utils/blockStore';
+import store from '../../model/store';
 
 
 class InformationPage extends BlockStore {
@@ -23,7 +23,7 @@ class InformationPage extends BlockStore {
             }
         });
 
-        const dialogSelectFile = new DialogSelectFile({title: "Загрузите файл"});
+        const dialogSelectFile = new DialogSelectFile({title: 'Загрузите файл'});
 
         const root = window.document.querySelector('body');
         root!.append(dialogSelectFile.getContent()!);
@@ -129,8 +129,8 @@ class InformationPage extends BlockStore {
         (this.children.inputSecondName as Input).setValue(info.second_name);
         (this.children.inputDisplayName as Input).setValue(info.display_name);
         (this.children.inputPhone  as Input).setValue(info.phone);
-        this.props.iconEmptyAvatar = "https://ya-praktikum.tech/api/v2/resources/" + info.avatar;
-        this.props.styleAvatar = "width:100%;height:100%";
+        this.props.iconEmptyAvatar = 'https://ya-praktikum.tech/api/v2/resources/' + info.avatar;
+        this.props.styleAvatar = 'width:100%;height:100%';
     }
 
     show(): void {

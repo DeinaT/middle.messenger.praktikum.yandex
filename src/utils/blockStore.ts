@@ -1,5 +1,5 @@
-import Block from "./block";
-import store, {StoreEvents} from "../model/store";
+import Block from './block';
+import store, {StoreEvents} from '../model/store';
 
 
 class BlockStore extends Block {

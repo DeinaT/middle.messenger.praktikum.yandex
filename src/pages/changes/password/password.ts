@@ -8,8 +8,8 @@ import ConstructionDefault from '../../../utils/validation/constructionDefault';
 import Validation from '../../../utils/validation/validation';
 import FormPage from '../../../utils/validation/formPage';
 import UserPassword from '../../../model/userPassword';
-import Router from "../../../route/router";
-import UserController from "../../../controllers/userController";
+import Router from '../../../route/router';
+import UserController from '../../../controllers/userController';
 
 class ChangePasswordPage extends FormPage {
     constructor() {

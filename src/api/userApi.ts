@@ -1,7 +1,7 @@
-import BaseApi from "./baseApi";
-import UserData from "../model/userData";
-import UserPassword from "../model/userPassword";
-import User from "../model/user";
+import BaseApi from './baseApi';
+import UserData from '../model/userData';
+import UserPassword from '../model/userPassword';
+import User from '../model/user';
 
 
 export class UserAPI extends BaseApi {
@@ -19,7 +19,7 @@ export class UserAPI extends BaseApi {
 
     changeAvatar(data: File) {
         let avatar = new FormData();
-        avatar.append("avatar", data);
+        avatar.append('avatar', data);
         return this.http.put('/profile/avatar', avatar);
     }
 

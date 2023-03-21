@@ -1,8 +1,6 @@
-import Message from "../model/message";
-import WsTransport, {WsTransportEvents} from "../utils/wsTransport";
-import {types} from "sass";
-import Error = types.Error;
-import store from "../model/store";
+import Message from '../model/message';
+import WsTransport, {WsTransportEvents} from '../utils/wsTransport';
+import store from '../model/store';
 
 export class MessagesController {
     private sockets: Map<number, WsTransport> = new Map<number, WsTransport>();

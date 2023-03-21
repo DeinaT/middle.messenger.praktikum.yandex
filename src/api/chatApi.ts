@@ -1,6 +1,6 @@
-import ChatInfo from "../model/chatInfo";
-import User from "../model/user";
-import BaseApi from "./baseApi";
+import ChatInfo from '../model/chatInfo';
+import User from '../model/user';
+import BaseApi from './baseApi';
 
 
 export class ChatApi extends BaseApi {
@@ -21,7 +21,7 @@ export class ChatApi extends BaseApi {
     }
 
     getUsers(id: number): Promise<Array<User & { role: string }>> {
-        return this.http.get(`/${id}/users`)
+        return this.http.get(`/${id}/users`);
     }
 
     addUsers(id: number, users: number[]): Promise<unknown> {

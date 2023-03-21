@@ -7,11 +7,11 @@ import iconSendMess from '../../../static/icon/icon_send_mess.png';
 import MessageItem from '../message_item/messageItem';
 import DialogMenu from '../dialog_menu/dialogMenu';
 import Icon from '../icon/icon';
-import BlockStore from "../../utils/blockStore";
-import Message from "../../model/message";
-import MessagesController from "../../controllers/messagesController";
-import ChatInfo from "../../model/chatInfo";
-import store from "../../model/store";
+import BlockStore from '../../utils/blockStore';
+import Message from '../../model/message';
+import MessagesController from '../../controllers/messagesController';
+import ChatInfo from '../../model/chatInfo';
+import store from '../../model/store';
 
 interface MessageListProps {
     chatUser?: string;
@@ -69,7 +69,7 @@ export class MessageList extends BlockStore {
     private initListMessage(messages: Message[]): void {
         messages.forEach((m: Message) => {
             let dateMessage: Date = new Date(m.time);
-            let strDate: string =(dateMessage !== null)? `${dateMessage.getHours()}:${dateMessage.getMinutes()}` :"";
+            let strDate: string = (dateMessage !== null) ? `${dateMessage.getHours()}:${dateMessage.getMinutes()}` : "";
             const message: MessageItem = new MessageItem({
                 messageData: strDate,
                 messageText: m.content,

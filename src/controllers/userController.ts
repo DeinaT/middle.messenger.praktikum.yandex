@@ -1,8 +1,8 @@
-import UserAPI from "../api/userApi";
-import UserData from "../model/userData";
-import UserPassword from "../model/userPassword";
-import AuthController from "./authController";
-import User from "../model/user";
+import UserAPI from '../api/userApi';
+import UserData from '../model/userData';
+import UserPassword from '../model/userPassword';
+import AuthController from './authController';
+import User from '../model/user';
 
 export class UserController {
     private readonly api: UserAPI;

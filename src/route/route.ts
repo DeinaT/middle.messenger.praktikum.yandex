@@ -1,4 +1,4 @@
-import Block from "../utils/block";
+import Block from '../utils/block';
 
 function render(query: string, block: Block|null) {
     const root = document.querySelector(query);
@@ -48,7 +48,7 @@ class Route {
 
     render() {
         if (!this._block) {
-            this._block = new this._blockClass("", {});
+            this._block = new this._blockClass('', {});
         }
         render(this._props.rootQuery, this._block);
         this._block.show();

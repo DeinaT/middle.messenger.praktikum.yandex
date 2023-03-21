@@ -7,9 +7,9 @@ import ConstructionDefault from '../../utils/validation/constructionDefault';
 import Validation from '../../utils/validation/validation';
 import FormPage from '../../utils/validation/formPage';
 import UserAuthorization from '../../model/userAuthorization';
-import Router from "../../route/router";
-import AuthController from "../../controllers/authController";
-import {NavString} from "../../utils/navigation";
+import Router from '../../route/router';
+import AuthController from '../../controllers/authController';
+import {NavString} from '../../utils/navigation';
 
 class AuthorizationPage extends FormPage {
     constructor() {
@@ -22,7 +22,7 @@ class AuthorizationPage extends FormPage {
     }
 
     init() {
-        this.props.textError = "";
+        this.props.textError = '';
         this.children.inputLogin = ConstructionDefault.getDefaultNotEmptyInput('login', 'Логин');
 
         this.children.inputPassword = ConstructionDefault.getDefaultPasswordInput(
@@ -55,7 +55,7 @@ class AuthorizationPage extends FormPage {
     }
 
     private setTextError(value: boolean) {
-        this.props.textError = (value) ? "Неверный логин или пароль" : "";
+        this.props.textError = (value) ? 'Неверный логин или пароль' : '';
     }
 
     show() {

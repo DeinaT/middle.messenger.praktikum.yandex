@@ -9,15 +9,15 @@ import DialogMenu from '../../components/dialog_menu/dialogMenu';
 import DialogAsk from '../../components/dialog_ask/dialogAsk';
 import MessagePreview from '../../components/message_preview/messagePreview';
 import MessageList from '../../components/message_list/messageList';
-import AuthController from "../../controllers/authController";
+import AuthController from '../../controllers/authController';
 import Router from '../../route/router';
-import {NavString} from "../../utils/navigation";
-import ChatController from "../../controllers/chatController";
-import BlockStore from "../../utils/blockStore";
-import ChatInfo from "../../model/chatInfo";
-import Message from "../../model/message";
-import store from "../../model/store";
-import UserController from "../../controllers/userController";
+import {NavString} from '../../utils/navigation';
+import ChatController from '../../controllers/chatController';
+import BlockStore from '../../utils/blockStore';
+import ChatInfo from '../../model/chatInfo';
+import Message from '../../model/message';
+import store from '../../model/store';
+import UserController from '../../controllers/userController';
 
 
 class ChatPage extends BlockStore {
@@ -26,11 +26,11 @@ class ChatPage extends BlockStore {
             iconRocket: iconRocket,
         }, storeChat => {
             this.removeAllChildNodes(this.getContent()!.querySelector('.left-menu__chats')!);
-            storeChat.chats.forEach((chat: ChatInfo) => {
-
-
-                this.addChat(chat);
-            });
+            if (storeChat.chats) {
+                storeChat.chats.forEach((chat: ChatInfo) => {
+                    this.addChat(chat);
+                });
+            }
         });
         this.props.allPreview = [];
 
@@ -39,6 +39,9 @@ class ChatPage extends BlockStore {
                 this.showSetting();
             }
         };
+
+        if (!store.getState().user)
+            AuthController.fetchUser();
 
         ChatController.fetchChats();
     }
@@ -124,11 +127,11 @@ class ChatPage extends BlockStore {
         let showUnreadableMessage = (countUnreadableMessage > 0);
         let haveLastMessage = (lastMessage === null);
         let dateMessage: Date = new Date(lastMessage.time);
-        let strDate: string =(dateMessage !== null)? `${dateMessage.getHours()}:${dateMessage.getMinutes()}` :"";
+        let strDate: string = (dateMessage !== null) ? `${dateMessage.getHours()}:${dateMessage.getMinutes()}` : "";
         console.log(strDate)
         const chatPreView = new MessagePreview({
             messageUser: chat.title,
-            messageText: (haveLastMessage) ? "" : lastMessage.content,
+            messageText: (haveLastMessage) ? '' : lastMessage.content,
             messageData: strDate,
             lastMessageIsYou: (haveLastMessage) ? false : lastMessage.user_id === store.getState().user.id,
             showMessageCount: showUnreadableMessage,
@@ -169,11 +172,11 @@ class ChatPage extends BlockStore {
                             ChatController.addUserToChat(store.getState().selectedChat, users[0].id);
                             this.children.dialogAddUser.changeVisible()
                         } else {
-                            (this.children.dialogAddUser as DialogAsk).setError("Такого пользователя не существует");
+                            (this.children.dialogAddUser as DialogAsk).setError('Такого пользователя не существует');
                         }
                     },
                     () => {
-                        (this.children.dialogAddUser as DialogAsk).setError("Такого пользователя не существует");
+                        (this.children.dialogAddUser as DialogAsk).setError('Такого пользователя не существует');
                     })
             },
         });
@@ -192,10 +195,10 @@ class ChatPage extends BlockStore {
                                 this.children.dialogRemoveUser.changeVisible();
                             }
                         });
-                        (this.children.dialogRemoveUser as DialogAsk).setError("Такого пользователя не существует");
+                        (this.children.dialogRemoveUser as DialogAsk).setError('Такого пользователя не существует');
                     },
                     () => {
-                        (this.children.dialogRemoveUser as DialogAsk).setError("Такого пользователя не существует");
+                        (this.children.dialogRemoveUser as DialogAsk).setError('Такого пользователя не существует');
                     })
             },
         });

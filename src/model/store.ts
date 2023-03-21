@@ -1,5 +1,5 @@
-import {EventBus} from "../utils/eventBus";
-import Block from "../utils/block";
+import {EventBus} from '../utils/eventBus';
+import Block from '../utils/block';
 
 export enum StoreEvents {
     Updated = 'updated'
@@ -35,7 +35,7 @@ export function withStore(mapStateToProps: (state: any) => any) {
             constructor(props: any) {
                 previousState = mapStateToProps(store.getState());
 
-                super("div", { ...props, ...previousState });
+                super('div', { ...props, ...previousState });
 
                 store.on(StoreEvents.Updated, () => {
                     const stateProps = mapStateToProps(store.getState());

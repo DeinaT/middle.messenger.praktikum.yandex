@@ -9,9 +9,9 @@ import Validation from '../../utils/validation/validation';
 import UserRegistration from '../../model/userRegistration';
 import ConstructionDefault from '../../utils/validation/constructionDefault';
 import FormPage from '../../utils/validation/formPage';
-import AuthController from "../../controllers/authController";
-import Router from "../../route/router";
-import {NavString} from "../../utils/navigation";
+import AuthController from '../../controllers/authController';
+import Router from '../../route/router';
+import {NavString} from '../../utils/navigation';
 
 class RegistrationPage extends FormPage {
     constructor() {
@@ -72,7 +72,7 @@ class RegistrationPage extends FormPage {
     }
 
     setTextError(value: boolean) {
-        this.props.textError = (value) ? "Такой пользователь уже существует" : "";
+        this.props.textError = (value) ? 'Такой пользователь уже существует' : '';
     }
 
     show(): void {

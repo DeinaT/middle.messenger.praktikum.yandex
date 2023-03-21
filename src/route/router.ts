@@ -1,12 +1,12 @@
-import Block from "../utils/block";
-import Route from "./route";
+import Block from '../utils/block';
+import Route from './route';
 
 class Router {
 
     private routes: Route[] = [];
     private history = window.history;
     private _currentRoute: Route | null = null;
-    private _rootQuery: string = "";
+    private _rootQuery: string = '';
     public static __instance: Router;
 
 
