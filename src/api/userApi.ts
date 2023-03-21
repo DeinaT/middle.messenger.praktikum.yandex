@@ -1,6 +1,7 @@
 import BaseApi from "./baseApi";
 import UserData from "../model/userData";
 import UserPassword from "../model/userPassword";
+import User from "../objects/user";
 
 
 export class UserAPI extends BaseApi {
@@ -20,6 +21,10 @@ export class UserAPI extends BaseApi {
         let avatar = new FormData();
         avatar.append("avatar", data);
         return this.http.put('/profile/avatar', avatar);
+    }
+
+    findUserByLogin(login: string): Promise<User[]> {
+        return this.http.post('/search', {login: login});
     }
 
     create = undefined;

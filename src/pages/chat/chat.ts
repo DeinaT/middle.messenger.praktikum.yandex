@@ -17,6 +17,7 @@ import BlockStore from "../../utils/blockStore";
 import ChatInfo from "../../model/chatInfo";
 import Message from "../../model/message";
 import store from "../../objects/store";
+import UserController from "../../controllers/userController";
 
 
 class ChatPage extends BlockStore {
@@ -160,8 +161,18 @@ class ChatPage extends BlockStore {
             buttonAddText: 'Добавить пользователя',
             inputPlaceholder: 'Пользователь',
             buttonAddType: 'positive',
-            buttonAddFunction: (input_value) => {
-                console.log('add ' + input_value);
+            buttonAddFunction: (inputValue) => {
+                UserController.findUserByLogin(inputValue).then(users => {
+                        if ((users.length > 0) && (users[0].id !== undefined)) {
+                            ChatController.addUserToChat(store.getState().selectedChat, users[0].id);
+                            this.children.dialogAddUser.changeVisible()
+                        } else {
+                            (this.children.dialogAddUser as DialogAsk).setError("Такого пользователя не существует");
+                        }
+                    },
+                    () => {
+                        (this.children.dialogAddUser as DialogAsk).setError("Такого пользователя не существует");
+                    })
             },
         });
 
@@ -171,8 +182,19 @@ class ChatPage extends BlockStore {
             buttonAddText: 'Удалить пользователя',
             inputPlaceholder: 'Пользователь',
             buttonAddType: 'negative',
-            buttonAddFunction: (input_value) => {
-                console.log('delete ' + input_value);
+            buttonAddFunction: (inputValue) => {
+                ChatController.getUsers(store.getState().selectedChat).then(users => {
+                        users.forEach(user => {
+                            if ((user.login === inputValue) && (user.id !== undefined)) {
+                                ChatController.deleteUserToChat(store.getState().selectedChat, user.id);
+                                this.children.dialogRemoveUser.changeVisible();
+                            }
+                        });
+                        (this.children.dialogRemoveUser as DialogAsk).setError("Такого пользователя не существует");
+                    },
+                    () => {
+                        (this.children.dialogRemoveUser as DialogAsk).setError("Такого пользователя не существует");
+                    })
             },
         });
 

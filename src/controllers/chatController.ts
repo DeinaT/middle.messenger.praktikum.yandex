@@ -2,6 +2,7 @@ import {ChatApi} from "../api/chatApi";
 import store from "../objects/store";
 import ChatInfo from "../model/chatInfo";
 import MessagesController from "./messagesController";
+import User from "../objects/user";
 
 export class ChatController {
     private readonly api: ChatApi;
@@ -16,7 +17,7 @@ export class ChatController {
         this.fetchChats();
     }
 
-    async fetchChats() : Promise<ChatInfo[]> {
+    async fetchChats(): Promise<ChatInfo[]> {
         const chats = await this.api.read();
 
         chats.map(async (chat) => {
@@ -25,13 +26,21 @@ export class ChatController {
             await MessagesController.connect(chat.id, token);
         });
 
-         store.set('chats', chats);
+        store.set('chats', chats);
 
-         return chats;
+        return chats;
     }
 
     addUserToChat(id: number, userId: number) {
         this.api.addUsers(id, [userId]);
+    }
+
+    deleteUserToChat(id: number, userId: number) {
+        this.api.deleteUserToChat(id, [userId]);
+    }
+
+    getUsers(id: number): Promise<Array<User>> {
+        return this.api.getUsers(id);
     }
 
     async delete(id: number) {

@@ -2,6 +2,7 @@ import UserAPI from "../api/userApi";
 import UserData from "../model/userData";
 import UserPassword from "../model/userPassword";
 import AuthController from "./authController";
+import User from "../objects/user";
 
 export class UserController {
     private readonly api: UserAPI;
@@ -34,6 +35,15 @@ export class UserController {
         } catch (e: any) {
             console.error(e);
         }
+    }
+
+    async findUserByLogin(login: string): Promise<User[]> {
+        try {
+            return await this.api.findUserByLogin(login);
+        } catch (e: any) {
+            console.error(e);
+        }
+        return [];
     }
 }
 
