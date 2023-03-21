@@ -30,7 +30,7 @@ export class DialogAsk extends Block {
             buttonState: this.props.buttonAddType,
             events: {
                 click: () => {
-                    this.props.buttonAddFunction((this.children.input__info as Input).getValue());
+                    this.props.buttonAddFunction((this.children.inputInfo as Input).getValue());
                 },
             },
         });

@@ -25,7 +25,10 @@ class ChatPage extends BlockStore {
             iconRocket: iconRocket,
         }, storeChat => {
             console.log(storeChat.chats)
+            this.removeAllChildNodes(this.getContent()!.querySelector('.left-menu__chats')!);
             storeChat.chats.forEach((chat: ChatInfo) => {
+
+
                 this.addChat(chat);
             });
         });
@@ -42,6 +45,10 @@ class ChatPage extends BlockStore {
 
     private showSetting(): void {
         this.children.dialogSetting.changeVisible();
+    }
+
+    private changeVisibleAddChat(): void {
+        this.children.dialogAddChat.changeVisible();
     }
 
     private hideSetting(): void {
@@ -73,10 +80,33 @@ class ChatPage extends BlockStore {
             },
         });
 
+        const linkAddChat: Label = new Label({
+            labelText: 'Создать чат',
+            events: {
+                click: () => {
+                    this.changeVisibleAddChat();
+                },
+            },
+        });
+
+        this.children.dialogAddChat = new DialogAsk({
+            title: 'Добавить чат',
+            buttonCancelText: 'Отмена',
+            buttonAddText: 'Добавить чат',
+            inputPlaceholder: 'Название',
+            buttonAddType: 'positive',
+            buttonAddFunction: (input_value) => {
+                console.log(input_value)
+                ChatController.create(input_value);
+                this.changeVisibleAddChat();
+            },
+        });
+
         (this.children.dialogSetting as DialogMenu).setCancelEvent(() => {
             this.hideSetting();
             AuthController.logout();
         });
+        (this.children.dialogSetting as DialogMenu).addSettingLink(linkAddChat);
         (this.children.dialogSetting as DialogMenu).addSettingLink(linkSetting);
 
         this.initDialogMenu();
@@ -92,11 +122,13 @@ class ChatPage extends BlockStore {
         const lastMessage: Message = chat.last_message;
         let countUnreadableMessage = chat.unread_count;
         let showUnreadableMessage = (countUnreadableMessage > 0);
+        let haveLastMessage = (lastMessage === null);
+        console.log(chat.title);
         const chatPreView = new MessagePreview({
             messageUser: chat.title,
-            messageText: lastMessage.content,
-            messageData: lastMessage.time,
-            lastMessageIsYou: lastMessage.user_id === store.getState().user.id,
+            messageText: (haveLastMessage) ? "" : lastMessage.content,
+            messageData: (haveLastMessage) ? "" : lastMessage.time,
+            lastMessageIsYou: (haveLastMessage) ? false : lastMessage.user_id === store.getState().user.id,
             showMessageCount: showUnreadableMessage,
             messageCount: countUnreadableMessage,
             events: {
@@ -107,7 +139,6 @@ class ChatPage extends BlockStore {
             },
         });
 
-        this.removeAllChildNodes(this.getContent()!.querySelector('.left-menu__chats')!);
         this.props.allPreview.push(chatPreView);
         this.getContent()!.querySelector('.left-menu__chats')!.append(chatPreView.getContent()!);
     }
