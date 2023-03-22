@@ -77,6 +77,7 @@ export class MessageList extends BlockStore {
             });
 
             this.getContent()!.style.height = 'inherit';
+            this.getContent()!.style.width = '100%';
             if (this.getContent()!.querySelector('.all_message') !== null) {
                 this.getContent()!.querySelector('.all_message')!.append(message.getContent()!);
             }

@@ -144,7 +144,17 @@ class ChatPage extends BlockStore {
 
     public selectChat(chat: ChatInfo): void {
         ChatController.selectChat(chat.id);
-        //(this.getContent()!.querySelector('.start_chat')! as HTMLDivElement).style.display = 'none';
+        this.setVisibleChats(true);
+    }
+
+    private setVisibleChats(value: boolean) {
+        if (value) {
+            (this.getContent()!.querySelector('#sayHello')! as HTMLDivElement).style.display = 'none';
+            (this.getContent()!.querySelector('#viewChat')! as HTMLDivElement).style.display = 'flex';
+        } else {
+            (this.getContent()!.querySelector('#sayHello')! as HTMLDivElement).style.display = 'flex';
+            (this.getContent()!.querySelector('#viewChat')! as HTMLDivElement).style.display = 'none';
+        }
     }
 
     private removeAllChildNodes(parent: HTMLElement) {

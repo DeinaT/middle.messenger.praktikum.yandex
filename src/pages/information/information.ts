@@ -35,8 +35,7 @@ class InformationPage extends BlockStore {
             }
         };
 
-        if (!store.getState().user)
-            AuthController.fetchUser();
+        this.updateInfo();
     }
 
     init() {
@@ -132,6 +131,18 @@ class InformationPage extends BlockStore {
         if (info.avatar) {
             this.props.iconEmptyAvatar = 'https://ya-praktikum.tech/api/v2/resources/' + info.avatar;
             this.props.styleAvatar = 'width:100%;height:100%';
+        } else {
+            this.props.iconEmptyAvatar = iconEmptyAvatar;
+            this.props.styleAvatar = 'width:40%;height:40%';
+        }
+    }
+
+    private updateInfo() {
+        if (!store.getState().user)
+            AuthController.fetchUser();
+
+        if (store.getState().user) {
+            this.fillInfo(store.getState().user);
         }
     }
 

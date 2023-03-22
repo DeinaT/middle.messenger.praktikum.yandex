@@ -11,7 +11,7 @@ import ChangeDataPage from '../pages/changes/data/data';
 export enum NavString {
     AUTHORIZATION = '/',
     REGISTRATION = '/sign-up',
-    INFORMATION = '/setting',
+    INFORMATION = '/settings',
     ERROR_404 = '/404',
     ERROR_500 = '/500',
     MESSENGER = '/messenger',
