@@ -17,6 +17,11 @@ export class Store extends EventBus {
     public getState() {
         return this.state;
     }
+
+    public clear() {
+        this.state = {};
+        this.emit(StoreEvents.Updated, this.getState());
+    }
 }
 
 const store = new Store();
@@ -26,7 +31,7 @@ window.store = store;
 
 export function withStore(mapStateToProps: (state: any) => any) {
 
-    return function wrap(Component: typeof Block){
+    return function wrap(Component: typeof Block) {
         let previousState: any;
 
 
@@ -35,14 +40,14 @@ export function withStore(mapStateToProps: (state: any) => any) {
             constructor(props: any) {
                 previousState = mapStateToProps(store.getState());
 
-                super('div', { ...props, ...previousState });
+                super('div', {...props, ...previousState});
 
                 store.on(StoreEvents.Updated, () => {
                     const stateProps = mapStateToProps(store.getState());
 
                     previousState = stateProps;
 
-                    this.setProps({ ...stateProps });
+                    this.setProps({...stateProps});
                 });
             }
         }

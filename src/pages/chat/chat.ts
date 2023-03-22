@@ -40,10 +40,7 @@ class ChatPage extends BlockStore {
             }
         };
 
-        if (!store.getState().user)
-            AuthController.fetchUser();
-
-        ChatController.fetchChats();
+        this.updateInfo();
     }
 
     private showSetting(): void {
@@ -99,7 +96,6 @@ class ChatPage extends BlockStore {
             inputPlaceholder: 'Название',
             buttonAddType: 'positive',
             buttonAddFunction: (input_value) => {
-                console.log(input_value)
                 ChatController.create(input_value);
                 this.changeVisibleAddChat();
             },
@@ -126,9 +122,7 @@ class ChatPage extends BlockStore {
         let countUnreadableMessage = chat.unread_count;
         let showUnreadableMessage = (countUnreadableMessage > 0);
         let haveLastMessage = (lastMessage === null);
-        let dateMessage: Date = new Date(lastMessage.time);
-        let strDate: string = (dateMessage !== null) ? `${dateMessage.getHours()}:${dateMessage.getMinutes()}` : "";
-        console.log(strDate)
+        let strDate: string = (lastMessage !== null) ? `${new Date(lastMessage.time).getHours()}:${new Date(lastMessage.time).getMinutes()}` : "";
         const chatPreView = new MessagePreview({
             messageUser: chat.title,
             messageText: (haveLastMessage) ? '' : lastMessage.content,
@@ -240,6 +234,18 @@ class ChatPage extends BlockStore {
         this.children.dialogControl.getContent()!.style.top = '8px';
         this.children.dialogControl.getContent()!.style.right = '16px';
         this.children.dialogControl.getContent()!.style.left = 'auto';
+    }
+
+    private updateInfo() {
+        if (!store.getState().user)
+            AuthController.fetchUser();
+
+        ChatController.fetchChats();
+    }
+
+    show() {
+        this.updateInfo();
+        super.show();
     }
 
     render() {

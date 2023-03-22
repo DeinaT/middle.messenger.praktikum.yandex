@@ -18,19 +18,12 @@ class ChangeDataPage extends FormPage {
             UserController.changeProfile(new UserData(formData));
             Router.go(NavString.INFORMATION);
         }, state => {
-            console.log('dsiuhsdf');
-            console.log(state.user);
             if (state.user) {
                 this.fillInfo(state.user);
             }
         });
 
-        if (!store.getState().user)
-            AuthController.fetchUser();
-
-        if (store.getState().user) {
-            this.fillInfo(store.getState().user);
-        }
+        this.updateInfo();
     }
 
     init() {
@@ -78,6 +71,20 @@ class ChangeDataPage extends FormPage {
         (this.children.inputSecondName as Input).setValue(info.second_name);
         (this.children.inputDisplayName as Input).setValue(info.display_name);
         (this.children.inputPhone  as Input).setValue(info.phone);
+    }
+
+    private updateInfo() {
+        if (!store.getState().user)
+            AuthController.fetchUser();
+
+        if (store.getState().user) {
+            this.fillInfo(store.getState().user);
+        }
+    }
+
+    show() {
+        this.updateInfo();
+        super.show();
     }
 
     render() {

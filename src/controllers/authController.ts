@@ -4,6 +4,7 @@ import {NavString} from '../utils/navigation';
 import UserAuthorization from '../model/userAuthorization';
 import UserRegistration from '../model/userRegistration';
 import store from '../model/store';
+import MessagesController from "./messagesController";
 
 export class AuthController {
     private readonly api: AuthApi;
@@ -51,8 +52,9 @@ export class AuthController {
     async logout() {
         try {
             await this.api.logout();
-
+            store.clear();
             Router.go(NavString.AUTHORIZATION);
+            MessagesController.closeAll();
         } catch (e: any) {
             console.error(e.message);
         }

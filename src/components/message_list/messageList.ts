@@ -55,7 +55,7 @@ export class MessageList extends BlockStore {
         });
 
         super('div', props, store => {
-
+            this.removeAllChildNodes(this.getContent()!.querySelector('.all_message')!);
             if (store.selectedChat && store.messages) {
                 this.props.selectedChat = store.selectedChat;
                 const selectChat = store.chats.filter((chat: ChatInfo) => chat.id === store.selectedChat);
@@ -81,6 +81,12 @@ export class MessageList extends BlockStore {
                 this.getContent()!.querySelector('.all_message')!.append(message.getContent()!);
             }
         });
+    }
+
+    private removeAllChildNodes(parent: HTMLElement) {
+        while (parent.firstChild) {
+            parent.removeChild(parent.firstChild);
+        }
     }
 
     public getNewMessage(): string {
