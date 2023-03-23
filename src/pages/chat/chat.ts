@@ -21,16 +21,13 @@ import {UserController} from "../../controllers/userController";
 
 
 export class ChatPage extends BlockStore {
+    private findTitleChat: string = "";
+
     constructor() {
         super('div', {
             iconRocket: iconRocket,
-        }, storeChat => {
-            this.removeAllChildNodes(this.getContent()!.querySelector('.left-menu__chats')!);
-            if (storeChat.chats) {
-                storeChat.chats.forEach((chat: ChatInfo) => {
-                    this.addChat(chat);
-                });
-            }
+        }, () => {
+            this.refreshChat();
         });
         this.props.allPreview = [];
 
@@ -58,6 +55,12 @@ export class ChatPage extends BlockStore {
     init() {
         this.children.findInput = new FindInput({
             typeName: 'find_user',
+            events: {
+                input: target => {
+                    this.findTitleChat = target.target.value;
+                    this.refreshChat();
+                }
+            }
         });
 
         this.children.findInput.getContent()!.style.width = '70%';
@@ -118,7 +121,19 @@ export class ChatPage extends BlockStore {
         this.setClassForEvent('for_event_menu');
     }
 
+    public refreshChat(): void {
+        this.removeAllChildNodes(this.getContent()!.querySelector('.left-menu__chats')!);
+        if (store.getState().chats) {
+            store.getState().chats.forEach((chat: ChatInfo) => {
+                this.addChat(chat);
+            });
+        }
+    }
+
     public addChat(chat: ChatInfo): void {
+        if (!chat.title.includes(this.findTitleChat)) {
+            return;
+        }
         const lastMessage: Message = chat.last_message;
         let countUnreadableMessage = chat.unread_count;
         let showUnreadableMessage = (countUnreadableMessage > 0);
