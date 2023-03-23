@@ -14,24 +14,25 @@ class AuthControllerMain {
     }
 
     async signIn(data: UserAuthorization) {
-        await this.api.signin(data).then(() => {
+        try {
+            await this.api.signin(data);
             Router.go(NavPath.Messenger);
 
             store.set('errorUserAuthorization', false);
-        }, () => {
+        } catch (e: any) {
             store.set('errorUserAuthorization', true);
-        });
+        }
     }
 
     async signUp(data: UserRegistration) {
-        await this.api.signup(data).then(() => {
-
+        try {
+            await this.api.signup(data);
             this.startFetchUser();
 
             store.set('errorUserRegistration', false);
-        }, () => {
+        } catch (e: any) {
             store.set('errorUserRegistration', true);
-        });
+        }
     }
 
     public startFetchUser() {
