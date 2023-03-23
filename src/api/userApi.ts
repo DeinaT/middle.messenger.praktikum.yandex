@@ -26,9 +26,4 @@ export class UserAPI extends BaseApi {
     findUserByLogin(login: string): Promise<User[]> {
         return this.http.post('/search', {login: login});
     }
-
-    create = undefined;
-    read = undefined;
-    update = undefined;
-    delete = undefined;
 }

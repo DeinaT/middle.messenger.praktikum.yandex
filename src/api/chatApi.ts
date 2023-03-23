@@ -37,6 +37,4 @@ export class ChatApi extends BaseApi {
 
         return response.token;
     }
-
-    update = undefined;
 }

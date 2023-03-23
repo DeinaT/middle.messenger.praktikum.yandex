@@ -19,6 +19,10 @@ enum NavString {
     ChangeData = '/setting-data'
 }
 
+enum ApiUrlAll {
+    ApiV2 = 'https://ya-praktikum.tech/api/v2'
+}
+
 export class NavigationRouter {
     public static initRouter(): void {
         Router
@@ -34,4 +38,5 @@ export class NavigationRouter {
 }
 
 export const NavPath = NavString;
+export const ApiUrl = ApiUrlAll;
 export const Navigation = NavigationRouter;
