@@ -1,5 +1,3 @@
-import {ApiUrl} from "./navigation";
-
 enum Method {
     GET = 'GET',
     POST = 'POST',
@@ -16,8 +14,9 @@ type Options = {
 export default class HTTPTransport {
     protected endpoint: string;
 
+    static API_URL = 'https://ya-praktikum.tech/api/v2';
     constructor(endpoint: string) {
-        this.endpoint = `${ApiUrl.ApiV2}${endpoint}`;
+        this.endpoint = `${HTTPTransport.API_URL}${endpoint}`;
     }
 
     public get<Response>(path = '/'): Promise<Response> {
