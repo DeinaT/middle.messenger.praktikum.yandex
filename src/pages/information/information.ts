@@ -77,7 +77,7 @@ export class InformationPage extends BlockStore {
         });
 
         this.children.button_change_data = new Button({
-            buttonText: 'Изменть настройки',
+            buttonText: 'Изменть профиль',
             buttonState: 'neutral',
             events: {
                 click: () => {

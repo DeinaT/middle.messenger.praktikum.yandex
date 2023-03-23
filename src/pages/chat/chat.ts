@@ -84,6 +84,7 @@ export class ChatPage extends BlockStore {
             labelText: 'Создать чат',
             events: {
                 click: () => {
+                    this.showSetting();
                     this.changeVisibleAddChat();
                 },
             },
@@ -214,7 +215,9 @@ export class ChatPage extends BlockStore {
         });
 
         (this.children.dialogControl as DialogMenu).setCancelEvent(() => {
-            ChatController.delete(store.getState().selectedChat)
+            ChatController.delete(store.getState().selectedChat);
+            this.children.dialogControl.hide();
+            this.setVisibleChats(false);
         });
 
         const linkAddUser: Label = new Label({
@@ -223,6 +226,7 @@ export class ChatPage extends BlockStore {
                 click: () => {
                     if (this.children.dialogAddUser !== null) {
                         this.children.dialogAddUser.changeVisible();
+                        this.children.dialogControl.hide();
                     }
                 },
             },
@@ -234,6 +238,7 @@ export class ChatPage extends BlockStore {
                 click: () => {
                     if (this.children.dialogRemoveUser !== null) {
                         this.children.dialogRemoveUser.changeVisible();
+                        this.children.dialogControl.hide();
                     }
                 },
             },
