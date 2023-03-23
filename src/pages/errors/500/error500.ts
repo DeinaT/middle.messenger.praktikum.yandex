@@ -8,7 +8,7 @@ import Block from '../../../utils/block';
 import Button from '../../../components/button/button';
 
 
-class Error500Page extends Block {
+export class Error500Page extends Block {
     constructor() {
 
         super('div', {image500: image500});
@@ -32,5 +32,3 @@ class Error500Page extends Block {
         return this.compile(template, this.props);
     }
 }
-
-export default Error500Page;

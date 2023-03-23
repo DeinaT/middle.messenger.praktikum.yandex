@@ -1,12 +1,12 @@
-import AuthApi from '../api/authApi';
-import Router from '../route/router';
-import {NavString} from '../utils/navigation';
+import {AuthApi} from '../api/authApi';
+import {Router} from '../route/router';
 import UserAuthorization from '../model/userAuthorization';
 import UserRegistration from '../model/userRegistration';
 import store from '../model/store';
-import MessagesController from "./messagesController";
+import {NavPath} from "../utils/navigation";
+import {MessagesController} from "./messagesController";
 
-export class AuthController {
+class AuthControllerMain {
     private readonly api: AuthApi;
 
     constructor() {
@@ -15,7 +15,7 @@ export class AuthController {
 
     async signIn(data: UserAuthorization) {
         await this.api.signin(data).then(() => {
-            Router.go(NavString.MESSENGER);
+            Router.go(NavPath.Messenger);
 
             store.set('errorUserAuthorization', false);
         }, () => {
@@ -36,10 +36,10 @@ export class AuthController {
 
     public startFetchUser() {
         this.fetchUser().then(() => {
-                Router.go(NavString.MESSENGER);
+                Router.go(NavPath.Messenger);
             },
             () => {
-                Router.go(NavString.AUTHORIZATION);
+                Router.go(NavPath.Authorization);
             });
     }
 
@@ -53,7 +53,7 @@ export class AuthController {
         try {
             await this.api.logout();
             store.clear();
-            Router.go(NavString.AUTHORIZATION);
+            Router.go(NavPath.Authorization);
             MessagesController.closeAll();
         } catch (e: any) {
             console.error(e.message);
@@ -61,4 +61,4 @@ export class AuthController {
     }
 }
 
-export default new AuthController();
+export const AuthController = new AuthControllerMain();

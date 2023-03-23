@@ -9,9 +9,9 @@ import DialogMenu from '../dialog_menu/dialogMenu';
 import Icon from '../icon/icon';
 import BlockStore from '../../utils/blockStore';
 import Message from '../../model/message';
-import MessagesController from '../../controllers/messagesController';
 import ChatInfo from '../../model/chatInfo';
 import store from '../../model/store';
+import {MessagesController} from "../../controllers/messagesController";
 
 interface MessageListProps {
     chatUser?: string;

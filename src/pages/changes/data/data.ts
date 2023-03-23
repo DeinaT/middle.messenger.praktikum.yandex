@@ -4,19 +4,19 @@ import Button from '../../../components/button/button';
 import ConstructionDefault from '../../../utils/validation/constructionDefault';
 import FormPage from '../../../utils/validation/formPage';
 import UserData from '../../../model/userData';
-import Router from '../../../route/router';
-import UserController from '../../../controllers/userController';
+import {Router} from '../../../route/router';
 import Input from '../../../components/input/input';
 import User from '../../../model/user';
-import AuthController from '../../../controllers/authController';
 import store from '../../../model/store';
-import {NavString} from '../../../utils/navigation';
+import {NavPath} from "../../../utils/navigation";
+import {UserController} from "../../../controllers/userController";
+import {AuthController} from "../../../controllers/authController";
 
-class ChangeDataPage extends FormPage {
+export class ChangeDataPage extends FormPage {
     constructor() {
         super(formData => {
             UserController.changeProfile(new UserData(formData));
-            Router.go(NavString.INFORMATION);
+            Router.go(NavPath.Information);
         }, state => {
             if (state.user) {
                 this.fillInfo(state.user);
@@ -91,5 +91,3 @@ class ChangeDataPage extends FormPage {
         return this.compile(template, this.props);
     }
 }
-
-export default ChangeDataPage;

@@ -8,10 +8,10 @@ import ConstructionDefault from '../../../utils/validation/constructionDefault';
 import Validation from '../../../utils/validation/validation';
 import FormPage from '../../../utils/validation/formPage';
 import UserPassword from '../../../model/userPassword';
-import Router from '../../../route/router';
-import UserController from '../../../controllers/userController';
+import {Router} from '../../../route/router';
+import {UserController} from "../../../controllers/userController";
 
-class ChangePasswordPage extends FormPage {
+export class ChangePasswordPage extends FormPage {
     constructor() {
         super((formData) => {
             UserController.changePassword(new UserPassword(formData))
@@ -69,5 +69,3 @@ class ChangePasswordPage extends FormPage {
         return this.compile(template, this.props);
     }
 }
-
-export default ChangePasswordPage;

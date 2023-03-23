@@ -32,5 +32,3 @@ export class UserAPI extends BaseApi {
     update = undefined;
     delete = undefined;
 }
-
-export default UserAPI;

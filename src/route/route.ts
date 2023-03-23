@@ -1,6 +1,6 @@
 import Block from '../utils/block';
 
-function render(query: string, block: Block|null) {
+function render(query: string, block: Block | null) {
     const root = document.querySelector(query);
 
     if (root !== null) {
@@ -13,11 +13,7 @@ function render(query: string, block: Block|null) {
     return root;
 }
 
-function isEqual(lhs: any, rhs: any) {
-    return lhs === rhs;
-}
-
-class Route {
+export class Route {
     private _pathname: string;
     private _blockClass: typeof Block;
     private _block: Block | null = null;
@@ -43,7 +39,7 @@ class Route {
     }
 
     match(pathname: string) {
-        return isEqual(pathname, this._pathname);
+        return pathname === this._pathname;
     }
 
     render() {
@@ -55,5 +51,3 @@ class Route {
         return;
     }
 }
-
-export default Route;

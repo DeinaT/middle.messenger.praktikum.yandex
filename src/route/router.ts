@@ -1,24 +1,24 @@
 import Block from '../utils/block';
-import Route from './route';
+import {Route} from "./route";
 
-class Router {
+class MainRouter {
 
     private routes: Route[] = [];
     private history = window.history;
     private _currentRoute: Route | null = null;
     private _rootQuery: string = '';
-    public static __instance: Router;
+    public static __instance: MainRouter;
 
 
     constructor(rootQuery: string) {
-        if (Router.__instance) {
-            return Router.__instance;
+        if (MainRouter.__instance) {
+            return MainRouter.__instance;
         }
 
         this._currentRoute = null;
         this._rootQuery = rootQuery;
 
-        Router.__instance = this;
+        MainRouter.__instance = this;
     }
 
     use(pathname: string, block: typeof Block) {
@@ -69,5 +69,5 @@ class Router {
     }
 }
 
-export default new Router('#app');
+export const Router = new MainRouter('#app');
 

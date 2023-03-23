@@ -30,5 +30,3 @@ export class AuthApi extends BaseApi {
     update = undefined;
     delete = undefined;
 }
-
-export default AuthApi;

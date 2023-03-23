@@ -9,11 +9,11 @@ import Validation from '../../utils/validation/validation';
 import UserRegistration from '../../model/userRegistration';
 import ConstructionDefault from '../../utils/validation/constructionDefault';
 import FormPage from '../../utils/validation/formPage';
-import AuthController from '../../controllers/authController';
-import Router from '../../route/router';
-import {NavString} from '../../utils/navigation';
+import {NavPath} from "../../utils/navigation";
+import {Router} from "../../route/router";
+import {AuthController} from "../../controllers/authController";
 
-class RegistrationPage extends FormPage {
+export class RegistrationPage extends FormPage {
     constructor() {
         super(formData => {
             AuthController.signUp(new UserRegistration(formData));
@@ -48,7 +48,7 @@ class RegistrationPage extends FormPage {
             labelText: 'Войти',
             events: {
                 click: () => {
-                    Router.go(NavString.AUTHORIZATION)
+                    Router.go(NavPath.Authorization)
                 },
             },
         });
@@ -83,5 +83,3 @@ class RegistrationPage extends FormPage {
         return this.compile(template, this.props);
     }
 }
-
-export default RegistrationPage;

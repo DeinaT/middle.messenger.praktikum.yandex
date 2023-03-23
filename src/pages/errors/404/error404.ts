@@ -7,16 +7,9 @@ import image404 from '../../../../static/image/image_error_404.png';
 import Block from '../../../utils/block';
 import Button from '../../../components/button/button';
 
-interface Error404Props {
-    image404: object;
-}
-
-class Error404Page extends Block {
+export class Error404Page extends Block {
     constructor() {
-        let prop: Error404Props = {
-            image404: image404,
-        }
-        super('div', prop);
+        super('div', {image404: image404});
     }
 
     init() {
@@ -37,5 +30,3 @@ class Error404Page extends Block {
         return this.compile(template, this.props);
     }
 }
-
-export default Error404Page;

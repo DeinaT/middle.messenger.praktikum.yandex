@@ -24,8 +24,8 @@ export class ChatApi extends BaseApi {
         return this.http.get(`/${id}/users`);
     }
 
-    addUsers(id: number, users: number[]): Promise<unknown> {
-        return this.http.put('/users', {users, chatId: id});
+    addUsers(id: number, users: number[]){
+        this.http.put('/users', {users, chatId: id});
     }
 
     deleteUserToChat(id: number, users: number[]): Promise<unknown> {
@@ -40,5 +40,3 @@ export class ChatApi extends BaseApi {
 
     update = undefined;
 }
-
-export default new ChatApi();

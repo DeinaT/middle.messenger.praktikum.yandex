@@ -2,7 +2,7 @@ import Message from '../model/message';
 import WsTransport, {WsTransportEvents} from '../utils/wsTransport';
 import store from '../model/store';
 
-export class MessagesController {
+class MessagesControllerMain {
     private sockets: Map<number, WsTransport> = new Map<number, WsTransport>();
 
     async connect(id: number, token: string) {
@@ -60,9 +60,7 @@ export class MessagesController {
 
         const currentMessages = (store.getState().messages || {})[id] || [];
 
-        messagesToAdd = [...currentMessages, ...messagesToAdd];
-
-        store.set(`messages.${id}`, messagesToAdd);
+        store.set(`messages.${id}`, [...currentMessages, ...messagesToAdd]);
     }
 
     private onClose(id: number) {
@@ -75,4 +73,4 @@ export class MessagesController {
     }
 }
 
-export default new MessagesController();
+export const MessagesController = new MessagesControllerMain();

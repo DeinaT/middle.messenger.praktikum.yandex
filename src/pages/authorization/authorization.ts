@@ -7,11 +7,11 @@ import ConstructionDefault from '../../utils/validation/constructionDefault';
 import Validation from '../../utils/validation/validation';
 import FormPage from '../../utils/validation/formPage';
 import UserAuthorization from '../../model/userAuthorization';
-import Router from '../../route/router';
-import AuthController from '../../controllers/authController';
-import {NavString} from '../../utils/navigation';
+import {Router} from '../../route/router';
+import {NavPath} from "../../utils/navigation";
+import {AuthController} from "../../controllers/authController";
 
-class AuthorizationPage extends FormPage {
+export class AuthorizationPage extends FormPage {
     constructor() {
         super(formData => {
             AuthController.signIn(new UserAuthorization(formData));
@@ -41,7 +41,7 @@ class AuthorizationPage extends FormPage {
             labelText: 'Нет аккаунта?',
             events: {
                 click: () => {
-                    Router.go(NavString.REGISTRATION)
+                    Router.go(NavPath.Registration)
                 },
             },
         });
@@ -67,5 +67,3 @@ class AuthorizationPage extends FormPage {
         return this.compile(template, this.props);
     }
 }
-
-export default AuthorizationPage;

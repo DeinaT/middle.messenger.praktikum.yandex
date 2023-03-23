@@ -9,18 +9,18 @@ import DialogMenu from '../../components/dialog_menu/dialogMenu';
 import DialogAsk from '../../components/dialog_ask/dialogAsk';
 import MessagePreview from '../../components/message_preview/messagePreview';
 import MessageList from '../../components/message_list/messageList';
-import AuthController from '../../controllers/authController';
-import Router from '../../route/router';
-import {NavString} from '../../utils/navigation';
-import ChatController from '../../controllers/chatController';
+import {Router} from '../../route/router';
 import BlockStore from '../../utils/blockStore';
 import ChatInfo from '../../model/chatInfo';
 import Message from '../../model/message';
 import store from '../../model/store';
-import UserController from '../../controllers/userController';
+import {NavPath} from "../../utils/navigation";
+import {ChatController} from "../../controllers/chatController";
+import {AuthController} from "../../controllers/authController";
+import {UserController} from "../../controllers/userController";
 
 
-class ChatPage extends BlockStore {
+export class ChatPage extends BlockStore {
     constructor() {
         super('div', {
             iconRocket: iconRocket,
@@ -75,7 +75,7 @@ class ChatPage extends BlockStore {
             events: {
                 click: () => {
                     this.hideSetting();
-                    Router.go(NavString.INFORMATION);
+                    Router.go(NavPath.Information);
                 },
             },
         });
@@ -262,5 +262,3 @@ class ChatPage extends BlockStore {
         return this.compile(template, this.props);
     }
 }
-
-export default ChatPage;

@@ -7,15 +7,15 @@ import iconEmptyAvatar from '../../../static/icon/icon_empty_avatar.png';
 import Input from '../../components/input/input';
 import Button from '../../components/button/button';
 import DialogSelectFile from '../../components/dialog_select_file/dialogSelectFile';
-import Router from '../../route/router';
-import AuthController from '../../controllers/authController';
-import {NavString} from '../../utils/navigation';
+import {Router} from '../../route/router';
 import User from '../../model/user';
 import BlockStore from '../../utils/blockStore';
 import store from '../../model/store';
+import {NavPath} from "../../utils/navigation";
+import {AuthController} from "../../controllers/authController";
 
 
-class InformationPage extends BlockStore {
+export class InformationPage extends BlockStore {
     constructor() {
         super('div', {iconEmptyAvatar: iconEmptyAvatar}, state => {
             if (state.user) {
@@ -81,7 +81,7 @@ class InformationPage extends BlockStore {
             buttonState: 'neutral',
             events: {
                 click: () => {
-                    Router.go(NavString.CHANGE_DATA);
+                    Router.go(NavPath.ChangeData);
                 },
             },
         });
@@ -91,7 +91,7 @@ class InformationPage extends BlockStore {
             buttonState: 'neutral',
             events: {
                 click: () => {
-                    Router.go(NavString.CHANGE_PASSWORD);
+                    Router.go(NavPath.ChangePassword);
                 },
             },
         });
@@ -154,5 +154,3 @@ class InformationPage extends BlockStore {
         return this.compile(template, this.props);
     }
 }
-
-export default InformationPage;

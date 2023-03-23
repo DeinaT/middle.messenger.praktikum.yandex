@@ -12,7 +12,7 @@ export class User {
 
     phone: string;
 
-    avatar: string | undefined;
+    avatar?: string;
 
     display_name: string;
 

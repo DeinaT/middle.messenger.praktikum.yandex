@@ -1,10 +1,10 @@
 import {ChatApi} from '../api/chatApi';
 import store from '../model/store';
 import ChatInfo from '../model/chatInfo';
-import MessagesController from './messagesController';
 import User from '../model/user';
+import {MessagesController} from "./messagesController";
 
-export class ChatController {
+export class ChatControllerMain {
     private readonly api: ChatApi;
 
     constructor() {
@@ -58,4 +58,4 @@ export class ChatController {
     }
 }
 
-export default new ChatController();
+export const ChatController = new ChatControllerMain();

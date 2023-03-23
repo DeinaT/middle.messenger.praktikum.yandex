@@ -3,7 +3,7 @@ import template from './dialogSelectFile.hbs';
 import './dialogSelectFile.sass';
 import Label from '../label/label';
 import Button from '../button/button';
-import UserController from '../../controllers/userController';
+import {UserController} from "../../controllers/userController";
 
 interface DialogSelectFileProps {
     title: string;

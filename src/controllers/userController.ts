@@ -1,10 +1,10 @@
-import UserAPI from '../api/userApi';
 import UserData from '../model/userData';
 import UserPassword from '../model/userPassword';
-import AuthController from './authController';
 import User from '../model/user';
+import {UserAPI} from "../api/userApi";
+import {AuthController} from "./authController";
 
-export class UserController {
+class UserControllerMain {
     private readonly api: UserAPI;
 
     constructor() {
@@ -48,4 +48,4 @@ export class UserController {
     }
 }
 
-export default new UserController();
+export const UserController = new UserControllerMain();
