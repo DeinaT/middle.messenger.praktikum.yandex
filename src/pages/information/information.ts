@@ -3,22 +3,27 @@ import '../../components/button/button.ts';
 import '../../components/input/input.ts';
 import '../../css/style.sass';
 import '../../css/icon_avatar.sass';
-import icon_empty_avatar from '../../../static/icon/icon_empty_avatar.png';
-import Block from '../../utils/block';
+import iconEmptyAvatar from '../../../static/icon/icon_empty_avatar.png';
 import Input from '../../components/input/input';
 import Button from '../../components/button/button';
 import DialogSelectFile from '../../components/dialog_select_file/dialogSelectFile';
-import Navigation from '../../utils/navigation';
+import {Router} from '../../route/router';
+import User from '../../model/user';
+import BlockStore from '../../utils/blockStore';
+import store from '../../model/store';
+import {NavPath} from "../../utils/navigation";
+import {AuthController} from "../../controllers/authController";
 
-interface InformationProps {
-    icon_empty_avatar: object;
-}
 
-class InformationPage extends Block {
-    constructor(props: InformationProps) {
-        super('main', props);
+export class InformationPage extends BlockStore {
+    constructor() {
+        super('div', {iconEmptyAvatar: iconEmptyAvatar}, state => {
+            if (state.user) {
+                this.fillInfo(state.user);
+            }
+        });
 
-        const dialogSelectFile = new DialogSelectFile({title: "Загрузите файл"});
+        const dialogSelectFile = new DialogSelectFile({title: 'Загрузите файл'});
 
         const root = window.document.querySelector('body');
         root!.append(dialogSelectFile.getContent()!);
@@ -29,6 +34,8 @@ class InformationPage extends Block {
                 dialogSelectFile.show();
             }
         };
+
+        this.updateInfo();
     }
 
     init() {
@@ -36,39 +43,45 @@ class InformationPage extends Block {
         this.children.inputEmail = new Input({
             inputName: 'email',
             inputPlaceholder: 'Почта',
+            inputReadOnly: true,
         });
 
         this.children.inputLogin = new Input({
             inputName: 'login',
             inputPlaceholder: 'Логин',
+            inputReadOnly: true,
         });
 
         this.children.inputFirstName = new Input({
             inputName: 'first_name',
             inputPlaceholder: 'Имя',
+            inputReadOnly: true,
         });
 
         this.children.inputSecondName = new Input({
             inputName: 'second_name',
             inputPlaceholder: 'Фамилия',
+            inputReadOnly: true,
         });
 
         this.children.inputPhone = new Input({
             inputName: 'phone',
             inputPlaceholder: 'Телефон',
+            inputReadOnly: true,
         });
 
         this.children.inputDisplayName = new Input({
             inputName: 'display_name',
             inputPlaceholder: 'Имя в чате',
+            inputReadOnly: true,
         });
 
         this.children.button_change_data = new Button({
-            buttonText: 'Изменть настройки',
+            buttonText: 'Изменть профиль',
             buttonState: 'neutral',
             events: {
                 click: () => {
-                    window.location.href = '../../' + Navigation.changes_data;
+                    Router.go(NavPath.ChangeData);
                 },
             },
         });
@@ -78,7 +91,7 @@ class InformationPage extends Block {
             buttonState: 'neutral',
             events: {
                 click: () => {
-                    window.location.href = '../../' + Navigation.changes_password;
+                    Router.go(NavPath.ChangePassword);
                 },
             },
         });
@@ -88,7 +101,7 @@ class InformationPage extends Block {
             buttonState: 'neutral',
             events: {
                 click: () => {
-                    window.location.href = '../../' + Navigation.chats;
+                    Router.back();
                 },
             },
         });
@@ -97,7 +110,7 @@ class InformationPage extends Block {
             buttonState: 'negative',
             events: {
                 click: () => {
-                    window.location.href = '../../' + Navigation.authorization;
+                    AuthController.logout();
                 },
             },
         });
@@ -108,18 +121,36 @@ class InformationPage extends Block {
         this.children.buttonOut.getContent()!.style.width = '45%';
     }
 
+    fillInfo(info: User) {
+        (this.children.inputEmail as Input).setValue(info.email);
+        (this.children.inputLogin as Input).setValue(info.login);
+        (this.children.inputFirstName as Input).setValue(info.first_name);
+        (this.children.inputSecondName as Input).setValue(info.second_name);
+        (this.children.inputDisplayName as Input).setValue(info.display_name);
+        (this.children.inputPhone  as Input).setValue(info.phone);
+        if (info.avatar) {
+            this.props.iconEmptyAvatar = 'https://ya-praktikum.tech/api/v2/resources/' + info.avatar;
+            this.props.styleAvatar = 'width:100%;height:100%';
+        } else {
+            this.props.iconEmptyAvatar = iconEmptyAvatar;
+            this.props.styleAvatar = 'width:40%;height:40%';
+        }
+    }
+
+    private updateInfo() {
+        if (!store.getState().user)
+            AuthController.fetchUser();
+
+        if (store.getState().user) {
+            this.fillInfo(store.getState().user);
+        }
+    }
+
+    show(): void {
+        this.getContent()!.style.display = 'block';
+    }
+
     render() {
         return this.compile(template, this.props);
     }
 }
-
-window.addEventListener('DOMContentLoaded', () => {
-    const information = document.querySelector('#information');
-
-    const informationPage = new InformationPage({
-        icon_empty_avatar,
-    });
-    information!.append(informationPage.getContent()!);
-
-    informationPage.dispatchComponentDidMount();
-});

@@ -3,21 +3,26 @@ import template from './authorization.hbs';
 import Input from '../../components/input/input';
 import Button from '../../components/button/button';
 import Label from '../../components/label/label';
-import Navigation from '../../utils/navigation';
 import ConstructionDefault from '../../utils/validation/constructionDefault';
 import Validation from '../../utils/validation/validation';
 import FormPage from '../../utils/validation/formPage';
-import UserAuthorization from '../../objects/userAuthorization';
+import UserAuthorization from '../../model/userAuthorization';
+import {Router} from '../../route/router';
+import {NavPath} from "../../utils/navigation";
+import {AuthController} from "../../controllers/authController";
 
-class AuthorizationPage extends FormPage {
+export class AuthorizationPage extends FormPage {
     constructor() {
         super(formData => {
-            const data: UserAuthorization = new UserAuthorization(formData);
-            console.log(data);
+            AuthController.signIn(new UserAuthorization(formData));
+        }, state => {
+            this.setTextError(state.errorUserAuthorization);
         });
+        AuthController.startFetchUser();
     }
 
     init() {
+        this.props.textError = '';
         this.children.inputLogin = ConstructionDefault.getDefaultNotEmptyInput('login', 'Логин');
 
         this.children.inputPassword = ConstructionDefault.getDefaultPasswordInput(
@@ -36,14 +41,12 @@ class AuthorizationPage extends FormPage {
             labelText: 'Нет аккаунта?',
             events: {
                 click: () => {
-                    window.location.href = '../../' + Navigation.registration;
+                    Router.go(NavPath.Registration)
                 },
             },
         });
 
         this.children.labelReg.getContent()!.style.marginTop = '15px';
-
-        this.setClassForEvent('for_event_form');
 
         this.props.checkInput = [
             this.children.inputLogin,
@@ -51,16 +54,16 @@ class AuthorizationPage extends FormPage {
         ];
     }
 
+    private setTextError(value: boolean) {
+        this.props.textError = (value) ? 'Неверный логин или пароль' : '';
+    }
+
+    show() {
+        this.setTextError(false);
+        super.show();
+    }
+
     render() {
         return this.compile(template, this.props);
     }
 }
-
-window.addEventListener('DOMContentLoaded', () => {
-    const authorization = document.querySelector('#authorization');
-
-    const authorizationPage = new AuthorizationPage();
-    authorization!.append(authorizationPage.getContent()!);
-
-    authorizationPage.dispatchComponentDidMount();
-});

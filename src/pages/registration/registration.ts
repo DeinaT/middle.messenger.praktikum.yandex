@@ -5,17 +5,20 @@ import '../../css/style.sass';
 import Input from '../../components/input/input';
 import Button from '../../components/button/button';
 import Label from '../../components/label/label';
-import Navigation from '../../utils/navigation';
 import Validation from '../../utils/validation/validation';
-import UserRegistration from '../../objects/userRegistration';
+import UserRegistration from '../../model/userRegistration';
 import ConstructionDefault from '../../utils/validation/constructionDefault';
 import FormPage from '../../utils/validation/formPage';
+import {NavPath} from "../../utils/navigation";
+import {Router} from "../../route/router";
+import {AuthController} from "../../controllers/authController";
 
-class RegistrationPage extends FormPage {
+export class RegistrationPage extends FormPage {
     constructor() {
         super(formData => {
-            let data: UserRegistration = new UserRegistration(formData);
-            console.log(data);
+            AuthController.signUp(new UserRegistration(formData));
+        }, state => {
+            this.setTextError(state.errorUserRegistration);
         });
     }
 
@@ -45,7 +48,7 @@ class RegistrationPage extends FormPage {
             labelText: 'Войти',
             events: {
                 click: () => {
-                    window.location.href = '../../' + Navigation.authorization;
+                    Router.go(NavPath.Authorization)
                 },
             },
         });
@@ -56,8 +59,6 @@ class RegistrationPage extends FormPage {
             buttonState: 'neutral',
             buttonType: 'submit',
         });
-
-        this.setClassForEvent('for_event_form');
 
         this.props.checkInput = [
             this.children.inputEmail,
@@ -70,16 +71,15 @@ class RegistrationPage extends FormPage {
         ];
     }
 
+    setTextError(value: boolean) {
+        this.props.textError = (value) ? 'Такой пользователь уже существует' : '';
+    }
+
+    show(): void {
+        this.getContent()!.style.display = 'block';
+    }
+
     render() {
         return this.compile(template, this.props);
     }
 }
-
-window.addEventListener('DOMContentLoaded', () => {
-    const registration = document.querySelector('#registration');
-
-    const registrationPage = new RegistrationPage();
-    registration!.append(registrationPage.getContent()!);
-
-    registrationPage.dispatchComponentDidMount();
-});

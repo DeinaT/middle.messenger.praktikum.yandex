@@ -1,11 +1,8 @@
-import Nav from './components/nav/nav';
 import './css/style.sass';
+import {Router} from './route/router';
+import {Navigation} from "./utils/navigation";
 
 window.addEventListener('DOMContentLoaded', () => {
-    const root = document.querySelector('#app')!;
-
-    const navList = new Nav();
-    root.append(navList.getContent()!);
-
-    navList.dispatchComponentDidMount();
+    Navigation.initRouter();
+    Router.start();
 });

@@ -1,9 +1,18 @@
-const express = require("express");
+var express = require("express");
+var path = require('path');
 
-const app = express();
+var app = express();
 
 app.set("view engine", "hbs");
-app.set("views", "src");
 
-app.use("/", express.static(__dirname + "/../dist"))
+app.use(express.static(path.join(__dirname, "../dist")));
+
+app.get('/', function (req, res) {
+    res.sendFile(path.join(__dirname, "../dist", "index.html"));
+});
+
+app.get("*", function (req, res) {
+    res.sendFile(path.join(__dirname, "../dist", "index.html"));
+});
+
 app.listen(3000);

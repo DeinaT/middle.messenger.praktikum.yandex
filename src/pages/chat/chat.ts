@@ -2,82 +2,148 @@ import template from './chat.hbs';
 import '../../css/style.sass';
 import '../../css/chat.sass';
 import '../../css/menu.sass';
-import Block from '../../utils/block';
-import ArrayChats from '../../objects/arrayChats';
-import Chat from '../../objects/chat';
 import iconRocket from '../../../static/icon/icon_rocket.png';
 import FindInput from '../../components/find/find';
 import Label from '../../components/label/label';
 import DialogMenu from '../../components/dialog_menu/dialogMenu';
 import DialogAsk from '../../components/dialog_ask/dialogAsk';
 import MessagePreview from '../../components/message_preview/messagePreview';
-import Message from '../../objects/message';
 import MessageList from '../../components/message_list/messageList';
-import Navigation from '../../utils/navigation';
+import {Router} from '../../route/router';
+import BlockStore from '../../utils/blockStore';
+import ChatInfo from '../../model/chatInfo';
+import Message from '../../model/message';
+import store from '../../model/store';
+import {NavPath} from "../../utils/navigation";
+import {ChatController} from "../../controllers/chatController";
+import {AuthController} from "../../controllers/authController";
+import {UserController} from "../../controllers/userController";
 
-interface ChatProps {
-    iconRocket: object,
-    dialogSetting: DialogMenu,
-    dialogControlUser: DialogMenu,
-    allPreview?: Array<MessagePreview>
-}
 
-class ChatPage extends Block {
-    constructor(props: ChatProps) {
-        super('main', props);
-        if (this.props.allPreview === undefined) {
-            this.props.allPreview = [];
-        }
+export class ChatPage extends BlockStore {
+    private findTitleChat: string = "";
 
-        const linkSetting: Label = new Label({
-            labelText: 'Настройки',
-            events: {
-                click: () => {
-                    window.location.href = '../../' + Navigation.information;
-                },
-            },
+    constructor() {
+        super('div', {
+            iconRocket: iconRocket,
+        }, () => {
+            this.refreshChat();
         });
-        (this.children.dialogSetting as DialogMenu).setCancelEvent(() => {
-            window.location.href = '../../' + Navigation.authorization;
-        });
-        (this.children.dialogSetting as DialogMenu).addSettingLink(linkSetting);
+        this.props.allPreview = [];
 
-        this.setClassForEvent('for_event');
         this.props.events = {
             click: () => {
                 this.showSetting();
             }
         };
+
+        this.updateInfo();
     }
 
     private showSetting(): void {
         this.children.dialogSetting.changeVisible();
     }
 
+    private changeVisibleAddChat(): void {
+        this.children.dialogAddChat.changeVisible();
+    }
+
+    private hideSetting(): void {
+        this.children.dialogSetting.hide();
+    }
+
     init() {
         this.children.findInput = new FindInput({
             typeName: 'find_user',
+            events: {
+                input: target => {
+                    this.findTitleChat = target.target.value;
+                    this.refreshChat();
+                }
+            }
         });
 
         this.children.findInput.getContent()!.style.width = '70%';
         this.children.findInput.getContent()!.style.marginTop = '10px';
 
-        this.children.findInput.setClassForEvent('for_event');
+
+        this.children.dialogSetting = new DialogMenu({
+            exitLabel: new Label({
+                labelText: 'Выйти',
+            })
+        });
+
+        const linkSetting: Label = new Label({
+            labelText: 'Настройки',
+            events: {
+                click: () => {
+                    this.hideSetting();
+                    Router.go(NavPath.Information);
+                },
+            },
+        });
+
+        const linkAddChat: Label = new Label({
+            labelText: 'Создать чат',
+            events: {
+                click: () => {
+                    this.showSetting();
+                    this.changeVisibleAddChat();
+                },
+            },
+        });
+
+        this.children.dialogAddChat = new DialogAsk({
+            title: 'Добавить чат',
+            buttonCancelText: 'Отмена',
+            buttonAddText: 'Добавить чат',
+            inputPlaceholder: 'Название',
+            buttonAddType: 'positive',
+            buttonAddFunction: (input_value) => {
+                ChatController.create(input_value);
+                this.changeVisibleAddChat();
+            },
+        });
+
+        (this.children.dialogSetting as DialogMenu).setCancelEvent(() => {
+            this.hideSetting();
+            AuthController.logout();
+        });
+        (this.children.dialogSetting as DialogMenu).addSettingLink(linkAddChat);
+        (this.children.dialogSetting as DialogMenu).addSettingLink(linkSetting);
+
+        this.initDialogMenu();
+
+        this.children.messageList = new MessageList({
+            dialogControl: this.children.dialogControl as DialogMenu,
+        });
+
+        this.setClassForEvent('for_event_menu');
     }
 
-    public addChat(chat: Chat): void {
-        const lastMessage: Message = chat.getLastMessage()!;
-        let countUnreadableMessage = 0;
-        let showUnreadableMessage = false;
-        if (!lastMessage.isRead) {
-            countUnreadableMessage = chat.getCountUnreadableMessage();
-            showUnreadableMessage = true;
+    public refreshChat(): void {
+        this.removeAllChildNodes(this.getContent()!.querySelector('.left-menu__chats')!);
+        if (store.getState().chats) {
+            store.getState().chats.forEach((chat: ChatInfo) => {
+                this.addChat(chat);
+            });
         }
+    }
+
+    public addChat(chat: ChatInfo): void {
+        if (!chat.title.includes(this.findTitleChat)) {
+            return;
+        }
+        const lastMessage: Message = chat.last_message;
+        let countUnreadableMessage = chat.unread_count;
+        let showUnreadableMessage = (countUnreadableMessage > 0);
+        let haveLastMessage = (lastMessage === null);
+        let strDate: string = (lastMessage !== null) ? `${new Date(lastMessage.time).getHours()}:${new Date(lastMessage.time).getMinutes()}` : "";
         const chatPreView = new MessagePreview({
-            messageUser: chat.getUser(),
-            messageText: lastMessage.text,
-            messageData: lastMessage.data,
-            lastMessageIsYou: lastMessage.isYou,
+            messageUser: chat.title,
+            messageText: (haveLastMessage) ? '' : lastMessage.content,
+            messageData: strDate,
+            lastMessageIsYou: (haveLastMessage) ? false : lastMessage.user_id === store.getState().user.id,
             showMessageCount: showUnreadableMessage,
             messageCount: countUnreadableMessage,
             events: {
@@ -92,18 +158,19 @@ class ChatPage extends Block {
         this.getContent()!.querySelector('.left-menu__chats')!.append(chatPreView.getContent()!);
     }
 
-    public selectChat(chat: Chat): void {
-        this.props.allPreview.forEach((ch: { props: { messageSelect: boolean; }; }) => {
-            ch.props.messageSelect = false;
-        });
-        const list: MessageList = new MessageList({
-            chatUser: chat.getUser(),
-            allMessage: chat.getMessages(),
-            dialogControl: this.children.dialogControlUser as DialogMenu,
-        });
-        (this.getContent()!.querySelector('.start_chat')! as HTMLDivElement).style.display = 'none';
-        this.removeAllChildNodes(this.getContent()!.querySelector('.list_message')!);
-        this.getContent()!.querySelector('.list_message')!.append(list.getContent()!);
+    public selectChat(chat: ChatInfo): void {
+        ChatController.selectChat(chat.id);
+        this.setVisibleChats(true);
+    }
+
+    private setVisibleChats(value: boolean) {
+        if (value) {
+            (this.getContent()!.querySelector('#sayHello')! as HTMLDivElement).style.display = 'none';
+            (this.getContent()!.querySelector('#viewChat')! as HTMLDivElement).style.display = 'flex';
+        } else {
+            (this.getContent()!.querySelector('#sayHello')! as HTMLDivElement).style.display = 'flex';
+            (this.getContent()!.querySelector('#viewChat')! as HTMLDivElement).style.display = 'none';
+        }
     }
 
     private removeAllChildNodes(parent: HTMLElement) {
@@ -112,48 +179,69 @@ class ChatPage extends Block {
         }
     }
 
-    render() {
-        return this.compile(template, this.props);
-    }
-}
-
-function initDialogMenu(root: Element | null): DialogMenu {
-        const dialogAddUser = new DialogAsk({
+    private initDialogMenu(): void {
+        this.children.dialogAddUser = new DialogAsk({
             title: 'Добавить пользователя',
             buttonCancelText: 'Отмена',
             buttonAddText: 'Добавить пользователя',
             inputPlaceholder: 'Пользователь',
             buttonAddType: 'positive',
-            buttonAddFunction: (input_value) => {
-                console.log('add ' + input_value);
+            buttonAddFunction: (inputValue) => {
+                UserController.findUserByLogin(inputValue).then(users => {
+                        if ((users.length > 0) && (users[0].id !== undefined)) {
+                            ChatController.addUserToChat(store.getState().selectedChat, users[0].id);
+                            this.children.dialogAddUser.changeVisible()
+                        } else {
+                            (this.children.dialogAddUser as DialogAsk).setError('Такого пользователя не существует');
+                        }
+                    },
+                    () => {
+                        (this.children.dialogAddUser as DialogAsk).setError('Такого пользователя не существует');
+                    })
             },
         });
-        root!.append(dialogAddUser.getContent()!);
 
-        const dialogRemoveUser = new DialogAsk({
+        this.children.dialogRemoveUser = new DialogAsk({
             title: 'Удалить пользователя',
             buttonCancelText: 'Отмена',
             buttonAddText: 'Удалить пользователя',
             inputPlaceholder: 'Пользователь',
             buttonAddType: 'negative',
-            buttonAddFunction: (input_value) => {
-                console.log('delete ' + input_value);
+            buttonAddFunction: (inputValue) => {
+                ChatController.getUsers(store.getState().selectedChat).then(users => {
+                        users.forEach(user => {
+                            if ((user.login === inputValue) && (user.id !== undefined)) {
+                                ChatController.deleteUserToChat(store.getState().selectedChat, user.id);
+                                this.children.dialogRemoveUser.changeVisible();
+                            }
+                        });
+                        (this.children.dialogRemoveUser as DialogAsk).setError('Такого пользователя не существует');
+                    },
+                    () => {
+                        (this.children.dialogRemoveUser as DialogAsk).setError('Такого пользователя не существует');
+                    })
             },
         });
-        root!.append(dialogRemoveUser.getContent()!);
 
-        const dialogControl = new DialogMenu({
+        this.children.dialogControl = new DialogMenu({
             exitLabel: new Label({
                 labelText: 'Удалить чат',
             }),
+        });
+
+        (this.children.dialogControl as DialogMenu).setCancelEvent(() => {
+            ChatController.delete(store.getState().selectedChat);
+            this.children.dialogControl.hide();
+            this.setVisibleChats(false);
         });
 
         const linkAddUser: Label = new Label({
             labelText: 'Добавить пользователя',
             events: {
                 click: () => {
-                    if (dialogAddUser !== null) {
-                        dialogAddUser.changeVisible();
+                    if (this.children.dialogAddUser !== null) {
+                        this.children.dialogAddUser.changeVisible();
+                        this.children.dialogControl.hide();
                     }
                 },
             },
@@ -163,43 +251,34 @@ function initDialogMenu(root: Element | null): DialogMenu {
             labelText: 'Удалить пользователя',
             events: {
                 click: () => {
-                    if (dialogRemoveUser !== null) {
-                        dialogRemoveUser.changeVisible();
+                    if (this.children.dialogRemoveUser !== null) {
+                        this.children.dialogRemoveUser.changeVisible();
+                        this.children.dialogControl.hide();
                     }
                 },
             },
         });
 
-        dialogControl.addSettingLink(linkAddUser);
-        dialogControl.addSettingLink(linkRemoveUser);
-        dialogControl.getContent()!.style.top = '8px';
-        dialogControl.getContent()!.style.right = '16px';
-        dialogControl.getContent()!.style.left = 'auto';
+        (this.children.dialogControl as DialogMenu).addSettingLink(linkAddUser);
+        (this.children.dialogControl as DialogMenu).addSettingLink(linkRemoveUser);
+        this.children.dialogControl.getContent()!.style.top = '8px';
+        this.children.dialogControl.getContent()!.style.right = '16px';
+        this.children.dialogControl.getContent()!.style.left = 'auto';
+    }
 
-        root!.append(dialogControl.getContent()!);
+    private updateInfo() {
+        if (!store.getState().user)
+            AuthController.fetchUser();
 
-        return dialogControl;
+        ChatController.fetchChats();
+    }
+
+    show() {
+        this.updateInfo();
+        super.show();
+    }
+
+    render() {
+        return this.compile(template, this.props);
+    }
 }
-
-window.addEventListener('DOMContentLoaded', () => {
-    const root = document.querySelector('#chat');
-
-    const dialogSetting = new DialogMenu({
-        exitLabel: new Label({
-            labelText: 'Выйти',
-        })
-    });
-    const chatList = new ChatPage({
-        iconRocket: iconRocket,
-        dialogSetting: dialogSetting,
-        dialogControlUser: initDialogMenu(root),
-    });
-    ArrayChats.getArrayChats().forEach((value) => {
-        chatList.addChat(value);
-    });
-
-    root!.append(chatList.getContent()!);
-    root!.append(dialogSetting.getContent()!);
-
-    chatList.dispatchComponentDidMount();
-});

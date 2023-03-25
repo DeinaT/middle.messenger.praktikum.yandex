@@ -1,9 +1,14 @@
 <div style="display: flex;flex-direction: row;width: 100%;height: 100%">
 
+    {{{ dialogSetting }}}
+    {{{ dialogControl }}}
+    {{{ dialogRemoveUser }}}
+    {{{ dialogAddUser }}}
+    {{{ dialogAddChat }}}
     <div class="div__base_left-menu">
 
         <div class="left-menu__top-panel">
-            <div class="for_event div__menu-user">
+            <div class="for_event_menu div__menu-user">
                 <span style="margin-top: 10px" class="line"></span>
                 <span class="line"></span>
                 <span class="line"></span>
@@ -15,7 +20,8 @@
 
         </div>
     </div>
-    <div class="div__base_right-menu">
+
+    <div class="div__base_right-menu" style="margin-top: 100px" id="sayHello">
         <div style="display: flex;width: 100%;height: 100%;flex-direction: column;justify-content: center;align-items: center">
             <div class="start_chat">
                 <img style="width: 150px;height: 222px;display: flex;" src="{{iconRocket}}" alt="Иконка ракеты">
@@ -25,5 +31,8 @@
 
             </div>
         </div>
+    </div>
+    <div class="div__base_right-menu" style="display: none" id="viewChat">
+        {{{ messageList }}}
     </div>
 </div>

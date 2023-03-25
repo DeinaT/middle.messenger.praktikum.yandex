@@ -30,7 +30,7 @@ export class DialogAsk extends Block {
             buttonState: this.props.buttonAddType,
             events: {
                 click: () => {
-                    this.props.buttonAddFunction((this.children.input__info as Input).getValue());
+                    this.props.buttonAddFunction((this.children.inputInfo as Input).getValue());
                 },
             },
         });
@@ -51,6 +51,10 @@ export class DialogAsk extends Block {
         this.children.buttonCancel.getContent()!.style.marginTop = '20px';
         this.children.buttonCancel.getContent()!.style.width = '80%';
         this.getContent()!.style.display = 'none';
+    }
+
+    public setError(value: string){
+        (this.children.inputInfo as Input).setError(value);
     }
 
     render() {

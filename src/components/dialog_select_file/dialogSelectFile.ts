@@ -3,6 +3,7 @@ import template from './dialogSelectFile.hbs';
 import './dialogSelectFile.sass';
 import Label from '../label/label';
 import Button from '../button/button';
+import {UserController} from "../../controllers/userController";
 
 interface DialogSelectFileProps {
     title: string;
@@ -25,16 +26,18 @@ export class DialogSelectFile extends Block {
                 }
             },
         });
-        this.children.labelInfo.getContent()!.style.marginTop = "20px"
-        this.children.labelInfo.getContent()!.style.marginBottom = "20px"
+        this.children.labelInfo.getContent()!.style.marginTop = '20px';
+        this.children.labelInfo.getContent()!.style.marginBottom = '20px';
 
         this.children.buttonAdd = new Button({
             buttonText: 'Изменить',
             buttonState: 'positive',
             events: {
                 click: () => {
-                    if (this.selectFile !== null)
-                        console.log(this.selectFile);
+                    if (this.selectFile !== null){
+                        UserController.changeAvatar(this.selectFile);
+                        this.hide();
+                    }
                 },
             },
         });
@@ -60,7 +63,7 @@ export class DialogSelectFile extends Block {
     private importData(): void {
         let input = window.document.createElement('input');
         input.type = 'file';
-        input.onchange = _ => {
+        input.onchange = () => {
             if (input.files!.length === 1) {
                 // @ts-ignore // из-за проверки выше всегда будет 1 элемент // в последующих спринтах это измениться
                 this.selectFile = input.files[0];

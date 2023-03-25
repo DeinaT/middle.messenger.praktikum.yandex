@@ -7,14 +7,14 @@ import Button from '../../../components/button/button';
 import ConstructionDefault from '../../../utils/validation/constructionDefault';
 import Validation from '../../../utils/validation/validation';
 import FormPage from '../../../utils/validation/formPage';
-import UserPassword from '../../../objects/userPassword';
-import Navigation from '../../../utils/navigation';
+import UserPassword from '../../../model/userPassword';
+import {Router} from '../../../route/router';
+import {UserController} from "../../../controllers/userController";
 
-class ChangePasswordPage extends FormPage {
+export class ChangePasswordPage extends FormPage {
     constructor() {
         super((formData) => {
-            const data: UserPassword = new UserPassword(formData);
-            console.log(data);
+            UserController.changePassword(new UserPassword(formData))
         });
     }
 
@@ -44,7 +44,7 @@ class ChangePasswordPage extends FormPage {
             buttonState: 'neutral',
             events: {
                 click: () => {
-                    window.location.href = '../../../' + Navigation.information;
+                    Router.back();
                 },
             },
         });
@@ -69,12 +69,3 @@ class ChangePasswordPage extends FormPage {
         return this.compile(template, this.props);
     }
 }
-
-window.addEventListener('DOMContentLoaded', () => {
-    const changesPassword = document.querySelector('#changes_password');
-
-    const changePasswordPage = new ChangePasswordPage();
-    changesPassword!.append(changePasswordPage.getContent()!);
-
-    changePasswordPage.dispatchComponentDidMount();
-});

@@ -1,76 +1,83 @@
-const METHODS = {
-    GET: 'GET',
-    POST: 'POST',
-    PUT: 'PUT',
-    DELETE: 'DELETE',
+enum Method {
+    GET = 'GET',
+    POST = 'POST',
+    PUT = 'PUT',
+    DELETE = 'DELETE',
+}
+
+
+type Options = {
+    method: Method;
+    data?: any;
 };
 
-export class HTTPTransport {
-    get = (url, options = {}) => {
-        return this.request(
-            url,
-            {...options, method: METHODS.GET},
-            options.timeout
-        );
-    };
+export default class HTTPTransport {
+    protected endpoint: string;
 
-    post = (url, options = {}) => {
-        return this.request(
-            url,
-            {...options, method: METHODS.POST},
-            options.timeout
-        );
-    };
+    static API_URL = 'https://ya-praktikum.tech/api/v2';
+    constructor(endpoint: string) {
+        this.endpoint = `${HTTPTransport.API_URL}${endpoint}`;
+    }
 
-    put = (url, options = {}) => {
-        return this.request(
-            url,
-            {...options, method: METHODS.PUT},
-            options.timeout
-        );
-    };
+    public get<Response>(path = '/'): Promise<Response> {
+        return this.request<Response>(this.endpoint + path);
+    }
 
-    delete = (url, options = {}) => {
-        return this.request(
-            url,
-            {...options, method: METHODS.DELETE},
-            options.timeout
-        );
-    };
+    public post<Response = void>(path: string, data?: unknown): Promise<Response> {
+        return this.request<Response>(this.endpoint + path, {
+            method: Method.POST,
+            data,
+        });
+    }
 
-    request = (url, options = {}, timeout = 5000) => {
-        const {headers = {}, method, data} = options;
+    public put<Response = void>(path: string, data: unknown): Promise<Response> {
+        return this.request<Response>(this.endpoint + path, {
+            method: Method.PUT,
+            data,
+        });
+    }
 
-        return new Promise(function (resolve, reject) {
-            if (!method) {
-                reject('No method');
-                return;
-            }
+    public delete<Response>(path: string, data?: unknown): Promise<Response> {
+        return this.request<Response>(this.endpoint + path, {
+            method: Method.DELETE,
+            data
+        });
+    }
 
+    private request<Response>(url: string, options: Options = {method: Method.GET}): Promise<Response> {
+        const {method, data} = options;
+
+        return new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
-            const isGet = method === METHODS.GET;
-
             xhr.open(method, url);
 
-            Object.keys(headers).forEach(key => {
-                xhr.setRequestHeader(key, headers[key]);
-            });
+            xhr.onreadystatechange = () => {
 
-            xhr.onload = function () {
-                resolve(xhr.responseText);
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status < 400) {
+                        resolve(xhr.response);
+                    } else {
+                        reject(xhr.response);
+                    }
+                }
             };
 
-            xhr.onabort = reject;
-            xhr.onerror = reject;
+            xhr.onabort = () => reject({reason: 'abort'});
+            xhr.onerror = () => reject({reason: 'network error'});
+            xhr.ontimeout = () => reject({reason: 'timeout'});
 
-            xhr.timeout = timeout;
-            xhr.ontimeout = reject;
+            xhr.withCredentials = true;
+            xhr.responseType = 'json';
 
-            if (isGet) {
+            if (method === Method.GET || !data) {
+                xhr.setRequestHeader('Content-Type', 'application/json');
                 xhr.send();
-            } else {
+            } else if (data instanceof FormData) {
                 xhr.send(data);
+            } else {
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.send(JSON.stringify(data));
             }
         });
-    };
+    }
 }

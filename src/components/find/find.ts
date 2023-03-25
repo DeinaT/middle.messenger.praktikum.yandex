@@ -5,6 +5,10 @@ import template from './find.hbs';
 interface FindInputProps {
     typeName: string;
     inputValue?: string;
+
+    events?: {
+        input?: (target: EventTarget) => void;
+    };
 }
 
 export class FindInput extends Block {

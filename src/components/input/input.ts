@@ -9,6 +9,7 @@ interface InputProps {
     inputError?: string;
     inputIsPassword?: boolean;
     inputDisplayError?: boolean;
+    inputReadOnly?: boolean;
 
     events?: {
         blur?: () => void;
@@ -27,6 +28,10 @@ class Input extends Block {
     public getValue(): string {
         this.props.inputValue = this.getContent()!.querySelector('input')!.value;
         return this.props.inputValue;
+    }
+
+    public setValue(value: string): void {
+        this.props.inputValue = value;
     }
 
     public setError(_message?: string): void {

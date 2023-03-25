@@ -1,6 +1,6 @@
 <input name="{{inputName}}" type="{{#if inputIsPassword}}password{{else}}text{{/if}}"
        class="for_event input-value {{#if inputDisplayError}}valid-error{{/if}}"
-        required value="{{ inputValue }}"/>
+        required value="{{ inputValue }}" {{#if inputReadOnly}}readonly{{/if}}/>
 <label class="input-placeholder">{{ inputPlaceholder }}</label>
 <label style="{{#if inputDisplayError}}display: block;{{else}}display: none;{{/if}}"
        class="input-error">{{ inputError }}</label>
