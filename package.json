@@ -6,11 +6,13 @@
   "scripts": {
     "build": "webpack",
     "watch": "webpack --watch",
-    "serve": "webpack serve"
+    "server": "webpack serve",
+    "prepare": "husky install"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run build"
+      "pre-commit": "npm run build",
+      "pre-push": "npm run build"
     }
   },
   "engines": {
