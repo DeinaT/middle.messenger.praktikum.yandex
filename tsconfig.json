@@ -7,7 +7,6 @@
     "noUnusedParameters": true,
     "sourceMap": true,
     "strictNullChecks": true,
-    "module": "commonjs",
     "skipLibCheck": true,
     "strict": true,
     "lib": [
