@@ -8,6 +8,7 @@
     "sourceMap": true,
     "strictNullChecks": true,
     "skipLibCheck": true,
+    "esModuleInterop": true,
     "strict": true,
     "lib": [
       "ESNext",

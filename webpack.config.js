@@ -69,7 +69,7 @@ module.exports = {
         historyApiFallback: true,
         open: true,
         host: "localhost",
-        port: 9000,
+        port: 3000,
     },
     plugins: [
         new webpack.ProvidePlugin({
