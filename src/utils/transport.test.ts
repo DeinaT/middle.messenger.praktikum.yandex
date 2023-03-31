@@ -5,6 +5,7 @@ import { expect } from 'chai';
 describe('HTTPTransport', () => {
     let xhr: SinonFakeXMLHttpRequestStatic;
     let instance: HTTPTransport;
+    let instanceChat: HTTPTransport;
     const requests: SinonFakeXMLHttpRequest[] = [];
 
     beforeEach(() => {
@@ -18,6 +19,7 @@ describe('HTTPTransport', () => {
         });
 
         instance = new HTTPTransport('/auth');
+        instanceChat = new HTTPTransport('/chat');
     });
 
     afterEach(() => {
@@ -30,5 +32,29 @@ describe('HTTPTransport', () => {
         const [request] = requests;
 
         expect(request.method).to.eq('GET');
+    });
+
+    it('.post() should send POST request', () => {
+        instance.post('/logout');
+
+        const [request] = requests;
+
+        expect(request.method).to.eq('POST');
+    });
+
+    it('.delete() should send POST request', () => {
+        instanceChat.delete('/chats');
+
+        const [request] = requests;
+
+        expect(request.method).to.eq('DELETE');
+    });
+
+    it('.put() should send PUT request', () => {
+        instanceChat.put('/users', 1155);
+
+        const [request] = requests;
+
+        expect(request.method).to.eq('PUT');
     });
 });
