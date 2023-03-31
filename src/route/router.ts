@@ -1,7 +1,7 @@
 import Block from '../utils/block';
 import {Route} from "./route";
 
-class MainRouter {
+export class MainRouter {
 
     private routes: Route[] = [];
     private history = window.history;
@@ -31,6 +31,7 @@ class MainRouter {
 
     start() {
         window.onpopstate = ((event: PopStateEvent) => {
+            // @ts-ignore
             this._onRoute(event.currentTarget!.location.pathname);
         }).bind(this);
 
