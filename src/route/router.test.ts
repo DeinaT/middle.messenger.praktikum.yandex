@@ -7,12 +7,12 @@ import Block from "../utils/block";
 describe('Router', () => {
     let instance: MainRouter;
 
-    global.window.history.back = () => {
+    window.history.back = () => {
         if (typeof window.onpopstate === 'function') {
             window.onpopstate({currentTarget: window} as unknown as PopStateEvent);
         }
     };
-    global.window.history.forward = () => {
+    window.history.forward = () => {
         if (typeof window.onpopstate === 'function') {
             window.onpopstate({currentTarget: window} as unknown as PopStateEvent);
         }

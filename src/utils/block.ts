@@ -1,8 +1,7 @@
 import {EventBus} from './eventBus';
-import {nanoid} from 'nanoid';
 
 
-class Block<Prop extends Record<string, any> = any> {
+export class Block<Prop extends Record<string, any> = any> {
     static EVENTS = {
         INIT: 'init',
         FLOW_CDM: 'flow:component-did-mount',
@@ -11,7 +10,7 @@ class Block<Prop extends Record<string, any> = any> {
         DELETE_EVENT: 'delete_event'
     };
 
-    public id = nanoid(6);
+    public id = 1;
     protected props: Prop;
     public children: Record<string, Block>;
     private eventBus: () => EventBus;

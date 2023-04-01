@@ -26,7 +26,7 @@ describe('HTTPTransport', () => {
         requests.length = 0;
     });
 
-    it('.get() should send GET request', () => {
+    it('.get() - Проверка get запроса', () => {
         instance.get('/user');
 
         const [request] = requests;
@@ -34,7 +34,7 @@ describe('HTTPTransport', () => {
         expect(request.method).to.eq('GET');
     });
 
-    it('.post() should send POST request', () => {
+    it('.post() - Проверка post запроса', () => {
         instance.post('/logout');
 
         const [request] = requests;
@@ -42,7 +42,7 @@ describe('HTTPTransport', () => {
         expect(request.method).to.eq('POST');
     });
 
-    it('.delete() should send POST request', () => {
+    it('.delete() - Проверка delete запроса', () => {
         instanceChat.delete('/chats');
 
         const [request] = requests;
@@ -50,7 +50,7 @@ describe('HTTPTransport', () => {
         expect(request.method).to.eq('DELETE');
     });
 
-    it('.put() should send PUT request', () => {
+    it('.put() - Проверка put запроса', () => {
         instanceChat.put('/users', 1155);
 
         const [request] = requests;
