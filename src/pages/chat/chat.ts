@@ -38,6 +38,7 @@ export class ChatPage extends BlockStore {
         };
 
         this.updateInfo();
+        this.setVisibleChats(false);
     }
 
     private showSetting(): void {
@@ -166,7 +167,7 @@ export class ChatPage extends BlockStore {
     private setVisibleChats(value: boolean) {
         if (value) {
             (this.getContent()!.querySelector('#sayHello')! as HTMLDivElement).style.display = 'none';
-            (this.getContent()!.querySelector('#viewChat')! as HTMLDivElement).style.display = 'flex';
+            (this.getContent()!.querySelector('#viewChat')! as HTMLDivElement).style.display = 'block';
         } else {
             (this.getContent()!.querySelector('#sayHello')! as HTMLDivElement).style.display = 'flex';
             (this.getContent()!.querySelector('#viewChat')! as HTMLDivElement).style.display = 'none';

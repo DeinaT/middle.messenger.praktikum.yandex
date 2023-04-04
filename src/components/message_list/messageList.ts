@@ -64,6 +64,8 @@ export class MessageList extends BlockStore {
                 this.initListMessage((store.messages || {})[store.selectedChat] || [],);
             }
         });
+        this.getContent()!.id = "viewChat";
+        this.getContent()!.classList.add("div__base_right-menu");
     }
 
     private initListMessage(messages: Message[]): void {
@@ -76,8 +78,7 @@ export class MessageList extends BlockStore {
                 messageIsYou: m.user_id === store.getState().user.id,
             });
 
-            this.getContent()!.style.height = 'inherit';
-            this.getContent()!.style.width = '100%';
+            this.getContent()!.style.height = '100%';
             if (this.getContent()!.querySelector('.all_message') !== null) {
                 this.getContent()!.querySelector('.all_message')!.append(message.getContent()!);
             }
