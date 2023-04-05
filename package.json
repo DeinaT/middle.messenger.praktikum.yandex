@@ -5,7 +5,7 @@
   "source": "src/index.html",
   "scripts": {
     "build": "webpack",
-    "start": "node ./src/app.js",
+    "start": "npm run build && node ./src/app.js",
     "watch": "webpack --watch",
     "server": "webpack serve",
     "prepare": "husky install",
