@@ -5,10 +5,12 @@ COPY ./package*.json ./
 
 RUN npm install
 
-COPY ./.git ./
-COPY ./src/app.js ./app.js
-COPY ./dist/* dist/
+COPY . .
 
 EXPOSE 3000
 
-CMD [ "node", "app.js" ]
+RUN ls
+
+RUN npm run build
+
+CMD [ "node", "./src/app.js" ]
