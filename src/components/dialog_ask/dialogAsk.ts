@@ -53,7 +53,7 @@ export class DialogAsk extends Block {
         this.getContent()!.style.display = 'none';
     }
 
-    public setError(value: string){
+    public setError(value: string) {
         (this.children.inputInfo as Input).setError(value);
     }
 

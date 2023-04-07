@@ -9,23 +9,22 @@ import DialogMenu from '../../components/dialog_menu/dialogMenu';
 import DialogAsk from '../../components/dialog_ask/dialogAsk';
 import MessagePreview from '../../components/message_preview/messagePreview';
 import MessageList from '../../components/message_list/messageList';
-import {Router} from '../../route/router';
+import { Router } from '../../route/router';
 import BlockStore from '../../utils/blockStore';
 import ChatInfo from '../../model/chatInfo';
 import Message from '../../model/message';
-import store from '../../model/store';
-import {NavPath} from "../../utils/navigation";
-import {ChatController} from "../../controllers/chatController";
-import {AuthController} from "../../controllers/authController";
-import {UserController} from "../../controllers/userController";
-
+import { store } from '../../model/store';
+import { NavPath } from '../../utils/navigation';
+import { ChatController } from '../../controllers/chatController';
+import { AuthController } from '../../controllers/authController';
+import { UserController } from '../../controllers/userController';
 
 export class ChatPage extends BlockStore {
-    private findTitleChat: string = "";
+    private findTitleChat = '';
 
     constructor() {
         super('div', {
-            iconRocket: iconRocket,
+            iconRocket,
         }, () => {
             this.refreshChat();
         });
@@ -34,7 +33,7 @@ export class ChatPage extends BlockStore {
         this.props.events = {
             click: () => {
                 this.showSetting();
-            }
+            },
         };
 
         this.updateInfo();
@@ -57,21 +56,20 @@ export class ChatPage extends BlockStore {
         this.children.findInput = new FindInput({
             typeName: 'find_user',
             events: {
-                input: target => {
+                input: (target) => {
                     this.findTitleChat = target.target.value;
                     this.refreshChat();
-                }
-            }
+                },
+            },
         });
 
         this.children.findInput.getContent()!.style.width = '70%';
         this.children.findInput.getContent()!.style.marginTop = '10px';
 
-
         this.children.dialogSetting = new DialogMenu({
             exitLabel: new Label({
                 labelText: 'Выйти',
-            })
+            }),
         });
 
         const linkSetting: Label = new Label({
@@ -100,8 +98,8 @@ export class ChatPage extends BlockStore {
             buttonAddText: 'Добавить чат',
             inputPlaceholder: 'Название',
             buttonAddType: 'positive',
-            buttonAddFunction: (input_value) => {
-                ChatController.create(input_value);
+            buttonAddFunction: (inputValue) => {
+                ChatController.create(inputValue);
                 this.changeVisibleAddChat();
             },
         });
@@ -136,15 +134,19 @@ export class ChatPage extends BlockStore {
             return;
         }
         const lastMessage: Message = chat.last_message;
-        let countUnreadableMessage = chat.unread_count;
-        let showUnreadableMessage = (countUnreadableMessage > 0);
-        let haveLastMessage = (lastMessage === null);
-        let strDate: string = (lastMessage !== null) ? `${new Date(lastMessage.time).getHours()}:${new Date(lastMessage.time).getMinutes()}` : "";
+        const countUnreadableMessage = chat.unread_count;
+        const showUnreadableMessage = (countUnreadableMessage > 0);
+        const haveLastMessage = (lastMessage === null);
+        const strDate: string = (lastMessage !== null)
+            ? `${new Date(lastMessage.time).getHours()}:${new Date(lastMessage.time).getMinutes()}`
+            : '';
         const chatPreView = new MessagePreview({
             messageUser: chat.title,
             messageText: (haveLastMessage) ? '' : lastMessage.content,
             messageData: strDate,
-            lastMessageIsYou: (haveLastMessage) ? false : lastMessage.user_id === store.getState().user.id,
+            lastMessageIsYou: (haveLastMessage)
+                ? false
+                : lastMessage.user_id === store.getState().user.id,
             showMessageCount: showUnreadableMessage,
             messageCount: countUnreadableMessage,
             events: {
@@ -188,17 +190,22 @@ export class ChatPage extends BlockStore {
             inputPlaceholder: 'Пользователь',
             buttonAddType: 'positive',
             buttonAddFunction: (inputValue) => {
-                UserController.findUserByLogin(inputValue).then(users => {
+                UserController.findUserByLogin(inputValue).then(
+                    (users) => {
                         if ((users.length > 0) && (users[0].id !== undefined)) {
-                            ChatController.addUserToChat(store.getState().selectedChat, users[0].id);
-                            this.children.dialogAddUser.changeVisible()
+                            ChatController.addUserToChat(
+                                store.getState().selectedChat,
+                                users[0].id,
+                            );
+                            this.children.dialogAddUser.changeVisible();
                         } else {
                             (this.children.dialogAddUser as DialogAsk).setError('Такого пользователя не существует');
                         }
                     },
                     () => {
                         (this.children.dialogAddUser as DialogAsk).setError('Такого пользователя не существует');
-                    })
+                    },
+                );
             },
         });
 
@@ -209,10 +216,14 @@ export class ChatPage extends BlockStore {
             inputPlaceholder: 'Пользователь',
             buttonAddType: 'negative',
             buttonAddFunction: (inputValue) => {
-                ChatController.getUsers(store.getState().selectedChat).then(users => {
-                        users.forEach(user => {
+                ChatController.getUsers(store.getState().selectedChat).then(
+                    (users) => {
+                        users.forEach((user) => {
                             if ((user.login === inputValue) && (user.id !== undefined)) {
-                                ChatController.deleteUserToChat(store.getState().selectedChat, user.id);
+                                ChatController.deleteUserToChat(
+                                    store.getState().selectedChat,
+                                    user.id,
+                                );
                                 this.children.dialogRemoveUser.changeVisible();
                             }
                         });
@@ -220,7 +231,8 @@ export class ChatPage extends BlockStore {
                     },
                     () => {
                         (this.children.dialogRemoveUser as DialogAsk).setError('Такого пользователя не существует');
-                    })
+                    },
+                );
             },
         });
 
@@ -268,8 +280,7 @@ export class ChatPage extends BlockStore {
     }
 
     private updateInfo() {
-        if (!store.getState().user)
-            AuthController.fetchUser();
+        if (!store.getState().user) AuthController.fetchUser();
 
         ChatController.fetchChats();
     }

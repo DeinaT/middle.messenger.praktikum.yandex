@@ -9,16 +9,19 @@ interface FormProps {
 }
 
 export abstract class FormPage extends BlockStore {
-    protected constructor(useFormData: (formData: FormData) => void, mapStateToProps?: (state: any) => any) {
+    protected constructor(
+        useFormData: (formData: FormData) => void,
+        mapStateToProps?: (state: any) => any,
+    ) {
         const props: FormProps = {
             events: {
                 submit: (evt) => {
                     evt.preventDefault();
 
                     let isValid = true;
-                    for (let item of this.props.checkInput) {
+                    this.props.checkInput.forEach((item: Input) => {
                         isValid = isValid && item!.isValid();
-                    }
+                    });
                     if (isValid) {
                         useFormData.call(this, new FormData(this.getContent()!.querySelector('form')!));
                     }

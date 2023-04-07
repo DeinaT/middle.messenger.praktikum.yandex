@@ -1,15 +1,14 @@
 import template from './error404.hbs';
-import '../../../components/button/button.ts';
+import Button from '../../../components/button/button.ts';
 import '../../../components/input/input.ts';
 import '../../../css/style.sass';
 import '../../../css/alert.sass';
 import image404 from '../../../../static/image/image_error_404.png';
 import Block from '../../../utils/block';
-import Button from '../../../components/button/button';
 
 export class Error404Page extends Block {
     constructor() {
-        super('div', {image404: image404});
+        super('div', { image404 });
     }
 
     init() {

@@ -1,17 +1,14 @@
 import template from './error500.hbs';
-import '../../../components/button/button.ts';
+import Button from '../../../components/button/button.ts';
 import '../../../components/input/input.ts';
 import '../../../css/style.sass';
 import '../../../css/alert.sass';
 import image500 from '../../../../static/image/image_error_500.png';
 import Block from '../../../utils/block';
-import Button from '../../../components/button/button';
-
 
 export class Error500Page extends Block {
     constructor() {
-
-        super('div', {image500: image500});
+        super('div', { image500 });
     }
 
     init() {

@@ -19,8 +19,8 @@ interface InputProps {
 
 class Input extends Block {
     constructor(props: InputProps) {
-        props.inputValue = '';
         super('div', props);
+        this.props.inputValue = '';
         super.addInnerClass('input-group');
         this.getValue.bind(this.getValue);
     }

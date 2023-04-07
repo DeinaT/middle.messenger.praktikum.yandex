@@ -1,14 +1,16 @@
 import Block from '../utils/block';
-import {Route} from "./route";
+import { Route } from './route';
 
 export class MainRouter {
-
     private routes: Route[] = [];
-    private history = window.history;
-    private _currentRoute: Route | null = null;
-    private _rootQuery: string = '';
-    public static __instance: MainRouter;
 
+    private history = window.history;
+
+    private _currentRoute: Route | null = null;
+
+    private _rootQuery = '';
+
+    public static __instance: MainRouter;
 
     constructor(rootQuery: string) {
         if (MainRouter.__instance) {
@@ -22,7 +24,7 @@ export class MainRouter {
     }
 
     use(pathname: string, block: typeof Block) {
-        const route = new Route(pathname, block, {rootQuery: this._rootQuery});
+        const route = new Route(pathname, block, { rootQuery: this._rootQuery });
 
         this.routes.push(route);
 
@@ -31,9 +33,10 @@ export class MainRouter {
 
     start() {
         window.onpopstate = ((event: PopStateEvent) => {
-            // @ts-ignore
-            this._onRoute(event.currentTarget!.location.pathname);
-        }).bind(this);
+            if (event.currentTarget) {
+                this._onRoute((event.currentTarget as typeof window).location.pathname);
+            }
+        });
 
         this._onRoute(window.location.pathname);
     }
@@ -66,9 +69,8 @@ export class MainRouter {
     }
 
     getRoute(pathname: string): Route | undefined {
-        return this.routes.find(route => route.match(pathname));
+        return this.routes.find((route) => route.match(pathname));
     }
 }
 
 export const Router = new MainRouter('#app');
-

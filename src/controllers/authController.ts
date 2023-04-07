@@ -1,10 +1,10 @@
-import {AuthApi} from '../api/authApi';
-import {Router} from '../route/router';
+import { AuthApi } from '../api/authApi';
+import { Router } from '../route/router';
 import UserAuthorization from '../model/userAuthorization';
 import UserRegistration from '../model/userRegistration';
-import store from '../model/store';
-import {NavPath} from "../utils/navigation";
-import {MessagesController} from "./messagesController";
+import { store } from '../model/store';
+import { NavPath } from '../utils/navigation';
+import { MessagesController } from './messagesController';
 
 class AuthControllerMain {
     private readonly api: AuthApi;
@@ -36,16 +36,18 @@ class AuthControllerMain {
     }
 
     public startFetchUser() {
-        this.fetchUser().then(() => {
+        this.fetchUser().then(
+() => {
                 Router.go(NavPath.Messenger);
             },
             () => {
                 Router.go(NavPath.Authorization);
-            });
+            },
+);
     }
 
     async fetchUser() {
-        await this.api.read().then(user => {
+        await this.api.read().then((user) => {
             store.set('user', user);
         });
     }

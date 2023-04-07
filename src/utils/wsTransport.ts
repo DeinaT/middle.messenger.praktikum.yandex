@@ -1,4 +1,4 @@
-import {EventBus} from './eventBus';
+import { EventBus } from './eventBus';
 
 export enum WsTransportEvents {
     Connected = 'connected',
@@ -9,7 +9,8 @@ export enum WsTransportEvents {
 
 export default class WsTransport extends EventBus {
     private socket: WebSocket | null = null;
-    private pingInterval: number = 0;
+
+    private pingInterval = 0;
 
     constructor(private url: string) {
         super();
@@ -20,7 +21,7 @@ export default class WsTransport extends EventBus {
             throw new Error('Socket is not connected');
         }
 
-        this.socket.send(JSON.stringify(data))
+        this.socket.send(JSON.stringify(data));
     }
 
     public connect(): Promise<void> {
@@ -43,26 +44,26 @@ export default class WsTransport extends EventBus {
 
     private setupPing() {
         this.pingInterval = setInterval(() => {
-            this.send({type: 'ping'});
-        }, 5000)
+            this.send({ type: 'ping' });
+        }, 5000);
 
         this.on(WsTransportEvents.Close, () => {
             clearInterval(this.pingInterval);
 
             this.pingInterval = 0;
-        })
+        });
     }
 
     private subscribe(socket: WebSocket) {
         socket.addEventListener('open', () => {
-            this.emit(WsTransportEvents.Connected)
+            this.emit(WsTransportEvents.Connected);
         });
         socket.addEventListener('close', () => {
-            this.emit(WsTransportEvents.Close)
+            this.emit(WsTransportEvents.Close);
         });
 
         socket.addEventListener('error', (e) => {
-            this.emit(WsTransportEvents.Error, e)
+            this.emit(WsTransportEvents.Error, e);
         });
 
         socket.addEventListener('message', (message) => {
@@ -72,7 +73,7 @@ export default class WsTransport extends EventBus {
                 return;
             }
 
-            this.emit(WsTransportEvents.Message, data)
+            this.emit(WsTransportEvents.Message, data);
         });
     }
 }

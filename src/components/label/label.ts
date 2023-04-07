@@ -1,4 +1,4 @@
-import './label.sass'
+import './label.sass';
 import Block from '../../utils/block';
 import template from './label.hbs';
 
