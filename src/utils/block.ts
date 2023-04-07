@@ -1,32 +1,36 @@
-import {EventBus} from './eventBus';
-import {nanoid} from 'nanoid';
+import { EventBus } from './eventBus';
 
-
-class Block<Prop extends Record<string, any> = any> {
+export class Block<Prop extends Record<string, any> = any> {
     static EVENTS = {
         INIT: 'init',
         FLOW_CDM: 'flow:component-did-mount',
         FLOW_CDU: 'flow:component-did-update',
         FLOW_RENDER: 'flow:render',
-        DELETE_EVENT: 'delete_event'
+        DELETE_EVENT: 'delete_event',
     };
 
-    public id = nanoid(6);
+    public id = 1;
+
     protected props: Prop;
+
     public children: Record<string, Block>;
+
     private eventBus: () => EventBus;
+
     private _element: HTMLElement | null = null;
+
     private _classForEvent: string | null = null;
+
     private _meta: { tagName: string; props: any; };
 
     constructor(tagName = 'div', propsWithChildren: Prop) {
         const eventBus = new EventBus();
 
-        const {props, children} = this._getChildrenAndProps(propsWithChildren);
+        const { props, children } = this._getChildrenAndProps(propsWithChildren);
 
         this._meta = {
             tagName,
-            props
+            props,
         };
 
         this.children = children;
@@ -40,28 +44,27 @@ class Block<Prop extends Record<string, any> = any> {
     }
 
     _getChildrenAndProps(childrenAndProps: Prop) {
-        let props: Record<string, any> = {};
+        const props: Record<string, any> = {};
         const children: Record<string, Block> = {};
 
-        if (childrenAndProps)
-            Object.entries(childrenAndProps).forEach(([key, value]) => {
+        if (childrenAndProps) {
+ Object.entries(childrenAndProps).forEach(([key, value]) => {
                 if (value instanceof Block) {
                     children[key] = value;
                 } else {
                     props[key] = value;
                 }
             });
+}
 
-        return {props, children};
+        return { props, children };
     }
 
     _addEvents() {
-        const {events = {}} = this.props;
-        Object.keys(events).forEach(eventName => {
-            if (this._classForEvent !== null)
-                this._element?.querySelector('.' + this._classForEvent)!.addEventListener(eventName, events[eventName]);
-            else
-                this._element?.addEventListener(eventName, events[eventName]);
+        const { events = {} } = this.props;
+        Object.keys(events).forEach((eventName) => {
+            if (this._classForEvent !== null) this._element?.querySelector('.' + this._classForEvent)!.addEventListener(eventName, events[eventName]);
+            else this._element?.addEventListener(eventName, events[eventName]);
         });
     }
 
@@ -75,18 +78,16 @@ class Block<Prop extends Record<string, any> = any> {
 
     _removeEvents() {
         if (this.props.events !== null && this.props.events !== undefined) {
-            Object.keys(this.props.events).forEach(eventName => {
+            Object.keys(this.props.events).forEach((eventName) => {
               if (this._classForEvent !== null) {
-                  if (this._element?.querySelector('.' + this._classForEvent) !== null)
-                    this._element?.querySelector('.' + this._classForEvent)!.removeEventListener(eventName, this.props.events[eventName]);
-              } else
-                  this._element?.removeEventListener(eventName, this.props.events[eventName]);
+                  if (this._element?.querySelector('.' + this._classForEvent) !== null) this._element?.querySelector('.' + this._classForEvent)!.removeEventListener(eventName, this.props.events[eventName]);
+              } else this._element?.removeEventListener(eventName, this.props.events[eventName]);
             });
-        };
+        }
     }
 
     _createResources() {
-        const {tagName} = this._meta;
+        const { tagName } = this._meta;
         this._element = this._createDocumentElement(tagName);
     }
 
@@ -111,7 +112,7 @@ class Block<Prop extends Record<string, any> = any> {
     public dispatchComponentDidMount() {
         this.eventBus().emit(Block.EVENTS.FLOW_CDM);
 
-        Object.values(this.children).forEach(child => child.dispatchComponentDidMount());
+        Object.values(this.children).forEach((child) => child.dispatchComponentDidMount());
     }
 
     private _componentDidUpdate(oldProps: Prop, newProps: Prop) {
@@ -154,10 +155,8 @@ class Block<Prop extends Record<string, any> = any> {
     }
 
     public getEventComponent(): HTMLElement {
-        if (this._classForEvent !== null)
-            return this._element?.querySelector('.' + this._classForEvent)!;
-        else
-            return this._element!;
+        if (this._classForEvent !== null) return this._element?.querySelector('.' + this._classForEvent)!;
+        return this._element!;
     }
 
     public addInnerClass(_newClass: string) {
@@ -169,7 +168,7 @@ class Block<Prop extends Record<string, any> = any> {
     }
 
     protected compile(template: (context: any) => string, context: any): DocumentFragment {
-        const contextAndStubs = {...context};
+        const contextAndStubs = { ...context };
 
         Object.entries(this.children).forEach(([name, component]) => {
             contextAndStubs[name] = `<div data-id='${component.id}'></div>`;
@@ -191,7 +190,6 @@ class Block<Prop extends Record<string, any> = any> {
             component.getContent()?.append(...Array.from(stub.childNodes));
 
             stub.replaceWith(component.getContent()!);
-
         });
 
         return temp.content;
@@ -215,23 +213,24 @@ class Block<Prop extends Record<string, any> = any> {
                 return typeof value === 'function' ? value.bind(target) : value;
             },
             set(target, prop, value) {
-                const oldTarget = {...target}
+                const oldTarget = { ...target };
 
                 target[prop] = value;
 
-                // Запускаем обновление компоненты
-                // Плохой cloneDeep, в следующей итерации нужно заставлять добавлять cloneDeep им самим
                 self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, target);
                 return true;
             },
             deleteProperty(target, prop) {
                 if (prop === 'events') {
-                    self.eventBus().emit(Block.EVENTS.DELETE_EVENT, Object.getOwnPropertyNames(target[prop])[0], target[prop]);
+                    self.eventBus().emit(
+                        Block.EVENTS.DELETE_EVENT,
+                        Object.getOwnPropertyNames(target[prop])[0],
+                        target[prop],
+                    );
                     return true;
-                } else {
-                    throw new Error('Нет доступа');
                 }
-            }
+                    throw new Error('Нет доступа');
+            },
         });
     }
 
@@ -249,10 +248,8 @@ class Block<Prop extends Record<string, any> = any> {
     }
 
     changeVisible() {
-        if (this.getContent()!.style.display === 'none')
-            this.getContent()!.style.display = 'flex';
-        else
-            this.getContent()!.style.display = 'none';
+        if (this.getContent()!.style.display === 'none') this.getContent()!.style.display = 'flex';
+        else this.getContent()!.style.display = 'none';
     }
 }
 

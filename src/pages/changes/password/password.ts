@@ -1,20 +1,18 @@
 import template from './password.hbs';
-import '../../../components/button/button.ts';
-import '../../../components/input/input.ts';
+import Button from '../../../components/button/button.ts';
+import Input from '../../../components/input/input.ts';
 import '../../../css/style.sass';
-import Input from '../../../components/input/input';
-import Button from '../../../components/button/button';
 import ConstructionDefault from '../../../utils/validation/constructionDefault';
 import Validation from '../../../utils/validation/validation';
 import FormPage from '../../../utils/validation/formPage';
 import UserPassword from '../../../model/userPassword';
-import {Router} from '../../../route/router';
-import {UserController} from "../../../controllers/userController";
+import { Router } from '../../../route/router';
+import { UserController } from '../../../controllers/userController';
 
 export class ChangePasswordPage extends FormPage {
     constructor() {
         super((formData) => {
-            UserController.changePassword(new UserPassword(formData))
+            UserController.changePassword(new UserPassword(formData));
         });
     }
 
@@ -28,15 +26,19 @@ export class ChangePasswordPage extends FormPage {
         this.children.inputNewPassword = ConstructionDefault.getDefaultPasswordInput(
             'password',
             'Новый пароль',
-            () => Validation.checkFirstPassword(this.children.inputNewPassword as Input,
-                this.children.inputNewPasswordRepeat as Input),
+            () => Validation.checkFirstPassword(
+this.children.inputNewPassword as Input,
+                this.children.inputNewPasswordRepeat as Input,
+),
         );
 
         this.children.inputNewPasswordRepeat = ConstructionDefault.getDefaultPasswordInput(
             'password_repeat',
             'Повторите новый пароль',
-            () => Validation.checkTwoPassword(this.children.inputNewPassword as Input,
-                this.children.inputNewPasswordRepeat as Input),
+            () => Validation.checkTwoPassword(
+this.children.inputNewPassword as Input,
+                this.children.inputNewPasswordRepeat as Input,
+),
         );
 
         this.children.buttonCancel = new Button({

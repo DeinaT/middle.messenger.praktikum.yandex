@@ -1,29 +1,26 @@
 import template from './information.hbs';
-import '../../components/button/button.ts';
-import '../../components/input/input.ts';
+import Button from '../../components/button/button.ts';
+import Input from '../../components/input/input.ts';
 import '../../css/style.sass';
 import '../../css/icon_avatar.sass';
 import iconEmptyAvatar from '../../../static/icon/icon_empty_avatar.png';
-import Input from '../../components/input/input';
-import Button from '../../components/button/button';
 import DialogSelectFile from '../../components/dialog_select_file/dialogSelectFile';
-import {Router} from '../../route/router';
+import { Router } from '../../route/router';
 import User from '../../model/user';
 import BlockStore from '../../utils/blockStore';
-import store from '../../model/store';
-import {NavPath} from "../../utils/navigation";
-import {AuthController} from "../../controllers/authController";
-
+import { store } from '../../model/store';
+import { NavPath } from '../../utils/navigation';
+import { AuthController } from '../../controllers/authController';
 
 export class InformationPage extends BlockStore {
     constructor() {
-        super('div', {iconEmptyAvatar: iconEmptyAvatar}, state => {
+        super('div', { iconEmptyAvatar }, (state) => {
             if (state.user) {
                 this.fillInfo(state.user);
             }
         });
 
-        const dialogSelectFile = new DialogSelectFile({title: 'Загрузите файл'});
+        const dialogSelectFile = new DialogSelectFile({ title: 'Загрузите файл' });
 
         const root = window.document.querySelector('body');
         root!.append(dialogSelectFile.getContent()!);
@@ -32,7 +29,7 @@ export class InformationPage extends BlockStore {
         this.props.events = {
             click: () => {
                 dialogSelectFile.show();
-            }
+            },
         };
 
         this.updateInfo();
@@ -127,7 +124,7 @@ export class InformationPage extends BlockStore {
         (this.children.inputFirstName as Input).setValue(info.first_name);
         (this.children.inputSecondName as Input).setValue(info.second_name);
         (this.children.inputDisplayName as Input).setValue(info.display_name);
-        (this.children.inputPhone  as Input).setValue(info.phone);
+        (this.children.inputPhone as Input).setValue(info.phone);
         if (info.avatar) {
             this.props.iconEmptyAvatar = 'https://ya-praktikum.tech/api/v2/resources/' + info.avatar;
             this.props.styleAvatar = 'width:100%;height:100%';
@@ -138,8 +135,7 @@ export class InformationPage extends BlockStore {
     }
 
     private updateInfo() {
-        if (!store.getState().user)
-            AuthController.fetchUser();
+        if (!store.getState().user) AuthController.fetchUser();
 
         if (store.getState().user) {
             this.fillInfo(store.getState().user);

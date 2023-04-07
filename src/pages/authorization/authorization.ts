@@ -7,15 +7,15 @@ import ConstructionDefault from '../../utils/validation/constructionDefault';
 import Validation from '../../utils/validation/validation';
 import FormPage from '../../utils/validation/formPage';
 import UserAuthorization from '../../model/userAuthorization';
-import {Router} from '../../route/router';
-import {NavPath} from "../../utils/navigation";
-import {AuthController} from "../../controllers/authController";
+import { Router } from '../../route/router';
+import { NavPath } from '../../utils/navigation';
+import { AuthController } from '../../controllers/authController';
 
 export class AuthorizationPage extends FormPage {
     constructor() {
-        super(formData => {
+        super((formData) => {
             AuthController.signIn(new UserAuthorization(formData));
-        }, state => {
+        }, (state) => {
             this.setTextError(state.errorUserAuthorization);
         });
         AuthController.startFetchUser();
@@ -41,7 +41,7 @@ export class AuthorizationPage extends FormPage {
             labelText: 'Нет аккаунта?',
             events: {
                 click: () => {
-                    Router.go(NavPath.Registration)
+                    Router.go(NavPath.Registration);
                 },
             },
         });

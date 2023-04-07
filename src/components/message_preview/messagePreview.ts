@@ -1,4 +1,4 @@
-import './messagePreview.sass'
+import './messagePreview.sass';
 import Block from '../../utils/block';
 import template from './messagePreview.hbs';
 

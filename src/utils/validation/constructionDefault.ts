@@ -36,7 +36,11 @@ export class ConstructionDefault {
         return input.setClassForEvent(this.getCodeWord(_codeWordEvent)) as Input;
     }
 
-    public static getDefaultNotEmptyInput(_inputName: string, _inputPlaceholder: string, _codeWordEvent?: string): Input {
+    public static getDefaultNotEmptyInput(
+        _inputName: string,
+        _inputPlaceholder: string,
+        _codeWordEvent?: string,
+    ): Input {
         const input = new Input({
             inputName: _inputName,
             inputPlaceholder: _inputPlaceholder,
@@ -52,7 +56,12 @@ export class ConstructionDefault {
         return input.setClassForEvent(this.getCodeWord(_codeWordEvent)) as Input;
     }
 
-    public static getDefaultPasswordInput(_inputName: string, _inputPlaceholder: string, blurFun: () => void, _codeWordEvent?: string): Input {
+    public static getDefaultPasswordInput(
+        _inputName: string,
+        _inputPlaceholder: string,
+        blurFun: () => void,
+        _codeWordEvent?: string,
+    ): Input {
         const input = new Input({
             inputName: _inputName,
             inputPlaceholder: _inputPlaceholder,

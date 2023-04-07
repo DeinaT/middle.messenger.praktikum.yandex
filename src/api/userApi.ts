@@ -3,7 +3,6 @@ import UserData from '../model/userData';
 import UserPassword from '../model/userPassword';
 import User from '../model/user';
 
-
 export class UserAPI extends BaseApi {
     constructor() {
         super('/user');
@@ -18,12 +17,12 @@ export class UserAPI extends BaseApi {
     }
 
     changeAvatar(data: File) {
-        let avatar = new FormData();
+        const avatar = new FormData();
         avatar.append('avatar', data);
         return this.http.put('/profile/avatar', avatar);
     }
 
     findUserByLogin(login: string): Promise<User[]> {
-        return this.http.post('/search', {login: login});
+        return this.http.post('/search', { login });
     }
 }

@@ -1,5 +1,6 @@
 export class UserPassword {
     oldPassword: string | undefined;
+
     newPassword: string | undefined;
 
     constructor(data: FormData) {

@@ -2,7 +2,7 @@ import Input from '../../components/input/input';
 
 export class Validation {
     public static isTelephone(_input: Input): void {
-        const sampleRegEx: RegExp = /\+7\([0-9]{3}\)[0-9]{2}[0-9]{2}[0-9]{3}/;
+        const sampleRegEx = /\+7\([0-9]{3}\)[0-9]{2}[0-9]{2}[0-9]{3}/;
         const res: boolean = sampleRegEx.test(_input.getValue());
         if (res) {
             _input.clearError();
@@ -12,7 +12,7 @@ export class Validation {
     }
 
     public static isEmail(_input: Input): void {
-        const sampleRegEx: RegExp = /.+@.+\.\w+/;
+        const sampleRegEx = /.+@.+\.\w+/;
         const res: boolean = sampleRegEx.test(_input.getValue());
         if (res) {
             _input.clearError();

@@ -1,8 +1,8 @@
-import {ChatApi} from '../api/chatApi';
-import store from '../model/store';
+import { ChatApi } from '../api/chatApi';
+import { store } from '../model/store';
 import ChatInfo from '../model/chatInfo';
 import User from '../model/user';
-import {MessagesController} from "./messagesController";
+import { MessagesController } from './messagesController';
 
 export class ChatControllerMain {
     private readonly api: ChatApi;

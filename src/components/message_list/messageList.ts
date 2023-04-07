@@ -10,8 +10,8 @@ import Icon from '../icon/icon';
 import BlockStore from '../../utils/blockStore';
 import Message from '../../model/message';
 import ChatInfo from '../../model/chatInfo';
-import store from '../../model/store';
-import {MessagesController} from "../../controllers/messagesController";
+import { store } from '../../model/store';
+import { MessagesController } from '../../controllers/messagesController';
 
 interface MessageListProps {
     chatUser?: string;
@@ -54,30 +54,31 @@ export class MessageList extends BlockStore {
             },
         });
 
-        super('div', props, store => {
+        super('div', props, (store) => {
             this.removeAllChildNodes(this.getContent()!.querySelector('.all_message')!);
             if (store.selectedChat && store.messages) {
                 this.props.selectedChat = store.selectedChat;
-                const selectChat = store.chats.filter((chat: ChatInfo) => chat.id === store.selectedChat);
-                if (selectChat!.length > 0)
-                    this.props.chatUser = selectChat[0]!.title;
-                this.initListMessage((store.messages || {})[store.selectedChat] || [],);
+                const selectChat = store.chats
+                    .filter((chat: ChatInfo) => chat.id === store.selectedChat);
+                if (selectChat!.length > 0) this.props.chatUser = selectChat[0]!.title;
+                this.initListMessage((store.messages || {})[store.selectedChat] || []);
             }
         });
+        this.getContent()!.id = 'viewChat';
+        this.getContent()!.classList.add('div__base_right-menu');
     }
 
     private initListMessage(messages: Message[]): void {
         messages.forEach((m: Message) => {
-            let dateMessage: Date = new Date(m.time);
-            let strDate: string = (dateMessage !== null) ? `${dateMessage.getHours()}:${dateMessage.getMinutes()}` : "";
+            const dateMessage: Date = new Date(m.time);
+            const strDate: string = (dateMessage !== null) ? `${dateMessage.getHours()}:${dateMessage.getMinutes()}` : '';
             const message: MessageItem = new MessageItem({
                 messageData: strDate,
                 messageText: m.content,
                 messageIsYou: m.user_id === store.getState().user.id,
             });
 
-            this.getContent()!.style.height = 'inherit';
-            this.getContent()!.style.width = '100%';
+            this.getContent()!.style.height = '100%';
             if (this.getContent()!.querySelector('.all_message') !== null) {
                 this.getContent()!.querySelector('.all_message')!.append(message.getContent()!);
             }

@@ -5,7 +5,6 @@ enum Method {
     DELETE = 'DELETE',
 }
 
-
 type Options = {
     method: Method;
     data?: any;
@@ -15,6 +14,7 @@ export default class HTTPTransport {
     protected endpoint: string;
 
     static API_URL = 'https://ya-praktikum.tech/api/v2';
+
     constructor(endpoint: string) {
         this.endpoint = `${HTTPTransport.API_URL}${endpoint}`;
     }
@@ -40,19 +40,21 @@ export default class HTTPTransport {
     public delete<Response>(path: string, data?: unknown): Promise<Response> {
         return this.request<Response>(this.endpoint + path, {
             method: Method.DELETE,
-            data
+            data,
         });
     }
 
-    private request<Response>(url: string, options: Options = {method: Method.GET}): Promise<Response> {
-        const {method, data} = options;
+    private request<Response>(
+        url: string,
+        options: Options = { method: Method.GET },
+    ): Promise<Response> {
+        const { method, data } = options;
 
         return new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
             xhr.open(method, url);
 
             xhr.onreadystatechange = () => {
-
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     if (xhr.status < 400) {
                         resolve(xhr.response);
@@ -62,9 +64,9 @@ export default class HTTPTransport {
                 }
             };
 
-            xhr.onabort = () => reject({reason: 'abort'});
-            xhr.onerror = () => reject({reason: 'network error'});
-            xhr.ontimeout = () => reject({reason: 'timeout'});
+            xhr.onabort = () => reject(new Error('abort'));
+            xhr.onerror = () => reject(new Error('network error'));
+            xhr.ontimeout = () => reject(new Error('timeout'));
 
             xhr.withCredentials = true;
             xhr.responseType = 'json';

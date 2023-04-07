@@ -1,12 +1,12 @@
-import {Router} from "../route/router";
-import {AuthorizationPage} from "../pages/authorization/authorization";
-import {RegistrationPage} from "../pages/registration/registration";
-import {InformationPage} from "../pages/information/information";
-import {ChatPage} from "../pages/chat/chat";
-import {ChangePasswordPage} from "../pages/changes/password/password";
-import {ChangeDataPage} from "../pages/changes/data/data";
-import {Error404Page} from "../pages/errors/404/error404";
-import {Error500Page} from "../pages/errors/500/error500";
+import { Router } from '../route/router';
+import { AuthorizationPage } from '../pages/authorization/authorization';
+import { RegistrationPage } from '../pages/registration/registration';
+import { InformationPage } from '../pages/information/information';
+import { ChatPage } from '../pages/chat/chat';
+import { ChangePasswordPage } from '../pages/changes/password/password';
+import { ChangeDataPage } from '../pages/changes/data/data';
+import { Error404Page } from '../pages/errors/404/error404';
+import { Error500Page } from '../pages/errors/500/error500';
 
 enum NavString {
     Authorization = '/',
@@ -19,10 +19,6 @@ enum NavString {
     ChangeData = '/setting-data'
 }
 
-enum ApiUrlAll {
-    ApiV2 = 'https://ya-praktikum.tech/api/v2'
-}
-
 export class NavigationRouter {
     public static initRouter(): void {
         Router
@@ -33,10 +29,9 @@ export class NavigationRouter {
             .use(NavString.ChangePassword, ChangePasswordPage)
             .use(NavString.ChangeData, ChangeDataPage)
             .use(NavString.Error404, Error404Page)
-            .use(NavString.Error500, Error500Page)
+            .use(NavString.Error500, Error500Page);
     }
 }
 
 export const NavPath = NavString;
-export const ApiUrl = ApiUrlAll;
 export const Navigation = NavigationRouter;
